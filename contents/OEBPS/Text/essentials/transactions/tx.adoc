@@ -1,0 +1,185 @@
+[[tx-lab]]
+tx: Transaction Management with Spring
+--------------------------------------
+
+[[tx-1-lab-introduction]]
+Introduction
+------------
+
+In this lab you will gain experience with using Spring's declarative
+transaction management to open a transaction on entry to the application
+layer and participate in that transaction during all data access. You
+will use the `@Transactional` annotation to denote what methods need to
+be decorated with transactionality.
+
+.What you will learn:
+1.  How to identify where to apply transactionality
+2.  How to apply transactionality to a method
+
+.Specific subjects you will gain experience with:
+1.  The `@Transactional` annotation
+2.  The PlatformTransactionManager interface
+3.  The `<tx:annotation-driven/>` bean definition
+4.  Using transactional integration tests
+
+Estimated time to complete: 25 minutes
+
+[[tx-1-lab-quick-instructions]]
+Quick Instructions
+------------------
+
+Quick instructions for this exercise have been embedded within the lab
+materials in the form of TODO comments. To display them, open the
+`Tasks` view (_Window >> Show View >> Tasks_ (_not Task List_)).
+
+[[tx-1-lab-instructions]]
+Detailed Instructions
+---------------------
+
+The goal of this lab is to declaratively add transactionality to the
+rewards application. The lab will be divided into two parts. In the
+first part you will add transactionality to the application and visually
+verify that your test case opens a single transaction for the entire
+use-case. In the second section you will experiment with some of the
+settings for transaction management and see what outcomes they produce.
+
+[[details.add-transactional]]
+Demarcating Transactional Boundaries in the Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Spring offers a number of ways to configure transactions in an
+application. In this lab we're going to use a strategy that leverages
+annotations to identify where transactionality should be applied and
+what configuration to use.
+
+Add `@Transactional` annotation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(TODO-01) Find and open the `RewardNetworkImpl` class in the
+`rewards.internal` package. In that class locate the
+rewardAccountFor(Dining) method and add an `@Transactional` annotation
+to it. Adding the annotation will identify this method as a place to
+apply transactional semantics at runtime.
+
+TODO-02 Next we need to configure the platform transaction manager.
+Navigate to the `SystemTestConfig` configuration class and wire up a
+`DataSourceTransactionManager`. Remember to set the `dataSource`
+property on this bean definition.
+
+(TODO-03) Finally, find and open the `RewardsConfig.java` file in the
+config package. In this class you'll need to tell the container to look
+for the `@Transactional` annotation you just placed on the
+`RewardNetworkImpl` class. To do this add a
+`@EnableTransactionManagement` annotation.
+
+Verify transactional behavior
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Verify that your transaction declarations are working correctly by
+running the `RewardNetworkTests` class from the `src/test/java` source
+folder. You should see output that looks like below. The important thing
+to note is that only a single connection is acquired and a single
+transaction is created.
+
+....
+DEBUG: o.s.j.d.DataSourceTransactionManager - Creating new transaction with name [rewards.internal.RewardNetworkImpl.rewardAccountFor]: ...
+DEBUG: o.s.j.d.DataSourceTransactionManager - Acquired Connection [org.hsqldb.jdbc.JDBCConnection@176b75f7] for JDBC transaction
+DEBUG: o.s.j.d.DataSourceTransactionManager - Switching JDBC Connection [org.hsqldb.jdbc.JDBCConnection@176b75f7] to manual commit
+DEBUG: o.s.j.d.DataSourceTransactionManager - Initiating transaction commit
+DEBUG: o.s.j.d.DataSourceTransactionManager - Committing JDBC transaction on Connection [org.hsqldb.jdbc.JDBCConnection@176b75f7]
+DEBUG: o.s.j.d.DataSourceTransactionManager - Releasing JDBC Connection [org.hsqldb.jdbc.JDBCConnection@176b75f7] after transaction
+....
+
+NOTE: If you look in the `setup()` of `RewardNetworkTests` you will see that we have
+enabled DEBUG logging for the `DataSourceTransactionManager`.
+
+If your test completes successfully _and_ you've verified that only a
+single connection and transaction are used, you've completed this
+section. Move on to the next one.
+
+[[details.propagation]]
+Configuring Spring's Declarative Transaction Management
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Setting up Spring's declarative transaction management is pretty easy if
+you're just using the default propagation setting
+(`Propagation.REQUIRED`). However, there are cases when you may want to
+suspend an existing transaction and force a certain section of code to
+run within a _new_ transaction. In this section, you will adjust the
+configuration of your reward network transaction in order to experiment
+with `Propagation.REQUIRES_NEW`.
+
+Modify Propagation Behavior
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(TODO-04) Find and open `RewardNetworkPropagationTests` from the
+`rewards` package in the `src/test/java` source folder. Take a look at
+the test in the class. This test does a simple verification of data in
+the database, but also does a bit of transaction management. The test
+opens a transaction at the beginning, (using the
+`transactionManager.getTransaction(..)` call). Next, it executes
+rewardAccountFor(Dining), then rolls back the transaction, and finally
+tests to see if data has been correctly inserted into the database. Now
+run the test class with JUnit. You'll see that the test has failed
+because the rollback removed all data from the database, including the
+data that was created by the `rewardAccountFor(Dining)` method.
+
+(TODO-05) The rewardAccountFor(Dining) was created with a propagation
+level of `Propagation.REQUIRED` which means that it _will participate in
+any transaction that already exists_. When the manually created
+transaction was rolled back it destroyed the data from the
+@Transactional method. In real life, it actually would generally be
+appropriate for this method to be marked as `Propagation.REQUIRED`, with
+the test being considered inappropriate, but this affords us a chance to
+test the results of changing the propagation settings.
+
+Find and open `RewardNetworkImpl` and override the default propagation
+behavior with `Propagation.REQUIRES_NEW`. Run the
+`RewardNetworkPropagationTests`. If you get the green bar, you have
+verified that the test's transaction was suspended and the
+rewardAccountFor(Dining) method executed in its own transaction. You've
+completed this section. Move on to the next one.
+
+[[details.transactional-tests]]
+Developing Transactional Tests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When dealing with persistent data in a test scenario, it can be very
+expensive to ensure that preconditions are met before executing a test
+case. In addition to being expensive, it can also be error prone with
+later tests inadvertently depending on the effects of earlier tests. In
+this section you'll learn about some of the support classes Spring
+provides for helping with these issues.
+
+Use @Transactional to isolate test cases
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First (TODO-06) back out your propagation changes from the previous
+section (change the propagation back to `Propagation.REQUIRED` instead
+of `Propagation.REQUIRES_NEW`). This is the appropriate propagation
+setting for this method.
+
+(TODO-07) Find and open `RewardNetworkSideEffectTests` from the
+`rewards` package in the `src/test/java` source folder. Take a look at
+the two tests in the class. You'll notice that they simply call the
+rewardAccountFor(Dining) method, pass in some data, and verify that the
+data was recorded properly. Now run the test class with JUnit. You'll
+see that the second test method failed with an error that Annabelle's
+savings was 8.0, when 4.0 was expected. The reason we see this is
+because the data committed from the first test case has violated the
+preconditions for the second test case.
+
+The good news is that Spring has a facility that can help you to avoid
+this corruption of test data in a DataSource. You can simply annotate
+your test methods, or even your test class itself to apply to all
+methods, with @Transactional: this wraps each test case in its own
+transaction and rolls back that transaction when the test case is
+finished. The effect of this is that data is never committed to the
+tables and therefore, the database is in its original state for the
+start of the next test case. Now annotate the
+`RewardNetworkSideEffectTests` class with @Transactional. Run the test
+again and notice that there is now a green bar. Because the changes made
+by the first test were rolled back, the second test got the results it
+expected.
+
+Congratulations, you're done with the lab!

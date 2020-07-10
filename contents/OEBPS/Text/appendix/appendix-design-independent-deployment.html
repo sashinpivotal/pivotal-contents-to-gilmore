@@ -1,0 +1,687 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.274Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Designing Applications with Spring and Spring Boot</title>
+
+<link rel="icon" href="../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/highlight.js.min.css">
+<link rel="stylesheet" href="../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href=".."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Designing Applications with Spring and Spring Boot</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>This article documents design practices, patterns, and solution
+guidelines for production ready Spring Boot applications.</p>
+<p>Some of the concepts may be referred to in appropriate sections of the
+course, some are not.</p>
+<p>Consider this challenge or advanced reading material, future advanced
+Spring Boot courses may derive from it.</p>
+<h1 id="independent-deployability">Independent Deployability</h1>
+<h2 id="background">Background</h2>
+<p>A current trend in characterizing microservices architectures is that
+there is no shared code between microservices.
+It is also a trend to characterize monoliths as a &quot;bad&quot; architecture.</p>
+<p>The reality is not so clean cut.</p>
+<p>Many production distributed systems fall somewhere in the middle of
+monolith and microservice.</p>
+<p>When evolving systems, there is likely to be opportunity to refactor
+between different integration styles and protocols.
+For example, an ordering service may run under RPC processes as well as
+Asynchronous processes.
+In such cases there is an advantage of implementing domain logic code <em>independently</em> from the runtime deployment.
+This implies you should not couple protocol or runtime technology
+specific code with your domain logic.</p>
+<p>This leads to the concept of <em>Independent Deployment</em>, where you core
+domain logic should be kept independent of runtime dependencies.</p>
+<h2 id="solution-patterns-for-independent-deployment">Solution Patterns for Independent Deployment</h2>
+<p>To implement this in Java-based solutions requires a component based
+architecture, or in this case in jar files.
+It also requires different way of organizing and building code.</p>
+<p>Some of the patterns and building blocks to support:</p>
+<ul>
+<li>
+<p><strong>Package isolation</strong> : Isolate domain logic to its own package,
+with intuitive naming.</p>
+</li>
+<li>
+<p><strong>Components</strong> : Build domain logic as separate deployment artifacts
+such as jar file.</p>
+</li>
+<li>
+<p><strong>Multi-module Builds</strong> : In monoliths it is good design to refactor
+to modules.
+Each module builds it own component.</p>
+</li>
+<li>
+<p><strong>Published dependencies</strong> : When monoliths cannot be maintained in
+the same project structure or repo, it may be necessary to split.
+In this case dependencies on common domain logic may drive
+publishing domain logic in form of components (jars) to a curated
+Maven repository.
+When we publish to a repo, we can also maintain multiple versions
+if needed.</p>
+</li>
+<li>
+<p><strong>Marshalling</strong> : When you build your domain logic
+independent of runtime concerns, you are building directly to Java
+abstractions, namely <em>interfaces</em> and <em>classes</em>.
+But in most runtime architecture styles we need to <em>marshal</em> data
+for specific operations according to distributed wire protocols like
+HTTP, IIOP, AMQP or others.
+You will need to provide the plumbing logic.
+This is the sweet spot of Spring, and Spring Boot.</p>
+</li>
+</ul>
+<h2 id="solution-example-for-spring-application">Solution example for Spring application</h2>
+<p>Here we demonstrate the <em>independent deployability</em> principle in a
+simple application suite of hypothetical ordering application:</p>
+<h3 id="multi-module-project-structure">Multi-module Project Structure</h3>
+<p>A logical package structure might look like this:</p>
+<pre><code class="language-bash">- order
+    - service       # Domain interfaces and core entities here
+        - impl      # Implementations and Repo interface here
+    - repo          # Repo implementations here (i.e. JDBC)
+    - app           # Runtime concerns here (Spring, Spring Boot)
+        - common    # Common runtime dependencies (Spring, Spring Boot)
+        - web       # Web REST controller here
+        - batch     # One off batch task here
+</code></pre>
+<p>Physical structure might look like this in a multi-module build:</p>
+<pre><code class="language-bash">- order-project
+    - components        # Each of the following may have separate jar
+        - service       # Domain logic and entities here
+        - repo          # Repo implementation here
+    - apps              # Runtime concerns here (Spring, Spring Boot)
+        - web           # Web REST controller here
+        - batch         # One off batch task here
+</code></pre>
+<p>Note in the following sections, we use Lombok for brevity.</p>
+<h3 id="orders-domain-logic">Orders Domain Logic</h3>
+<pre><code class="language-java">package order.service.info;
+
+@AllArgsConstructor
+public final class Order {
+    private final @Getter Long id;
+    private final @Getter Customer customer;
+    private final @Getter List&lt;OrderEntry&gt; entryList;
+}
+
+...
+
+package order.service;
+
+public interface OrderService {
+    Order create(Order order);
+    Order submit(Order order);
+    Order getById(Long id);
+}
+
+...
+
+package order.service.impl;
+
+@AllArgsConstructor
+public final class OrderServiceImpl implements OrderService {
+    private final OrderRepository repo;
+
+    ... //Implementation here
+}
+
+</code></pre>
+<p>Notice the service impl &quot;owns&quot; the repo entities and interfaces.</p>
+<pre><code class="language-java">package order.service.impl;
+
+@AllArgsConstructor
+public class OrderRecord {
+    private final @Getter Long id;
+    private final @Getter CustomerRecord customer;
+    private final @Getter List&lt;OrderEntryRecord&gt; entryList;
+}
+
+...
+
+package order.service.impl;
+
+public interface OrderRepo {
+    OrderRecord save(OrderRecord orderRecord);
+    OrderRecord readById(Long id);
+}
+</code></pre>
+<h3 id="order-repository-implementation-logic">Order Repository Implementation Logic</h3>
+<pre><code class="language-java">package order.repo.impl;
+
+@AllArgsConstructor
+public final class JdbcOrderRepo implements OrderRepo {
+    ... //Implementation here
+}
+</code></pre>
+<h2 id="common-application-wiring">Common Application Wiring</h2>
+<p>We know both our runtimes are hosted in Spring Boot applications, we
+can have common Service and Wiring configuration:</p>
+<pre><code class="language-java">package order.app;
+
+@Configuration public final class OrderAppConfig {
+    @AutoWired Datasource dataSource;
+
+    @Bean OrderRepo orderRepo() {
+        return new JdbcOrderRepo(dataSource);
+    }
+
+    @Bean OrderService orderService() {
+        return new OrderService(orderRepo);
+    }
+}
+</code></pre>
+<h3 id="online-order-app-web">Online Order App (Web)</h3>
+<pre><code class="language-java">package order.app.web;
+
+@SpringBootApplication
+public final class OrderWebApp {
+    @AutoWired Datasource dataSource;
+
+    public static final void main(String[] args) {
+        SpringApplication.run(args);
+    }
+
+    @Bean OrderRepo orderRepo() {
+        return new JdbcOrderRepo(dataSource);
+    }
+
+    @Bean OrderService orderService() {
+        return new OrderService(orderRepo);
+    }
+}
+
+...
+package order.app.web;
+
+@RestController public final class OrderController {
+    private final OrderService orderService;
+
+    public OrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @PostMapping
+    public Order createOrder(@RequestBody Order order) {
+        return orderService.create(order);
+    }
+
+    @PutMapping
+    public Order submitOrder(@RequestBody Order order) {
+        return orderService.submit(order);
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public Order getOrderById(@PathVariable Long id) {
+        return orderService.getById(id);
+    }
+}
+</code></pre>
+<h3 id="order-batch-app">Order Batch App</h3>
+<pre><code class="language-java">package order.app.batch;
+
+@SpringBootApplication
+@Import(order.app.common.OrderAppConfig.class)
+public final class OrderWebApp {
+    public static final void main(String[] args) {
+        SpringApplication.run(args);
+    }
+}
+
+...
+
+package order.app.batch;
+
+@Component public class OrderBatchLoader implements CommandLineRunner {
+    private final OrderService orderService;
+
+    public OrderBatchLoader(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public void run(String... args) {
+        // Implement batch load logic with order service
+    }
+}
+</code></pre>
+<h3 id="discussion">Discussion</h3>
+<p>What you should surmise from this example is the following:</p>
+<ul>
+<li>
+<p>There are clear interface boundaries between domain logic,
+repository and applications.
+We use dependency injection to separate implementations.</p>
+</li>
+<li>
+<p>The <code>OrderRepo</code> is abstracted from the domain logic - it could be
+ripped out and replaced with zero code changes to the
+<code>OrderService</code>.</p>
+</li>
+<li>
+<p>The domain logic and repository code has zero dependencies on
+runtime concerns, including Spring.</p>
+</li>
+<li>
+<p>All of the Spring logic is handled in the <code>order.app</code> package.</p>
+</li>
+<li>
+<p>There are multiple application components that consume the domain
+logic.</p>
+</li>
+<li>
+<p>The domain logic and repository component <em>could</em> be published for
+use in legacy applications outside of Spring.</p>
+<p>OR</p>
+</li>
+<li>
+<p>Perhaps the domain logic and repository components <em>are</em> the legacy
+components that exist outside of this application, but perhaps we
+are on a refactoring path towards modernizing our application.</p>
+</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>The concept of <em>independent deployability</em> is rather complex subject.
+We have shown a flavor of what is about, and will finish by listing
+some of the engineering tradeoffs.</p>
+<p><strong>Benefits</strong> :</p>
+<ul>
+<li>
+<p>Makes domain logic easier to maintain and understand, it conforms
+more closely with SRP given not coupled or poluted with runtime
+concerns.</p>
+</li>
+<li>
+<p>Easier to make deployment architecture changes with lower disruption
+to domain logic.</p>
+</li>
+<li>
+<p>Optimum flexibility of re-use of domain logic in a complex monolith
+or cohesive distributed application.</p>
+</li>
+</ul>
+<p><strong>Trade-offs</strong> :</p>
+<ul>
+<li>
+<p>Complex - May be more technical debt to maintain for the simplest of
+greenfield projects.</p>
+</li>
+<li>
+<p>Projects dependent on common components are still tied to common
+constraint of JVM languages at a specific Java runtime version.</p>
+</li>
+<li>
+<p>Component dependencies must be tightly curated.
+The Spring Boot Starter BOMs are too course if componentizing finer
+grain (potentially published) components</p>
+</li>
+</ul>
+<h1 id="references">References</h1>
+<ul>
+<li>
+<p><a href="https://www.amazon.com/Effective-Java-Joshua-Bloch-ebook/dp/B078H61SCH/ref=sr_1_1?s=digital-text&amp;ie=UTF8&amp;qid=1531935646&amp;sr=1-1&amp;keywords=effective+java+3rd+edition" rel="noreferrer noopener">Effective Java 3rd Edition</a></p>
+</li>
+<li>
+<p><a href="https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164" rel="noreferrer noopener">Clean Architecture</a></p>
+</li>
+<li>
+<p><a href="http://www.appcontinuum.io/" rel="noreferrer noopener">App Continuum</a> - See v1 -&gt; v5 of App
+Continum evolution</p>
+</li>
+</ul>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#independent-deployability">Independent Deployability</a>
+
+<ul>
+        <li>
+        <a href="#background">Background</a>
+
+        </li>
+        <li>
+        <a href="#solution-patterns-for-independent-deployment">Solution Patterns for Independent Deployment</a>
+
+        </li>
+        <li>
+        <a href="#solution-example-for-spring-application">Solution example for Spring application</a>
+
+<ul>
+        <li>
+        <a href="#multi-module-project-structure">Multi-module Project Structure</a>
+
+        </li>
+        <li>
+        <a href="#orders-domain-logic">Orders Domain Logic</a>
+
+        </li>
+        <li>
+        <a href="#order-repository-implementation-logic">Order Repository Implementation Logic</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#common-application-wiring">Common Application Wiring</a>
+
+<ul>
+        <li>
+        <a href="#online-order-app-web">Online Order App (Web)</a>
+
+        </li>
+        <li>
+        <a href="#order-batch-app">Order Batch App</a>
+
+        </li>
+        <li>
+        <a href="#discussion">Discussion</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+        <li>
+        <a href="#references">References</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Designing Applications with Spring and Spring Boot</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Designing Applications with Spring and Spring Boot</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../js/assignmentSubmission.js"></script>
+<script src="../js/shipkin.js"></script>
+<script src="../js/slides.js"></script>
+
+</body>
+</html>
+

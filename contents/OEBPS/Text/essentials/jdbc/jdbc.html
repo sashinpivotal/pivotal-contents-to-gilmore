@@ -1,0 +1,654 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.558Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - JDBC Simplification using the JdbcTemplate</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>JDBC Simplification using the JdbcTemplate</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab you will gain experience with Spring’s JDBC simplification.
+You will use a <code>JdbcTemplate</code> to execute SQL statements with JDBC.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>What you will learn:</p>
+<ol>
+<li>
+<p>How to retrieve data with JDBC</p>
+</li>
+<li>
+<p>How to insert or update data with JDBC</p>
+</li>
+</ol>
+<p>Specific subjects you will gain experience with:</p>
+<ol>
+<li>
+<p>The <code>JdbcTemplate</code> class</p>
+</li>
+<li>
+<p>The <code>RowMapper</code> interface</p>
+</li>
+<li>
+<p>The <code>ResultSetExtractor</code> interface</p>
+</li>
+</ol>
+<p>You will be using the <em>26-jdbc</em> project.</p>
+<p>Estimated time to complete:
+45 minutes.</p>
+<h1 id="use-case">Use Case</h1>
+<p>The existing JDBC based repository codebase uses low-level DataSource
+object directly for performing various database operations, which
+results in complex and duplicating boiler-plate code.</p>
+<p>You are also responsible for mapping the data read from database into
+the domain objects yourself.
+This could be a tedious programming task.</p>
+<p>In this lab, you are going to refactor this codebase to use
+Spring-provided <code>JdbcTemplate</code> class, which will result in simpler
+and easy to read code.</p>
+<h1 id="quick-instructions">Quick Instructions</h1>
+<p>If you are already knowledgeable with the lesson concepts, you may
+consider jumping right to the code, and execute the lab in form of
+embedded TODO comments.
+Instructions on how to view them are
+<a href="../../appendix/appendix-tasks.html" rel="noreferrer noopener">here</a>.</p>
+<p>If you aren’t sure, try the TODO instructions first and refer to the
+lab instructions by TODO number if you need more help.</p>
+<h1 id="instructions">Instructions</h1>
+<h2 id="refactor-a-repository-to-use-jdbctemplate">Refactor a Repository to Use <code>JdbcTemplate</code></h2>
+<p>The first repository to refactor will be the <code>JdbcRewardRepository</code>.
+This repository is the easiest to refactor and will serve to illustrate
+some of the key features available because of Spring’s simplification.</p>
+<h3 id="use-jdbctemplate-in-a-test-to-verify-insertion">Use <code>JdbcTemplate</code> in a Test to Verify Insertion</h3>
+<p>Before making any changes to <code>JdbcRewardRepository</code>, let’s
+first ensure the existing functionality works by implementing
+a test.</p>
+<p><strong>TODO-01</strong>:
+Use the JdbcTemplate to query for the number of rows</p>
+<ul>
+<li>
+<p>Open <code>JdbcRewardRepositoryTests</code> in the <code>rewards.internal.reward</code>
+package and find the <code>getRewardCount()</code> method.</p>
+<p>In this method, use the <code>jdbcTemplate</code> included in the test
+fixture to query for the number of rows in the <code>T_REWARD table</code>
+and return it.</p>
+</li>
+</ul>
+<p><strong>TODO-02</strong>:
+Use the JdbcTemplate to query for a map of all values</p>
+<ul>
+<li>
+<p>In the same class, find the
+<code>verifyRewardInserted(RewardConfirmation, Dining)</code> method.</p>
+<p>In this method, use the <code>jdbcTemplate</code> to query for a map of all
+values of a row in the <code>T_REWARD</code> table based on the
+<code>confirmationNumber</code> of the <code>RewardConfirmation</code>.
+The column name to use for the <code>confirmationNumber</code> in the
+where clause is <code>CONFIRMATION_NUMBER</code>.</p>
+</li>
+<li>
+<p>Finally run the test class.
+When you have successful test, move on to the next step.</p>
+</li>
+</ul>
+<h3 id="refactor-jdbcrewardrepository-to-use-jdbctemplate">Refactor <code>JdbcRewardRepository</code> to Use <code>JdbcTemplate</code></h3>
+<p>We are now going to refactor an existing Repository class, which
+currently uses DataSource object directly with lots of boiler plate
+code, so it can use the <code>JdbcTemplate</code>.</p>
+<p><strong>TODO-03</strong>:
+Refactor nextConfirmationNumber() and confirmReward(...)
+methods to use JdbcTemplate</p>
+<ul>
+<li>
+<p>Find the <code>JdbcRewardRepository</code> in the
+<code>rewards.internal.reward</code> package.</p>
+<p>Open the class and add a private field to it of type
+<code>JdbcTemplate</code>. In the constructor, instantiate the
+<code>JdbcTemplate</code> and assign it to the field you just created.</p>
+</li>
+<li>
+<p>Refactor the <code>nextConfirmationNumber()</code> method to use
+the <code>JdbcTemplate</code>.  This refactoring is a good candidate for
+using the <code>queryForObject(String, Class&lt;T&gt;, Object...)</code> method.</p>
+<p>The <code>Object...</code> represents a variable argument list
+allowing you to append an arbitrary number of arguments
+to a method invocation, including no arguments at all.</p>
+</li>
+<li>
+<p>Next refactor the <code>confirmReward(AccountContribution, Dining)</code>
+method to use the <code>JdbcTemplate</code>.
+This refactoring is a good candidate for using the
+<code>update(String, Object...)</code> method.</p>
+</li>
+<li>
+<p>Once you have completed these changes, run the test again
+(<code>JdbcRewardRepositoryTests</code>) to ensure these changes work as
+expected.</p>
+</li>
+<li>
+<p>When you have successful test, move on to the next step.</p>
+</li>
+</ul>
+<h2 id="use-a-rowmapper-to-create-domain-objects">Use a RowMapper to Create Domain Objects</h2>
+<p>In many cases, you’ll want to return domain objects from
+calls to the database.
+To do this you’ll need to tell the <code>JdbcTemplate</code> how to map a single
+<code>ResultSet</code> row to an object.
+In this step, you’ll refactor <code>JdbcRestaurantRepository</code> using a
+<code>RowMapper</code> to create <code>Restaurant</code> objects.</p>
+<p><strong>TODO-04</strong>: Refactor <code>findByMerchantNumber(..)</code> method to use JdbcTemplate</p>
+<ul>
+<li>
+<p>Before making any changes, run the
+<code>JdbcRestaurantRepositoryTests</code> test
+to ensure that the existing implementation functions correctly.
+When you have successful test, move on to the next step.</p>
+</li>
+<li>
+<p>Find the <code>JdbcRestaurantRepository</code> in the
+<code>rewards.internal.restaurant</code> package.
+Open this class and again modify it so that it has a
+<code>JdbcTemplate</code> field.</p>
+</li>
+<li>
+<p>Create a private inner class called <code>RestaurantRowMapper</code> that
+implements the <code>RowMapper</code> interface.
+Note that this interface has a generic type parameter that
+should be populated in the implementation.</p>
+</li>
+<li>
+<p>If you’ve implemented the interface correctly, the class and
+method declarations should look like Figure 1.
+The implementation of the <code>mapRow(ResultSet, int)</code> method
+should delegate to the <code>mapRestaurant(ResultSet)</code> method.</p>
+<p><strong>Figure 1: <code>RestaurantRowMapper</code> class and method declaration.</strong></p>
+<pre><code class="language-java">private class RestaurantRowMapper implements RowMapper&lt;Restaurant&gt; {
+    public Restaurant mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return mapRestaurant(rs);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>Refactor the <code>findByMerchantNumber(String)</code> method to
+use the template.
+This refactoring is a good candidate for using the
+<code>queryForObject(String, RowMapper&lt;T&gt;, Object...)</code> method.</p>
+<p>If you prefer to use a lambda instead please do so.
+Have it delegate to the existing <code>mapRestaurant(ResultSet)</code> method.</p>
+</li>
+<li>
+<p>Run the <code>JdbcRestaurantRepositoryTests</code> test again.
+When you have successful test, move on to the next step.</p>
+</li>
+</ul>
+<h2 id="refactor-the-jdbcaccountrepository">Refactor the JdbcAccountRepository</h2>
+<p>In this repository, there are two different methods that need to be
+refactored:
+<code>updateBeneficiaries(Account)</code> and <code>findByCreditCard(String)</code>.</p>
+<p>Only do this section if you have enough time left.
+You will need 10-15 mins.</p>
+<h3 id="refactor-a-sql-update">Refactor a SQL UPDATE</h3>
+<p><strong>TODO-05</strong>: Instantiate <code>JdbcTemplate</code></p>
+<ul>
+<li>
+<p>Before making any changes, run the <code>JdbcAccountRepositoryTests</code>
+test to ensure the existing implementation functions properly.
+When you have successful test, move on.</p>
+</li>
+<li>
+<p>Find the <code>JdbcAccountRepository</code> in the
+<code>rewards.internal.account</code> package.
+Modify it so that it has a field of
+type <code>JdbcTemplate</code>.</p>
+</li>
+</ul>
+<p><strong>TODO-06</strong>:
+Refactor <code>updateBeneficiaries(..)</code> to use JdbcTemplate</p>
+<ul>
+<li>
+<p>Refactor the updateBeneficiaries(Account) method
+to use the <code>JdbcTemplate</code>.
+This refactoring is very similar to the one that you did earlier
+for the <code>JdbcRewardRepository</code>.</p>
+</li>
+<li>
+<p>When you are done, rerun the <code>JdbcAccountRepositoryTests</code> test.
+When you have successful test, you are good.</p>
+</li>
+</ul>
+<h3 id="use-a-resultsetextractor-to-traverse-a-resultset-for-creating-account-objects">Use a <code>ResultSetExtractor</code> to Traverse a <code>ResultSet</code> for Creating <code>Account</code> Objects</h3>
+<p>This is an optional step if you have at least 10 minutes of the lab
+remaining.</p>
+<p>**TODO-07 (Optional) **:
+Refactor <code>findByCreditCard(..)</code> method to use JdbcTemplate</p>
+<ul>
+<li>
+<p>Sometimes when doing complex joins in a query you’ll need to
+have access to an entire result set instead of just a single
+row of a result set to build a domain object.
+To do this you’ll need to tell the <code>JdbcTemplate</code> that you would
+like to have a full control over <code>ResultSet</code> extraction.</p>
+</li>
+<li>
+<p>In this step you’ll refactor <code>findByCreditCard(String)</code> using
+a <code>ResultSetExtractor</code> to create <code>Account</code> objects.</p>
+</li>
+<li>
+<p>Create a private inner class called <code>AccountExtractor</code> that
+implements the <code>ResultSetExtractor</code> interface.
+Note that this interface also has a generic type parameter that
+should be populated.
+The implementation of the <code>extractData(ResultSet)</code> method should
+delegate to the existing <code>mapAccount(ResultSet)</code> method.</p>
+<p>If you prefer to use a lambda instead please do so.
+Have it delegate to the existing <code>mapAccount(ResultSet)</code> method</p>
+</li>
+<li>
+<p>Refactor the <code>findByCreditCard(String)</code> method to use the
+template.
+This refactoring is a good candidate for using the
+<code>query(String, ResultSetExtractor&lt;T&gt;, Object...)</code> method.</p>
+</li>
+<li>
+<p>Run the <code>JdbcAccountRepositoryTests</code> test once again.
+When you have successful test, you’ve completed the lab!</p>
+<p>Note that all three repositories still have a <code>DataSource</code> field.
+Now that you are using the constructor to instantiate the
+<code>JdbcTemplate</code>, you do not need the <code>DataSource</code> field anymore.
+For completeness sake, you can remove the <code>DataSource</code> fields
+if you like.</p>
+</li>
+</ul>
+<h2 id="inject-jdbctemplate-to-repository-classes-directly-optinal">Inject JdbcTemplate to Repository classes directly (Optinal)</h2>
+<p>Since the repository classes do not use <code>DataSource</code> object
+directly instead use the <code>JdbcTemplate</code>, they could be
+refactored to have the <code>JdbcTemplate</code> object to be injected
+through their constructors.</p>
+<p><strong>TODO-08 (Optional)</strong>: Inject JdbcTemplate directly JdbcRewardRepository class</p>
+<ul>
+<li>Refactor the constructor to get the JdbcTemplate injected directly
+(instead of DataSource getting injected)</li>
+<li>Refactor RewardsConfig accordingly</li>
+<li>Refactor JdbcRewardRepositoryTests accordingly</li>
+<li>Run JdbcRewardRepositoryTests and verity it passes</li>
+</ul>
+<p><strong>TODO-09 (Optional)</strong>: Inject JdbcTemplate directly JdbcRestaurantRepository class</p>
+<ul>
+<li>Refactor the constructor to get the JdbcTemplate injected directly
+(instead of DataSource getting injected)</li>
+<li>Refactor RewardsConfig accordingly</li>
+<li>Refactor JdbcRestaurantRepositoryTests accordingly</li>
+<li>Run Jdbc JdbcRestaurantRepositoryTests and verity it passes</li>
+</ul>
+<p><strong>TODO-10 (Optional)</strong>: Inject JdbcTemplate directly JdbcAccountRepository class</p>
+<ul>
+<li>Refactor the constructor to get the JdbcTemplate injected directly
+(instead of DataSource getting injected)</li>
+<li>Refactor RewardsConfig accordingly</li>
+<li>Refactor JdbcAccountRepositoryTests accordingly</li>
+<li>Run JdbcAccountRepositoryTests and verity it passes</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>In this lab, you have refactored several JDBC-based repository codebase
+to leverage the simplicity of Spring-provided <code>JdbcTemplate</code> class for
+performing database operations.</p>
+<p>You also have used <code>RowMapper</code> for creating domain objects from the
+data read from the database.</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use Case</a>
+
+        </li>
+        <li>
+        <a href="#quick-instructions">Quick Instructions</a>
+
+        </li>
+        <li>
+        <a href="#instructions">Instructions</a>
+
+<ul>
+        <li>
+        <a href="#refactor-a-repository-to-use-jdbctemplate">Refactor a Repository to Use JdbcTemplate</a>
+
+<ul>
+        <li>
+        <a href="#use-jdbctemplate-in-a-test-to-verify-insertion">Use JdbcTemplate in a Test to Verify Insertion</a>
+
+        </li>
+        <li>
+        <a href="#refactor-jdbcrewardrepository-to-use-jdbctemplate">Refactor JdbcRewardRepository to Use JdbcTemplate</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#use-a-rowmapper-to-create-domain-objects">Use a RowMapper to Create Domain Objects</a>
+
+        </li>
+        <li>
+        <a href="#refactor-the-jdbcaccountrepository">Refactor the JdbcAccountRepository</a>
+
+<ul>
+        <li>
+        <a href="#refactor-a-sql-update">Refactor a SQL UPDATE</a>
+
+        </li>
+        <li>
+        <a href="#use-a-resultsetextractor-to-traverse-a-resultset-for-creating-account-objects">Use a ResultSetExtractor to Traverse a ResultSet for Creating Account Objects</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#inject-jdbctemplate-to-repository-classes-directly-optinal">Inject JdbcTemplate to Repository classes directly (Optinal)</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>JDBC Simplification using the JdbcTemplate</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>JDBC Simplification using the JdbcTemplate</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,987 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.306Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Running Spring Boot Applications</title>
+
+<link rel="icon" href="../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/highlight.js.min.css">
+<link rel="stylesheet" href="../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href=".."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Running Spring Boot Applications</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>This document describes options for running Maven or
+Gradle-based Spring
+Boot applications, both at the command line and within an IDE.</p>
+<h1 id="command-line">Command line</h1>
+<h2 id="command-line-via-java">Command Line via Java</h2>
+<p>The simplest way to run a Spring Boot app is directly via Java through
+a packaged Spring Boot jar file.</p>
+<pre><code class="language-bash">java -jar 32-jdbc-autoconfig-solution-5.0.c.RELEASE.jar
+</code></pre>
+<h2 id="command-line-via-maven">Command Line via Maven</h2>
+<p>You may run from the multi-module root.
+Under the <code>lab</code> directory, run with the Maven wrapper running
+as follows:</p>
+<pre><code class="language-bash">./mvnw -pl 00-rewards-common -pl 01-rewards-db clean install (need to be done just once)
+./mvnw -pl &lt;lab project module&gt; clean spring-boot:run
+</code></pre>
+<p>Or you can run from the project directory:</p>
+<pre><code class="language-bash">../mvnw clean spring-boot:run
+</code></pre>
+<h2 id="command-line-via-gradle">Command Line via Gradle</h2>
+<p>You may run from the multi-module root.
+Under the <code>lab</code> directory, run with the Gradle wrapper running
+as follows:</p>
+<pre><code class="language-bash">./gradlew &lt;lab project module&gt;:clean &lt;lab project module&gt;:bootRun
+</code></pre>
+<p>Or you can run from the project directory:</p>
+<pre><code class="language-bash">../gradlew clean bootRun
+</code></pre>
+<h2 id="stseclipse">STS/Eclipse</h2>
+<p>You have 4 options:</p>
+<ul>
+<li>Through Maven(M2) Plugin</li>
+<li>Through Gradle Plugin</li>
+<li>Through Run Configuration</li>
+<li>Through STS Spring Boot Dashboard</li>
+</ul>
+<p>The first 3 options are handled with Eclipse
+<em>Run Configuration</em> feature.</p>
+<h3 id="through-mavenm2-plugin">Through Maven(M2) Plugin</h3>
+<p>Configure a run configuration to execute <code>spring-boot:run</code> goal
+for Maven for your project:</p>
+<ul>
+<li>
+<p>Navigate to <em>Run &gt;&gt; Run Configurations</em> top-level menu option.</p>
+</li>
+<li>
+<p>Select <em>Maven Build</em>.</p>
+</li>
+<li>
+<p>Click on <em>New Configuration</em> + button (located top-left corner).</p>
+<p><img src="images/sts-maven-run-config.png" alt="STS Maven Run Config" class="figure" /></p>
+</li>
+<li>
+<p>Select the appropriate workspace (project).</p>
+<p><img src="images/sts-maven-run-config-workset.png" alt="STS Maven Run Config Working Set" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+</li>
+<li>
+<p>Enter <code>spring-boot:run</code> in the <em>Goals</em> text box, and
+a configuration name.</p>
+<p><img src="images/sts-maven-run-config-complete.png" alt="STS Maven Run Config Complete" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Apply</em>.</p>
+</li>
+<li>
+<p>Click <em>Run</em>.</p>
+</li>
+</ul>
+<h3 id="through-gradle-plugin">Through Gradle Plugin</h3>
+<p>Configure a run configuration to execute <code>bootRun</code> task
+for Gradle for your project:</p>
+<ul>
+<li>
+<p>Navigate to <em>Run &gt;&gt; Run Configurations</em> top-level menu option.</p>
+</li>
+<li>
+<p>Select <em>Gradle Project</em>.</p>
+</li>
+<li>
+<p>Click on <em>New Configuration</em> + button (located at
+top-left corner).</p>
+<p><img src="images/sts-gradle-run-config.png" alt="STS Gradle Run Config" class="figure" /></p>
+</li>
+<li>
+<p>Select the appropriate workspace (project).</p>
+<p><img src="images/sts-gradle-run-config-workset.png" alt="STS Gradle Run Config Working Set" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+</li>
+<li>
+<p>Enter <code>bootRun</code> in the <em>Gradle Tasks</em> text box, and a
+configuration name.</p>
+<p><img src="images/sts-gradle-run-config-complete.png" alt="STS Gradle Run Config Complete" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Apply</em>.</p>
+</li>
+<li>
+<p>Click <em>Run</em>.</p>
+</li>
+</ul>
+<h3 id="through-run-configuration">Through Run Configuration</h3>
+<p>In STS/Eclipse, you can use the standard way of running applications
+through the IDE runner: The Run Configuration</p>
+<ul>
+<li>
+<p>You may choose:</p>
+<ul>
+<li>
+<p>Right click on a class with <code>main()</code> method and select
+<em>Run As &gt;&gt; Run Configurations</em>.</p>
+</li>
+<li>
+<p>Click on a class with <code>main()</code> method and navigate to the
+<em>Run &gt;&gt; Run Configurations</em> top-level menu.</p>
+</li>
+<li>
+<p>Without a class in focus, select <em>Run &gt;&gt; Run Configurations</em> and
+add the appropriate class to a <em>Spring Boot App</em> type.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>If you started with a class in focus, the <em>Project</em> and <em>main type</em>
+will be filled for you.</p>
+</li>
+<li>
+<p>If you started from top-level menu option without a class in focus,
+you will need to select the <em>project</em> and <em>main type</em>.</p>
+<p><img src="images/sts-spring-boot-run-config.png" alt="STS Spring Boot Run Configuration" class="figure" /></p>
+</li>
+<li>
+<p>Click on the <em>Run</em> button.</p>
+</li>
+<li>
+<p>You may also use the <em>Run Configuration</em> to debug.</p>
+</li>
+</ul>
+<h3 id="spring-boot-dashboard">Spring Boot Dashboard</h3>
+<p>When you import working sets in STS (or Eclipse with STS plugin), it
+will look for Spring Boot context.</p>
+<p>If it finds Spring Boot application it will show it in <em>Spring Boot
+Dashboard</em>.</p>
+<p><img src="images/sts-spring-boot-dashboard.png" alt="STS Spring Boot Dashboard" class="figure" /></p>
+<p>You can run by right clicking the appropriate project and select
+<em>(Re)start</em>.</p>
+<p><img src="images/sts-spring-boot-dashboard-run.png" alt="STS Spring Boot Dashboard Run" class="figure" /></p>
+<p>You will see the Spring Boot console output in the <em>Console</em> window.</p>
+<p><img src="images/sts-spring-boot-dashboard-console.png" alt="STS Spring Boot Dashboard Console" class="figure" /></p>
+<h2 id="intellij">IntelliJ</h2>
+<p>Similar to STS/Eclipse, you have 4 options to run Spring Boot app:</p>
+<ul>
+<li>Through Maven Tools</li>
+<li>Through Gradle Tools</li>
+<li>Through Run Configuration</li>
+<li>Through Spring Boot Dashboard (Ultimate Edition only)</li>
+</ul>
+<h3 id="through-maven-tools">Through Maven Tools</h3>
+<ul>
+<li>
+<p>Expand the target module in the <em>Maven</em> toolbox.</p>
+</li>
+<li>
+<p>Expand the <em>Plugins &gt;&gt; spring-boot</em> plugin.</p>
+</li>
+<li>
+<p>Double click on the <em>run</em> goal, or right click on the <em>run</em> goal and
+select <em>Run Maven Build</em>.</p>
+</li>
+</ul>
+<p><strong>Note</strong>:
+The current Spring Boot course multi-module project structure does not
+include a build configuration for the <em>spring-boot-plugin</em>.
+Because of this you will not see the <em>spring-boot</em> plugin in the
+IntelliJ <em>Maven Projects</em> view.</p>
+<h3 id="through-gradle-tools">Through Gradle Tools</h3>
+<ul>
+<li>
+<p>Expand the target module in the <em>Gradle</em> toolbox.</p>
+</li>
+<li>
+<p>Expand the <em>Tasks &gt;&gt; application</em>.</p>
+</li>
+<li>
+<p>Right click on the <em>bootRun</em> task and
+select <em>Run lab:<module-name></em>.</p>
+</li>
+</ul>
+<h3 id="through-run-configuration-1">Through Run Configuration</h3>
+<p>IntelliJ has a run configuration similar to Eclipse.</p>
+<p>You can configure to run a Spring Boot application in a couple of ways:</p>
+<ul>
+<li>
+<p>Right click on the Spring Boot application class, select either
+<em>Run</em> or <em>Debug</em>.</p>
+<p><img src="images/idea-spring-boot-run.png" alt="IntelliJ Spring Boot Run" class="figure" /></p>
+<p>You may also use <em>Ctrl+Shift+R</em> shortcut to run it.</p>
+<p>Running it this way will automatically create a <em>run configuration</em>
+for it, or use the same configuration created if you selected to
+run the <em>Spring Boot Dashboard</em> when you imported your project.</p>
+</li>
+<li>
+<p>The console output will show in the <em>Console</em> tool window at the
+IDE footer.</p>
+<p>You will notice if you previously chose to run the Spring Boot
+Dashboard, you will see the status of the Spring Boot app to
+<em>Running</em>.</p>
+<p><img src="images/idea-spring-dashboard-console.png" alt="Idea Run Console" class="figure" /></p>
+</li>
+<li>
+<p>You may also configure a runner manually through the
+<em>Run configuration</em> toolbar option.</p>
+<p><img src="images/idea-edit-config.png" alt="Idea Edit Configuration" class="figure" /></p>
+</li>
+<li>
+<p>Click the pulldown and select <em>Edit Configurations</em>.</p>
+</li>
+<li>
+<p>Select <em>Spring Boot</em> type of runner and click the + option to add a
+new configuration.</p>
+</li>
+<li>
+<p>Enter a configuration name and select a main class.</p>
+<p><img src="images/idea-spring-boot-run-config1.png" alt="Idea Spring Boot Run Configuration" class="figure" /></p>
+</li>
+<li>
+<p>You might use the manual run config to set up a second instance
+of a Spring Boot application on a different port.
+In this case you must set a port configuration in its environment.</p>
+</li>
+<li>
+<p>Expand the <em>Environment</em> option:</p>
+<p><img src="images/idea-spring-boot-run-config2.png" alt="Idea Spring Boot Run Configuration" class="figure" /></p>
+</li>
+<li>
+<p>Click on the elipse (...) button next to <em>Environment variables</em>
+text box.</p>
+<p><img src="images/idea-spring-boot-run-config3.png" alt="Idea Spring Boot Run Configuration" class="figure" /></p>
+</li>
+<li>
+<p>Click the + button and add environment variables key/value pair.</p>
+<p><img src="images/idea-spring-boot-run-config4.png" alt="Idea Spring Boot Run Configuration" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>OK</em> button.</p>
+</li>
+<li>
+<p>Click <em>OK</em> button.</p>
+</li>
+</ul>
+<h3 id="through-spring-boot-dashboard">Through Spring Boot Dashboard</h3>
+<p>Running the IntelliJ Spring Dashboard is a bit different than running
+STS.
+It is only enabled with the combination of two specfic conditions:</p>
+<ul>
+<li>
+<p>There is more than one Spring Boot application in a multi-module
+project.</p>
+</li>
+<li>
+<p>You explicitly select the option to run the Dashboard when running
+the project.</p>
+</li>
+</ul>
+<p>The Spring Dashboard works by setting up a <em>Run Configuration</em> for each
+Spring Boot application detected in your multi-module build.</p>
+<p>You may override or edit the associated <em>Run Configuration</em> as you
+would any other, see
+<a href="#run-configuration-1" rel="noreferrer noopener">Run Configuration</a> for more details.</p>
+<p>Steps to configure a multi-module project with Spring Dashboard:</p>
+<ul>
+<li>
+<p>Open IntelliJ, or post the creation dialog.</p>
+<p><img src="images/idea-project-dialog.png" alt="Idea Create Project Dialog" class="figure" /></p>
+</li>
+<li>
+<p>Click the <em>Import Project</em> option.</p>
+</li>
+<li>
+<p>Select the directory root of the multi-module project you want to
+import.</p>
+</li>
+<li>
+<p>Import the multi-module project as a <em>Maven</em> external project type.</p>
+<p><img src="images/idea-project-type-dialog.png" alt="Idea Create Project Type Dialog" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Next</em> button.</p>
+</li>
+<li>
+<p>In the <em>Import Project Dialog</em>, select the following options:</p>
+<ul>
+<li>
+<p><em>Search for projects recursively</em></p>
+</li>
+<li>
+<p>Optional - <em>Import Maven projects automatically</em></p>
+<p>If you do not select this, than any changes in your Maven
+any and all project POM changes will require a manual refresh.</p>
+</li>
+</ul>
+<p><img src="images/idea-import-project-dialog.png" alt="Idea Import Project Dialog" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Next</em>.</p>
+</li>
+<li>
+<p>Select all of the projects you want to import in the second
+<em>Import Projects</em> dialog.</p>
+</li>
+<li>
+<p>Click <em>Next</em>.</p>
+</li>
+<li>
+<p>Continue with the standard IntelliJ Java project creation steps.</p>
+</li>
+<li>
+<p>When your Spring Boot multi-module project loads the first time you
+will be prompted with the <em>Run Dashboard</em> dialog:</p>
+<p><img src="images/idea-spring-dashboard-dialog1.png" alt="Idea Run Dashboard" class="figure" /></p>
+</li>
+<li>
+<p>Click on it.</p>
+<p><img src="images/idea-spring-dashboard-dialog2.png" alt="Idea Run Dashboard" class="figure" /></p>
+</li>
+<li>
+<p>Click on the <em>Show run configurations in Run Dashboard</em> option.</p>
+<p>The <em>Run Dashboard</em> tool windows will show by default in the footer:</p>
+<p><img src="images/idea-spring-dashboard.png" alt="Idea Run Dashboard" class="figure" /></p>
+</li>
+<li>
+<p>If you close the <em>Run Dashboard</em> and new to view it later, you may
+select it from the <em>View &gt;&gt; Tool Windows &gt;&gt; Run Dashboard</em> option.</p>
+</li>
+</ul>
+<p>Running a Spring Boot application from the Run Dashboard:</p>
+<ul>
+<li>
+<p>Right click on the app you want to run, select <em>Run</em> or <em>Debug</em> as
+appropriate.</p>
+<p><img src="images/idea-spring-dashboard-run.png" alt="Idea Run Dashboard" class="figure" /></p>
+</li>
+<li>
+<p>The Spring Boot app will run in the <em>Console</em> tool window in the
+IDE footer:</p>
+<p><img src="images/idea-spring-dashboard-console.png" alt="Idea Run Console" class="figure" /></p>
+</li>
+</ul>
+<h1 id="running-an-integration-test">Running an Integration Test</h1>
+<p>Ideally you run the integration tests with the build tool test lifecycle
+command, or directly from an IDE.</p>
+<h2 id="command-line-1">Command Line</h2>
+<p>You may run from the multi-module root.
+Under the labs directory run with the Maven or Gradle wrapper  running as follows:</p>
+<pre><code class="language-bash">./mvnw -pl &lt;lab project module&gt; clean test 
+</code></pre>
+<pre><code class="language-bash">./gradlew &lt;lab project module&gt;:clean &lt;lab project module&gt;:test
+</code></pre>
+<p>or indirectly as part of build:</p>
+<pre><code class="language-bash">./mvnw -pl &lt;lab project module&gt; clean package 
+</code></pre>
+<pre><code class="language-bash">./gradlew &lt;lab project module&gt;:clean &lt;lab project module&gt;:build
+</code></pre>
+<p>Or you can run from the project directory:</p>
+<pre><code class="language-bash">../mvnw clean test
+</code></pre>
+<pre><code class="language-bash">../gradlew clean test
+</code></pre>
+<p>or indirectly as part of build:</p>
+<pre><code class="language-bash">../mvnw clean package
+</code></pre>
+<pre><code class="language-bash">../gradlew clean build
+</code></pre>
+<h2 id="stseclipse-1">STS/Eclipse</h2>
+<p>You have 3 options:</p>
+<ul>
+<li>Through Maven(M2) Plugin</li>
+<li>Through Gradle Plugin</li>
+<li>Through Run Configuration</li>
+</ul>
+<h3 id="through-mavenm2-plugin-1">Through Maven(M2) Plugin</h3>
+<p>Configure a run configuration to execute <code>test</code> goal for your
+project:</p>
+<ul>
+<li>
+<p>Navigate to <em>Run &gt;&gt; Run Configurations</em> top-level menu option.</p>
+</li>
+<li>
+<p>Select <em>Maven Build</em>.</p>
+</li>
+<li>
+<p>Click on <em>New Configuration</em> + button.</p>
+</li>
+<li>
+<p>Select the appropriate workspace (project).</p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+<p><img src="images/sts-maven-test-config-workset.png" alt="STS Maven Test Config Working Set" class="figure" /></p>
+</li>
+<li>
+<p>Enter <code>test</code> in the <em>Goals</em> text box, and a configuration
+name.</p>
+<p><img src="images/sts-maven-test-config-complete.png" alt="STS Maven Test Config Complete" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Apply</em>.</p>
+</li>
+<li>
+<p>Click <em>Run</em>.</p>
+</li>
+<li>
+<p>Output will show in the <em>Console</em>.</p>
+</li>
+</ul>
+<h3 id="through-gradle-plugin-1">Through Gradle Plugin</h3>
+<p>Configure a run configuration to execute <code>test</code> task
+for Gradle for your project:</p>
+<ul>
+<li>
+<p>Navigate to <em>Run &gt;&gt; Run Configurations</em> menu option.</p>
+</li>
+<li>
+<p>Select <em>Gradle Project</em>.</p>
+</li>
+<li>
+<p>Click on <em>New Configuration</em> + button.</p>
+</li>
+<li>
+<p>Select the appropriate workspace (project).</p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+<p><img src="images/sts-gradle-test-config-workset.png" alt="STS Gradle Test Config Working Set" class="figure" /></p>
+</li>
+<li>
+<p>Enter <code>test</code> in the <em>Gradle Tasks</em> text box, and a configuration
+name.</p>
+<p><img src="images/sts-gradle-test-config-complete.png" alt="STS Gradle Run Config Complete" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>Apply</em>.</p>
+</li>
+<li>
+<p>Click <em>Run</em>.</p>
+</li>
+<li>
+<p>Output will show in the <em>Console</em>.</p>
+</li>
+</ul>
+<h3 id="run-configuration">Run Configuration</h3>
+<p>In STS/Eclipse, you can use the standard way of running applications
+through the IDE runner:
+The Run Configuration</p>
+<ul>
+<li>
+<p>You may either:</p>
+<ul>
+<li>
+<p>Right click on a Test class and select
+<em>Run As &gt;&gt; Run Configurations</em></p>
+</li>
+<li>
+<p>Click on a test class and navigate to
+<em>Run &gt;&gt; Run Configurations</em> menu.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Select <em>JUnit</em> type.</p>
+</li>
+<li>
+<p>Click on <em>New Configuration</em> + button.</p>
+<p><img src="images/sts-test-config.png" alt="STS Test Config" class="figure" /></p>
+</li>
+<li>
+<p>Select the project.</p>
+<p><img src="images/sts-test-config-project.png" alt="STS Test Config Project" class="figure" /></p>
+</li>
+<li>
+<p>Enter the run config name and select <em>JUnit 5</em> as the <em>Test Runner</em>
+type.</p>
+<p><img src="images/sts-test-config-type.png" alt="STS Test Config Type" class="figure" /></p>
+</li>
+<li>
+<p>Search for the Test</p>
+<p><img src="images/sts-test.png" alt="STS Test" class="figure" /></p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+</li>
+<li>
+<p>Search for the Test Methods.</p>
+<p><img src="images/sts-test-methods.png" alt="STS Test Methods" class="figure" /></p>
+</li>
+<li>
+<p>Select <em>(all methods)</em>.</p>
+</li>
+<li>
+<p>Click <em>OK</em>.</p>
+</li>
+<li>
+<p>Click <em>Apply</em>.</p>
+</li>
+<li>
+<p>Click <em>Run</em>.</p>
+</li>
+<li>
+<p>Output will show in the <em>Console</em>.</p>
+<p><img src="images/sts-test-console.png" alt="STS Test Console" class="figure" /></p>
+</li>
+<li>
+<p>You may also use the <em>Run Configuration</em> to debug.</p>
+</li>
+</ul>
+<h2 id="intellij-1">IntelliJ</h2>
+<p>Similar to STS/Eclipse, you have 3 options:</p>
+<ul>
+<li>Through Maven Tools</li>
+<li>Through Gradle Tools</li>
+<li>Through Run Configuration</li>
+</ul>
+<h3 id="through-maven-tools-1">Through Maven Tools</h3>
+<p>If you want to run all tests in your project:</p>
+<ul>
+<li>
+<p>In the <em>Maven Projects</em> tool view, expand the module where you want
+to run your tests.</p>
+</li>
+<li>
+<p>Expand the <em>Lifecycle</em> node.</p>
+</li>
+<li>
+<p>Double click on the <em>test</em> goal, or right click on the <em>test</em> goal
+and select <em>Run Maven Build</em>.</p>
+</li>
+</ul>
+<h3 id="through-gradle-tools-1">Through Gradle Tools</h3>
+<ul>
+<li>
+<p>Expand the target module in the <em>Gradle</em> toolbox.</p>
+</li>
+<li>
+<p>Expand the <em>Tasks &gt;&gt; verification</em>.</p>
+</li>
+<li>
+<p>Right click on the <em>test</em> task and
+select <em>Run lab:<module-name></em>.</p>
+</li>
+</ul>
+<h3 id="through-run-configuration-2">Through Run Configuration</h3>
+<p>Similar to STS, you can run a Test through a <em>run configuration</em>.</p>
+<p>You have a couple of options.</p>
+<ul>
+<li>
+<p>Right click on your test, select either <em>Run</em> or <em>Debug</em>.
+You can use the <em>Cntrl+Shift+R</em> and <em>Cntrl+Shift+D</em> shortcuts
+respectively.</p>
+</li>
+<li>
+<p>The console output shows in the <em>Console</em> tool view at the IDE
+footer.</p>
+<p><img src="images/idea-test-console.png" alt="Idea Test Console" class="figure" /></p>
+</li>
+</ul>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#command-line">Command line</a>
+
+<ul>
+        <li>
+        <a href="#command-line-via-java">Command Line via Java</a>
+
+        </li>
+        <li>
+        <a href="#command-line-via-maven">Command Line via Maven</a>
+
+        </li>
+        <li>
+        <a href="#command-line-via-gradle">Command Line via Gradle</a>
+
+        </li>
+        <li>
+        <a href="#stseclipse">STS/Eclipse</a>
+
+<ul>
+        <li>
+        <a href="#through-mavenm2-plugin">Through Maven(M2) Plugin</a>
+
+        </li>
+        <li>
+        <a href="#through-gradle-plugin">Through Gradle Plugin</a>
+
+        </li>
+        <li>
+        <a href="#through-run-configuration">Through Run Configuration</a>
+
+        </li>
+        <li>
+        <a href="#spring-boot-dashboard">Spring Boot Dashboard</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#intellij">IntelliJ</a>
+
+<ul>
+        <li>
+        <a href="#through-maven-tools">Through Maven Tools</a>
+
+        </li>
+        <li>
+        <a href="#through-gradle-tools">Through Gradle Tools</a>
+
+        </li>
+        <li>
+        <a href="#through-run-configuration-1">Through Run Configuration</a>
+
+        </li>
+        <li>
+        <a href="#through-spring-boot-dashboard">Through Spring Boot Dashboard</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#running-an-integration-test">Running an Integration Test</a>
+
+<ul>
+        <li>
+        <a href="#command-line-1">Command Line</a>
+
+        </li>
+        <li>
+        <a href="#stseclipse-1">STS/Eclipse</a>
+
+<ul>
+        <li>
+        <a href="#through-mavenm2-plugin-1">Through Maven(M2) Plugin</a>
+
+        </li>
+        <li>
+        <a href="#through-gradle-plugin-1">Through Gradle Plugin</a>
+
+        </li>
+        <li>
+        <a href="#run-configuration">Run Configuration</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#intellij-1">IntelliJ</a>
+
+<ul>
+        <li>
+        <a href="#through-maven-tools-1">Through Maven Tools</a>
+
+        </li>
+        <li>
+        <a href="#through-gradle-tools-1">Through Gradle Tools</a>
+
+        </li>
+        <li>
+        <a href="#through-run-configuration-2">Through Run Configuration</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Running Spring Boot Applications</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Running Spring Boot Applications</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../js/assignmentSubmission.js"></script>
+<script src="../js/shipkin.js"></script>
+<script src="../js/slides.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,885 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.202Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Core Spring</title>
+
+<link rel="icon" href="./theme-images/favicon.png">
+
+<link rel="stylesheet" href="./css/reset.css">
+<link rel="stylesheet" href="./css/theme.css">
+<link rel="stylesheet" href="./css/highlight.js.min.css">
+<link rel="stylesheet" href="./css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="./css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(./images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(./images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Core Spring</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="course-description">Course Description</h1>
+<p>Welcome to the Spring Developer course.</p>
+<p>This course is intended for developers, although project managers and
+architects with Java coding experience will also gain from this course.
+Through hands-on labs, the course explores the most commonly used
+features of Spring and Spring Boot.</p>
+<p>The pre-requisites for this course are:</p>
+<ul>
+<li>A good working knowledge of web application development using Java
+and a Servlet engine such as Tomcat or Jetty</li>
+<li>Some specific Java concepts: annotations, lambdas</li>
+<li>Dependency management using Maven or Gradle (the course uses
+Maven throughout)</li>
+</ul>
+<h1 id="course-objectives">Course Objectives</h1>
+<p>After completing this course, you should be able to:</p>
+<ul>
+<li>Use the Spring Framework and related projects to build Enterprise Web Applications</li>
+<li>Describe why you would use Spring and the Dependency Injection Pattern</li>
+<li>Configure Spring using Java Configuration and/or using annotated classes and component-scanning</li>
+<li>Describe the internal life-cycle of Spring bean</li>
+<li>Explain the purpose of a <code>BeanFactoryPostProcessor</code> and a <code>BeanPostProcessor</code> - and the difference between them</li>
+<li>Explain the Separation of Concerns concept</li>
+<li>Implement and test an Aspect using Spring's proxy-based approach (the source of Spring's &quot;magic&quot;)</li>
+<li>Build integration tests driven by Spring</li>
+<li>Access relational data using <code>JdbcTemplate</code> and JPA with Spring</li>
+<li>Describe the reasons for using Transactions and how to configure them using Spring AOP</li>
+<li>Build an application using Spring Boot</li>
+<li>Describe Spring Boot concepts such as auto configuration and starter dependencies</li>
+<li>Create simplified backing-store solutions using Spring Data and JPA</li>
+<li>Use Spring Boot Actuator for monitoring and management of the applications</li>
+<li>Use Spring and Spring MVC to build RESTful services</li>
+<li>Secure HTTP Endpoints and Java methods using Spring Security</li>
+<li>Take advantage of Spring Boot's enhancements to functional testing</li>
+</ul>
+<h1 id="core-spring-course">Core Spring Course</h1>
+
+<h1></h1>
+    <h2>Course Setup</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Lab Setup
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="course-intro/setup/setup.html" class="label label-teal" rel="noreferrer noopener">Setup</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Rewards Reference Domain
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="course-intro/reference-domain/reference-domain.html" class="label label-teal" rel="noreferrer noopener">Domain</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1></h1>
+    <h2>Course Introduction</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Course Agenda
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-intro/1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" class="label label-teal" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Spring Overview
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-intro/1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="core-spring-intro/spring-intro/spring-intro.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1>Spring Essentials</h1>
+    <h2>Spring Configuration</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Java Configuration
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1SJbXone4KTvaS2EcHat4O83AkGasJFVyXKKUvRg0b8o.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/javaconfig-dependency-injection/javaconfig-dependency-injection.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                More on Configuration
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1coqD8d_J8jPLhqMjZLoBA4xeqsyVx3KhZBZT-iEf-jY.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Annotations and Component Scanning
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1ctA6jbX7JvFu4RCLaLh3IEnq1EL17c-vZHCQzQ7kMZk.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/component-scanning/component-scanning.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Factory Beans
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1CHqK3LCey-vhBKjbKYSSvGTa-awVVwrplG4Y6AkGd-4.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Inside the Spring Container
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1fKQvnBFY6ESpRMpuJGw9S7mKMcNUVpgxgGqzr_NrHnE.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Introducing Aspect Oriented Programming
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1yff5aPnfjCLdcKFpcpteF8EU_dKbbjyg_GBQFcHzIAU.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/aop/aop.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Testing Spring Applications
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/1LMrkJpFHy6Gp4GziUqa6he_rzMYqweNxFFZJBsM32vc.html" class="label label-green" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/test/test.html" class="label label-green" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <h2>Data Management</h2>
+    <ul class="index">
+        <li>
+            <div>
+                JDBC Simplification with JdbcTemplate
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/154kpZOc2L4Yfsbc79BDLqc8bVjGmr-0ySJfhEUFazRQ.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/jdbc/jdbc.html" class="label label-orange" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Transaction Management with Spring
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="essentials/10c3Eq55PLFZOa9Ewr8hQu2mpp3dX2dUIvr_hiRJy-cQ.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="essentials/transactions/transactions.html" class="label label-orange" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1>Spring Boot</h1>
+    <h2>Boot Basics</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Spring Boot Feature Introduction
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1EzDSsKDA6VHjUeiqhyHtqFG8xpRPQjYIp1S5Lm10LmI.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-intro/spring-boot-intro.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Spring Boot - A Closer Look
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1OGw_fOC5ugJUpu7j1knXWAnyYddOtLv9C5ruaBZ9WSM.html" class="label label-light-blue" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-autoconfiguration/spring-boot-autoconfiguration.html" class="label label-light-blue" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Spring Data JPA
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1j1qEfx8P-IBxs4W4orHMKAbaW3m-V-nqfgIqb8gg9zA.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-data/spring-boot-data.html" class="label label-orange" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <h2>Creating REST Application</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Spring MVC Introduction
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1yb7jmS_Be7JUxP71RJcYJ7QjgBNESLpJQ5JlIuhSFz8.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-mvc-intro/spring-mvc-intro.html" class="label label-gray" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                RESTful Application with Spring Boot
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1U2wSuZ5ftV6aQd5R02cQjevg1Ywl81JhYIiLPMiSDpY.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-rest/spring-boot-rest.html" class="label label-gray" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <h2>Spring Boot Testing, Spring Security, and Actuator</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Spring Boot Testing
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1ESi_AOIyeY4nn_TqdISfXwOlpbjuaKqjU1c1hfx4AV8.html" class="label label-green" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-testing/spring-boot-testing.html" class="label label-green" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Securing REST Application with Spring Security
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1p495C4WOJYGmutHIOMBA35bHLLhQ5r9JDWGs_wWHwqs.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-security/spring-security.html" class="label label-gray" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Actuators, Metrics and Health Indicators
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="boot/1pAe6BTkaX11jcI1UDbQKHsamqUXdhMVWm2WqevyvcNM.html" class="label label-red" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="boot/spring-boot-actuators/spring-boot-actuators.html" class="label label-red" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1></h1>
+    <h2>Wrapping Up</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Completed - What's Next
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-wrap-up/1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" class="label label-teal" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1>Core Spring Optional Topics</h1>
+    <h2>Additional Bonus/Elective topics</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Security with OAuth2
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1kpuLh2aMBc9QLlxaQRpn4DBTSbOugg_sei71duIqCFo.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="core-spring-optional/spring-security-oauth2/spring-security-oauth2.html" class="label label-gray" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Mock MVC Testing
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1N1YS41JGRo0-hBpZCxf1U9VJ2ZNKd7_tTnfR9OhLedw.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Introduction to Reactive Spring
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1isWgYJwv2N1n_Fuef5v2ZP6GIAO9bnZcUvoRkIOMz4k.html" class="label label-gray" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+<a href="core-spring-optional/reactive/reactive-spring.html" class="label label-gray" rel="noreferrer noopener">lab</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Spring JMS
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1Q1VSSVuKIakugrFy9t-VFTAkHOPiyCY1sm1tlZIlIjU.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Spring JPA
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1rSZqhaj8SvzstjZoDbqFSkAzyZdzwM1bgpMhyPIzRBw.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Caching
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="core-spring-optional/1brR3_UmIbFmJ5f4KdcMHUx7px9SM1D23t2HvpBVLtvs.html" class="label label-orange" rel="noreferrer noopener">slides</a>
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+    </ul>
+<h1>Appendix</h1>
+    <h2>IDE Configuration</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Configuring TODOs (Tasks)
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-tasks.html" class="label label-teal" rel="noreferrer noopener">tasks</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                JUnit Tests
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-junit.html" class="label label-teal" rel="noreferrer noopener">tests</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Initializing a Spring Boot Project
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-initializr.html" class="label label-teal" rel="noreferrer noopener">tasks</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Running and Testing a Spring Boot Project
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-running.html" class="label label-teal" rel="noreferrer noopener">tasks</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Monitoring HTTP Traffic
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-tcp-monitor.html" class="label label-teal" rel="noreferrer noopener">tasks</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <h2>Design Topics</h2>
+    <ul class="index">
+        <li>
+            <div>
+                Spring Design Guidelines
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-design-guidelines.html" class="label label-teal" rel="noreferrer noopener">design</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                Designing for Independent Deployability
+            </div>
+
+            <div class="links">
+                <div class="link">
+<a href="appendix/appendix-design-independent-deployment.html" class="label label-teal" rel="noreferrer noopener">design</a>
+                </div>
+                <div class="link">
+                </div>
+                <div class="link">
+                </div>
+            </div>
+        </li>
+    </ul>
+         </article>
+        <div class="sidebar-container">
+            <nav id="sidebar">
+                <div class="title">
+                    Topic Key
+                </div>
+                <div class="content">
+                        <div class="label label-light-blue">configuration</div>
+                        <div class="label label-green">test</div>
+                        <div class="label label-orange">data</div>
+                        <div class="label label-gray">web</div>
+                        <div class="label label-red">management</div>
+                        <div class="label label-teal">reference</div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Core Spring</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Core Spring</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+<div class="slide text" data-slide="4">
+    <div class="inner">
+        <h1>Instructor notes</h1>
+        <p>The instructor material that had previously been delivered as a separate
+set of files are now embedded in this course content. However, it is
+not necessarily obvious how to find this material.</p>
+<p>The instructor notes can be found <a href="instructor-guide.html" rel="noreferrer noopener">here</a></p>
+<p>The change log can be found <a href="changelog" rel="noreferrer noopener">here</a></p>
+
+    </div>
+</div>
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="./audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="./js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="./js/assignmentSubmission.js"></script>
+<script src="./js/shipkin.js"></script>
+<script src="./js/slides.js"></script>
+
+</body>
+</html>
+

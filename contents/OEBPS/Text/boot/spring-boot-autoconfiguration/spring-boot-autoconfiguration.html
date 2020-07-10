@@ -1,0 +1,1080 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.436Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Spring Boot Starters, Auto-configuration and Runtime</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Spring Boot Starters, Auto-configuration and Runtime</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab you will go a level deeper into core Spring Boot concepts
+while &quot;Bootifying&quot; a previous version of the Rewards application.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>What you will learn about Spring Boot:</p>
+<ol>
+<li>
+<p>Dependency Management</p>
+</li>
+<li>
+<p>Auto-configuration</p>
+</li>
+<li>
+<p>Packaging &amp; Runtime</p>
+</li>
+<li>
+<p>Spring Boot Testing</p>
+</li>
+</ol>
+<p>Specific subjects you will gain experience with:</p>
+<ol>
+<li>
+<p>Spring Boot Starter Bill-of-Materials (BOMs)</p>
+</li>
+<li>
+<p>Datasource Auto-configuration</p>
+</li>
+<li>
+<p>Application deployment artifact packaging</p>
+</li>
+<li>
+<p>Simple application runtime with <code>CommandLineRunner</code></p>
+</li>
+<li>
+<p>Simple <code>SpringBootTest</code></p>
+</li>
+</ol>
+<p>You will be using the <em>32-jdbc-autoconfig</em> project.</p>
+<p>Estimated time to complete:
+45 minutes.</p>
+<h1 id="use-case">Use Case</h1>
+<p>Take a Spring application using JDBC and convert it to a Spring Boot
+application.</p>
+<p>The application builds the data access layer using a <code>Datasource</code> and a
+<code>JdbcTemplate</code>. JDBC implementations of the <code>AccountRepository</code>,
+<code>CustomerRepository</code> and <code>RewardRepository</code> have been implemented
+for you.</p>
+<p>You will alter that application in three ways:</p>
+<ol>
+<li>
+<p><em>Bootify</em> the application, meaning you will wrap the application
+with Spring Boot, and demonstrate how Spring Boot simplifies your
+development experience through starters and auto-configuration.</p>
+</li>
+<li>
+<p><em>Bootify</em> the application's integration test.</p>
+</li>
+<li>
+<p>Add a <code>CommandLineRunner</code> to demonstrate how Spring Boot can package
+and run an application with no additional runtime dependencies.</p>
+</li>
+<li>
+<p>Demonstrate how to exclude an auto-configuration.</p>
+</li>
+<li>
+<p>Demonstrate external configuration.</p>
+</li>
+</ol>
+<h1 id="getting-started">Getting Started</h1>
+<p>You will start with the <code>32-jdbc-autoconfig</code> project.</p>
+<p>You will also need a Terminal or Command window to run Maven or Gradle manually -
+IntelliJ/Eclipse/STS support a terminal window within the IDE.</p>
+<p>Navigate to the parent directory containing the course projects (this
+is the <code>lab</code> directory of the code you cloned/unzipped from github).</p>
+<h1 id="quick-instructions">Quick Instructions</h1>
+<p>If you are already knowledgeable with the lesson concepts, you may
+consider jumping right to the code, and execute the lab in the form of
+embedded TODO comments.
+Instructions on how to view them are
+<a href="../../appendix/appendix-tasks.html" rel="noreferrer noopener">here</a>.</p>
+<p>If you aren’t sure, try the TODO instructions first and refer to the
+lab instructions by TODO number if you need more help.</p>
+<h1 id="instructions">Instructions</h1>
+<h2 id="review-of-a-spring-app---dependencies">Review of a Spring App - Dependencies</h2>
+<ul>
+<li>
+<p>Navigate to the project, and run the full suite of tests to verify
+the build is successful and tests pass.</p>
+</li>
+<li>
+<p>Examine the <code>pom.xml</code> or <code>build.gradle</code> file of
+the project.
+What do you see for the project dependencies?</p>
+<ul>
+<li>You should see a set of libraries covering Spring Framework,
+JDBC and HSQLDB database</li>
+<li>You should also see a set of libraries for Testing</li>
+</ul>
+</li>
+</ul>
+<h2 id="bootify-your-spring-app">Bootify your Spring App</h2>
+<p>In this section we will wrap our app with Spring Boot.</p>
+<h3 id="refactor-to-starters">Refactor to Starters</h3>
+<p>Part of the value point of Spring Boot is <em>simplified dependency
+management</em>.
+In this section, you will refactor from discrete Spring Framework and
+3rd party dependencies to the Spring Boot Starters.</p>
+<ul>
+<li>
+<p>In your Terminal/Command window, run Maven goal or Gradle
+task for displaying dependencies.
+(The example commands below assume you are running them
+at the <code>lab</code> directory.)</p>
+<pre><code class="language-bash">Windows: mvnw -pl *-common -pl *jdbc-autoconfig dependency:tree -Dincludes=org.springframework
+Linux/MacOS: ./mvnw -pl *-common -pl *jdbc-autoconfig dependency:tree -Dincludes=org.springframework
+</code></pre>
+<pre><code class="language-bash">Windows: gradlew :32-jdbc-autoconfig:dependencies --configuration compile -Dincludes=org.springframework
+Linux:MacOS: ./gradlew :32-jdbc-autoconfig:dependencies --configuration compile -Dincludes=org.springframework
+</code></pre>
+</li>
+<li>
+<p>What dependencies do you see for the <code>jdbc-autoconfig</code> project?</p>
+<ul>
+<li>You should see dependencies for Spring JDBC and Spring Test and
+all their transitive dependencies.</li>
+<li>You will also see the <code>spring-boot-starter</code> as this is required
+for <code>SpringApplication.run()</code> whether you use the rest of
+Spring Boot or not.</li>
+</ul>
+</li>
+</ul>
+<p><strong>TODO-01</strong> : Add Spring Boot Plugin:</p>
+<ul>
+<li>
+<p>Add the Spring Boot plugin to the project's <code>pom.xml</code> or
+<code>build.gradle</code> file</p>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<pre><code>apply plugin: &quot;org.springframework.boot&quot;
+</code></pre>
+<p>What does the Spring Boot plugin do for you?</p>
+<p>You will see, as we build the project, Spring Boot plugin will
+generate the runtime deployment artifact for you through the
+<code>repackage</code> goal for Maven and the <code>bootJar</code> task for Gradle.
+The <code>repackage</code> goal is run as part of the Maven <code>package</code>
+goal and the <code>bootJar</code> task is run as part of Gradle <code>assemble</code> task.</p>
+<p>You will see this in action later in this lab.</p>
+</li>
+</ul>
+<p><strong>TODO-02</strong> : Refactor to Spring Boot Starters:</p>
+<ol>
+<li>
+<p>Remove the Spring JDBC and Spring Test dependencies from
+the project's <code>pom.xml</code> or <code>build.gradle</code> file.</p>
+</li>
+<li>
+<p>Add the Spring Boot Starters for:</p>
+<ul>
+<li>JDBC</li>
+<li>Testing (only for Maven)</li>
+</ul>
+<p>Hint:
+If you need help to understand the starter dependencies,
+take a look
+at the <em>Spring Boot Intro</em> lab <code>pom.xml</code> or
+<code>build.gradle</code> that was generated by the
+Spring Initializr.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Rerun the maven <code>dependency:tree</code> Maven goal or
+<code>dependencies</code> Gradle task for the project:</p>
+</li>
+<li>
+<p>What dependencies do you see now?</p>
+<ul>
+<li>You should now see the Boot starter dependencies instead.</li>
+</ul>
+</li>
+</ul>
+<p>Typically your Spring Boot <code>pom.xml</code> or <code>build.gradle</code> file
+is simpler than the original
+but this example is sufficiently simple that there is little difference.</p>
+<h3 id="create-a-spring-boot-application">Create a Spring Boot Application</h3>
+<p>Start with creation of the Spring Boot application:</p>
+<p><strong>TODO-03</strong> : Turn the <code>RewardsApplication</code> into a Spring Boot
+application:</p>
+<ol>
+<li>
+<p>You already have a <code>RewardsApplication</code> class provided for you.
+This is the shell for the Spring Boot application.</p>
+</li>
+<li>
+<p>Annotate the <code>RewardsApplication</code> class accordingly.</p>
+<p>What exactly does the annotation do?</p>
+<blockquote>
+<p><strong>Hint:</strong> In your IDE look at a decompiled version of the
+<code>@SpringBootApplication</code> annotation.</p>
+</blockquote>
+</li>
+<li>
+<p>Notice that a <code>main()</code> method has already been defined and the Spring
+boot classes initialized using <code>SpringApplication.run</code></p>
+</li>
+</ol>
+<p><strong>TODO-04</strong> : Disable explicit DataSource creation in <code>SystemTestConfig</code>:</p>
+<ol>
+<li>
+<p>Open <code>SystemTestConfig.java</code>.</p>
+</li>
+<li>
+<p>Stop Spring invoking the <code>dataSource()</code> bean factory method by
+commenting out the <code>@Bean</code> annotation.</p>
+</li>
+</ol>
+<p><strong>TODO-05</strong> : Let Spring Boot execute database scripts</p>
+<ol>
+<li>
+<p>Move the <code>schema.sql</code> and <code>data.sql</code> files in the
+<code>src/test/resources/rewards.testdb</code> directory to the
+<code>src/main/resources/</code> directory.</p>
+<p>Why are you doing this?</p>
+<ul>
+<li>
+<p>You are refactoring the directory structure to the default that
+Spring Boot expects for its life-cycle initialization -
+specifically for automatic database initialization.</p>
+<p>In the non-Spring Boot version, the <code>EmbeddedDatabaseBuilder</code> in
+<code>SystemTestConfig</code> can specify where the SQL initialization files
+are found.</p>
+<p>In Spring Boot applications, the default files are <code>schema.sql</code>
+and <code>data.sql</code> and they must be in the classpath root.</p>
+<blockquote>
+<p><strong>Note:</strong> You may choose to specify these files using
+properties (as described in the slides).</p>
+</blockquote>
+</li>
+<li>
+<p>The starting point of the project does not have a runner, so the
+files originally were provided to set up a test data fixture.</p>
+<p>You are moving the files from <code>test/resources</code> to <code>main/resources</code>
+so you can use the same files in the application runtime to
+demonstrate the <code>CommandLineRunner</code>.</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>TODO-06</strong> : Setup a command line runner to print the Reward account
+count:</p>
+<ol>
+<li>
+<p>Implement a <code>CommandLineRunner</code> in your <code>RewardsApplication</code> class.
+Remember it must be configured as a Spring bean.</p>
+</li>
+<li>
+<p>Add code to use a <code>JdbcTemplate</code> to query the number of accounts
+using <code>SQL</code> query string already declared in the class.
+Request the result as a <code>Long</code> and assign it to <code>numberOfAccounts</code>.
+Remember Spring Boot will auto-configure a <code>JdbcTemplate</code> bean for you
+automatically.</p>
+</li>
+<li>
+<p>Use the provided <code>logger</code> to log the returned number of accounts
+at <code>info</code> level- something like following:</p>
+<pre><code>logger.info(&quot;Number of accounts: {}&quot; , numberOfAccounts);
+</code></pre>
+</li>
+</ol>
+<p>The Spring Boot <code>CommandLineRunner</code> and <code>ApplicationRunner</code> abstractions
+are guaranteed to run <em>at most once</em> before
+<code>SpringApplication.run()</code> method returns.
+Multiple runners may be configured, and can be ordered with the <code>@Order</code>
+annotation.</p>
+<h3 id="capture-properties-into-a-class">Capture properties into a class</h3>
+<p><strong>TODO-07</strong> : Use <code>@ConfigurationProperties</code> to capture properties</p>
+<p>Spring Boot <code>@ConfigurationProperties</code> allows developer to map
+properties, especially properties with hierarchical structure,
+into a class.</p>
+<ol>
+<li>
+<p>Note that <code>application.properties</code> file already contains
+the following properties</p>
+<pre><code>rewards.recipient.name=John Doe
+rewards.recipient.age=10
+rewards.recipient.gender=Male
+rewards.recipient.hobby=Tennis
+</code></pre>
+</li>
+<li>
+<p>Annotate <code>RewardsRecipientProperties</code> class with
+<code>@ConfigurationProperties</code>
+with <code>prefix</code> attribute set to <code>rewards.recipient</code></p>
+</li>
+<li>
+<p>Create fields (along with needed getters/setters) that reflect
+the properties above in the <code>RewardsRecipientProperties</code> class</p>
+<pre><code class="language-java">@ConfigurationProperties(prefix = &quot;rewards.recipient&quot;)
+public class RewardsRecipientProperties {
+
+    private String name;
+    private int age;
+    private String gender;
+    private String hobby;
+
+    // getter and setter methods
+
+}
+</code></pre>
+</li>
+<li>
+<p>Now use one of the 3 schemes below to enable <code>@ConfigurationProperties</code>
+(Feel free to try all of them.)</p>
+<ol>
+<li>Add <code>@EnableConfigurationProperties(RewardsRecipientProperties.class)</code>
+to <code>RewardsApplication</code> class</li>
+<li>Add <code>@ConfigurationPropertiesScan</code> to <code>RewardsApplication</code> class
+(This is supported from Spring Boot 2.2.1)</li>
+<li>Annotate the <code>RewardsRecipientProperties</code> class with <code>@Component</code></li>
+</ol>
+</li>
+<li>
+<p>Implement a new command line runner that displays the name of the rewards
+recipient</p>
+<pre><code class="language-java">@Bean
+CommandLineRunner commandLineRunner2(RewardsRecipientProperties rewardsRecipientProperties) {
+    return args -&gt; System.out.println(&quot;Recipient: &quot; + rewardsRecipientProperties.getName());
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="run-your-spring-boot-application">Run your Spring Boot Application</h3>
+<p><strong>TODO-08 (Optional)</strong> : In your IDE, run the application:</p>
+<ol>
+<li>
+<p>Add <code>debug=true</code> property to your <code>application.properties</code>.
+This causes Spring Boot to log everything it does and what
+auto-configuration choices it does and does not make.</p>
+</li>
+<li>
+<p>Run the application. What do you see on the console?</p>
+</li>
+<li>
+<p>You should see your log output from the command line runner:</p>
+<pre><code class="language-bash">INFO : rewards.RewardsApplication - Number of accounts:21
+</code></pre>
+<p>You should also see an <em>Auto-Configuration Report</em>, that is prefixed
+as follows:</p>
+<pre><code class="language-bash">============================
+CONDITIONS EVALUATION REPORT
+============================
+
+Positive matches:
+-----------------
+</code></pre>
+<p>Do you see <code>DataSourceAutoConfiguration</code> under <code>Positive matches</code>?
+Now you know where the <code>DataSource</code> came from.</p>
+</li>
+</ol>
+<h2 id="bootify-your-integration-test">Bootify your Integration Test</h2>
+<p><strong>TODO-09</strong> : Return to your IDE and refactor <code>RewardNetworkTests</code> into
+a Spring Boot Integration test:</p>
+<ol>
+<li>
+<p>Run this test without making any change, it will fail.
+It fails because the Spring Boot auto-configuration is not
+enabled when the test is run.</p>
+</li>
+<li>
+<p>Remove the <code>@ContextConfiguration</code> annotation.</p>
+</li>
+<li>
+<p>Add <code>@SpringBootTest</code> annotation to run as a Spring Boot Test</p>
+<ul>
+<li>
+<p>There is no need to specify the configuration class to use as
+the annotation will <em>automatically</em> component scan for any
+<code>@Component</code> (or <code>@Configuration</code>) classes in the current package
+or below.
+Since the <code>SystemTestConfig</code> class is in the same package, it
+will be discovered and processed.
+This includes processing the <code>@Import</code> annotation that references
+the <code>RewardsConfig</code> class containing all the other bean
+definitions.</p>
+</li>
+<li>
+<p>This is considered an <em>End-To-End</em> integration test, including
+the wired components.</p>
+<p>Note that in a real production application you are most likely
+to configure an external database.
+Spring Boot offers properties to do this.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Run the <code>RewardNetworkTests</code> and verify it succeeds.</p>
+</li>
+<li>
+<p>Do an experimentation</p>
+<ul>
+<li>
+<p>Specify the configuration class with <code>@SpringBootTest</code> like
+following:</p>
+<pre><code>@SpringBootTest(classes={SystemTestConfig.class})
+</code></pre>
+</li>
+<li>
+<p>Run the test and observe that it fails.  Think about why it
+fails.</p>
+<p>The failure occurs because Spring Boot autoconfiguration is
+disabled: when you specify the configuration class,
+<code>@SpringBootTest</code> stops searching for configuration class
+annotated with <code>@SpringBootConfiguration</code>, which contains
+<code>@EnableAutoConfiguration</code>.</p>
+</li>
+<li>
+<p>Revert the change and verify the test succeeds again</p>
+</li>
+</ul>
+<p>You will dig deeper into Spring Boot Testing in a later unit.</p>
+</li>
+</ol>
+<h2 id="override-auto-configuration">Override Auto-Configuration</h2>
+<p>You have seen to this point that Spring Boot will detect and
+automatically configure a <code>DataSource</code> on your behalf.
+But how would this work if you needed to configure <em>multiple</em>
+databases from your application?
+In this case auto-configuration cannot really help you.</p>
+<p>You have two options to handle this situation:</p>
+<ol>
+<li>
+<p>Use the default <code>DataSource</code> auto-configuration with supporting
+default configuration, and also explicitly set additional
+<code>DataSource</code> beans with different names, as specified by the
+<code>@Qualifier</code> annotation.
+You can also set the order of precedence using the <code>@Order</code>
+annotation.</p>
+</li>
+<li>
+<p>Disable auto-configuration for <code>DataSource</code>, and explicitly
+declare multiple DataSource beans using Java Configuration.</p>
+</li>
+</ol>
+<p>We will use option 2 and disable the <code>DataSource</code>
+auto-configuration both programmatically and using configuration
+properties.</p>
+<h3 id="disable-datasource-auto-configuration-programmatically">Disable DataSource Auto-Configuration Programmatically</h3>
+<p>Do the following steps if you have extra time.</p>
+<p><strong>TODO-10 (Optional)</strong> : Switch to explicit <code>DataSource</code> configuration:</p>
+<ol>
+<li>
+<p>Add <code>DataSource</code> bean explicitly in the <code>RewardsConfig</code> class by
+by uncommenting the code.</p>
+<ul>
+<li>Note the debug log message, so we can tell if this method is
+being used.</li>
+</ul>
+</li>
+<li>
+<p>Remove the code that injects <code>DataSource</code> bean since
+we no longer needs it.</p>
+</li>
+<li>
+<p>Fix any compile errors in the <code>RewardsConfig</code> class.</p>
+</li>
+<li>
+<p>Notice this reverts to the standard Spring way of building a
+<code>DataSource</code>.</p>
+</li>
+</ol>
+<p><strong>TODO-11 (Optional)</strong> : Disable <code>DataSource</code> auto-configuration:</p>
+<ol>
+<li>
+<p>Annotate the <code>@SpringBootApplication</code> to <em>exclude</em> the <code>DataSource</code>
+auto-configuration - <code>@SpringBootApplication</code> has an
+<code>exclude</code> attribute.</p>
+<ul>
+<li>The bean to exclude is <code>DataSourceAutoConfiguration</code>
+class you were told to remember earlier</li>
+</ul>
+</li>
+<li>
+<p>Import the <code>RewardsConfig</code> configuration</p>
+<ul>
+<li>This is required since the <code>RewardsConfig</code> configuration
+now provides DataSource bean and will not be auto-detected
+through component scanning</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><em>Note</em>:
+Technically you don't have to disable data-source auto-configuration
+given that Spring Boot will use application defined <code>DataSource</code> bean over
+auto-configured one.</p>
+</blockquote>
+<p><strong>TODO-12 (Optional)</strong> : Turn on debug level logging and rerun:</p>
+<ol>
+<li>
+<p>In your <code>src/main/resources/application.properties</code> configuration
+modify the <code>logging.level.config</code> property to <code>DEBUG</code>.</p>
+</li>
+<li>
+<p>Run the 'RewardNetworkTests' test.</p>
+<ul>
+<li>
+<p>Do you see your <code>dataSource</code> creation debug log output?</p>
+<p>If so you just proved your <code>dataSource</code> was generated in your
+Java config.</p>
+</li>
+<li>
+<p>Do you see the <code>DataSourceAutoConfiguration</code> is no longer
+matched?</p>
+<p>Look for the following console output:</p>
+<pre><code class="language-bash">Exclusions:
+-----------
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><em>Trouble-shooting</em>:
+If you experience <code>BeanCurrentlyInCreationException</code>, think about why
+that is the case and how to solve it.</p>
+</blockquote>
+<blockquote>
+<p><em>Notes for Thought</em>:
+When you <em>Bootified</em> your application, did you auto-wire a
+<code>JdbcTemplate</code>?
+If you did, what might be some implications for a multi-database
+solution?
+Would you need to remove use of an auto-wired JdbcTemplate?
+How would you do this?</p>
+</blockquote>
+<h3 id="build-and-run-using-command-line-tools---optional">Build and Run using Command Line tools - Optional</h3>
+<p>Do this part of the lab only if you have extra time.</p>
+<p><strong>TODO-13 (Optional)</strong> : Let's see what the Spring Boot Maven/Gradle plugin is doing:</p>
+<ol>
+<li>
+<p>From either your IDE or your Terminal/Command window, execute
+the Maven <code>package</code> goal or Gradle <code>assemble</code> task.</p>
+<p>The following leverages the parent project multi-module build
+with the maven/gradle wrapper, and is executed from the project root
+<code>lab</code> directory.</p>
+<p>Notice that, when using Maven, it is necessary to skip the
+tests using the
+<code>-Dmaven.test.skip=true</code> flag due to the fact that you have
+not yet Bootified the testing portion of the project.</p>
+<pre><code class="language-bash">Windows: mvnw clean package -pl *common -pl *jdbc-autoconfig -Dmaven.test.skip=true
+Linux/MacOS: ./mvnw clean package -pl *common -pl *jdbc-autoconfig -Dmaven.test.skip=true
+</code></pre>
+<pre><code class="language-bash">Windows: gradlew :32-jdbc-autoconfig:clean :32-jdbc-autoconfig:assemble
+Linux/MacOS: ./gradlew :32-jdbc-autoconfig:clean :32-jdbc-autoconfig:assemble
+</code></pre>
+</li>
+<li>
+<p>In <code>32-jdbc-autoconfig</code>, a <code>target</code> directory (for Maven), or a
+<code>build/libs</code> directory (for Gradle) should now exist.
+Review its contents, what do you see?</p>
+<ul>
+<li>
+<p>You should see two generated JAR files:</p>
+<ul>
+<li><code>32-jdbc-autoconfig-5.0.c.RELEASE.jar</code> and</li>
+<li><code>32-jdbc-autoconfig-5.0.c.RELEASE.jar.original</code> (for Maven)</li>
+<li><code>32-jdbc-autoconfig-5.0.c.RELEASE-original.jar</code> (for Gradle)</li>
+</ul>
+<p>Notice that the &quot;original&quot; is <em>much</em> smaller.
+The other JAR is executable and contains all the necessary
+dependencies (hence it is called a &quot;fat&quot; JAR!)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Extract the jar file to a temporary directory, and view the
+contents using <code>jar</code>.</p>
+<p>Windows:</p>
+<pre><code class="language-bash">mkdir temp
+copy *jdbc-autoconfig\target\*RELEASE.jar temp (for Maven)
+copy *jdbc-autoconfig\build\libs\*RELEASE.jar temp (for Gradle)
+cd temp
+jar xvf *.jar
+</code></pre>
+<p>Linux or MacOS:</p>
+<pre><code class="language-bash">mkdir temp
+cp *jdbc-autoconfig/target/*RELEASE.jar temp (for Maven)
+cp *jdbc-autoconfig/build/libs/*RELEASE.jar temp (for Gradle)
+cd temp
+jar xvf *.jar
+</code></pre>
+</li>
+<li>
+<p>What do you see?</p>
+<p>You will see the classpath resources, manifest file and supporting
+compile scope package classes are included.</p>
+<ul>
+<li>
+<p>Look carefully at the <code>BOOT-INF</code> directory.</p>
+<ul>
+<li>What do you see?</li>
+<li>What do its subdirectories contain?</li>
+</ul>
+</li>
+<li>
+<p>Look in the <code>META-INF</code> directory and display the contents
+of <code>MANIFEST.MF</code> using <code>more</code>.</p>
+<ul>
+<li>What do you see?</li>
+</ul>
+</li>
+</ul>
+<p>You should see the jar is generated to be run as a standalone
+application on your behalf:</p>
+<ul>
+<li>
+<p>Contains all the necessary runtime dependencies - <code>BOOT-INF</code>
+holds all your compiled classes and all the dependency jars.</p>
+</li>
+<li>
+<p>The manifest declares a main entry point (the <code>Main-Class:</code>
+property)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>There are many ways to run this application, either directly using
+the JAR, using <code>spring-boot:run</code> goal from Maven or in your IDE
+as you did earlier.</p>
+<p>Look over the
+<a href="../../appendix/appendix-running.html" rel="noreferrer noopener">Running Spring Boot Applications</a>
+discussing various options for running a Spring Boot application.</p>
+<p>For now run <code>java -jar 32-jdbc-autoconfig-5.0.c.RELEASE.jar</code>,
+you should get the same output as before.</p>
+</li>
+</ol>
+<h3 id="create-custom-auto-configuration-class---optional">Create Custom Auto-configuration class - Optional</h3>
+<p>(Do this part of the lab only if you have extra time.)</p>
+<p>In this part of the lab, you are going to build your own
+auto-configuration class.</p>
+<p>The lab project is provided as <code>33-autoconfig-helloworld</code>
+and it is NOT going to be imported into your IDE along
+with other projects.</p>
+<p>This means you will have to import it separately from
+other projects.</p>
+<ol>
+<li>Import the <code>33-autoconfig-helloworld</code> project</li>
+<li>Follow TODO steps</li>
+</ol>
+<h3 id="reviewing-what-we-did">Reviewing What we Did</h3>
+<p>We overrode Spring Boot's default behavior and defined a <code>DataSource</code>
+for ourselves.
+But which approach more appropriate?</p>
+<p>Think about imperative declaration of <code>DataSource</code> auto-
+configuration disablement, versus disabling via configuration.</p>
+<ul>
+<li>
+<p>If your use case is similar to wiring multiple data sources, it
+makes more sense to programmatically disable the auto-
+configuration given this is an fixed aspect of your design.</p>
+</li>
+<li>
+<p>If your design style favors non-functional concerns in configuration
+then Spring Boot external configuration is an available option.</p>
+</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>You should surmise by the end of the lab that Spring Boot can save you
+work:</p>
+<ul>
+<li>
+<p>Simplified dependency management</p>
+</li>
+<li>
+<p>Simplified configuration</p>
+</li>
+<li>
+<p>Packaged Runtime</p>
+</li>
+<li>
+<p>Better test coverage with simple integration tests</p>
+</li>
+</ul>
+<p>Congratulations, you have completed the lab!</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use Case</a>
+
+        </li>
+        <li>
+        <a href="#getting-started">Getting Started</a>
+
+        </li>
+        <li>
+        <a href="#quick-instructions">Quick Instructions</a>
+
+        </li>
+        <li>
+        <a href="#instructions">Instructions</a>
+
+<ul>
+        <li>
+        <a href="#review-of-a-spring-app---dependencies">Review of a Spring App - Dependencies</a>
+
+        </li>
+        <li>
+        <a href="#bootify-your-spring-app">Bootify your Spring App</a>
+
+<ul>
+        <li>
+        <a href="#refactor-to-starters">Refactor to Starters</a>
+
+        </li>
+        <li>
+        <a href="#create-a-spring-boot-application">Create a Spring Boot Application</a>
+
+        </li>
+        <li>
+        <a href="#capture-properties-into-a-class">Capture properties into a class</a>
+
+        </li>
+        <li>
+        <a href="#run-your-spring-boot-application">Run your Spring Boot Application</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#bootify-your-integration-test">Bootify your Integration Test</a>
+
+        </li>
+        <li>
+        <a href="#override-auto-configuration">Override Auto-Configuration</a>
+
+<ul>
+        <li>
+        <a href="#disable-datasource-auto-configuration-programmatically">Disable DataSource Auto-Configuration Programmatically</a>
+
+        </li>
+        <li>
+        <a href="#build-and-run-using-command-line-tools---optional">Build and Run using Command Line tools - Optional</a>
+
+        </li>
+        <li>
+        <a href="#create-custom-auto-configuration-class---optional">Create Custom Auto-configuration class - Optional</a>
+
+        </li>
+        <li>
+        <a href="#reviewing-what-we-did">Reviewing What we Did</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Spring Boot Starters, Auto-configuration and Runtime</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Spring Boot Starters, Auto-configuration and Runtime</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

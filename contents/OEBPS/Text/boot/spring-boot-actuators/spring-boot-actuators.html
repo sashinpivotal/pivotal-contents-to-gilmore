@@ -1,0 +1,929 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.414Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Spring Boot Actuators, Metrics and Health Indicators</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Spring Boot Actuators, Metrics and Health Indicators</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab you will gain experience with Spring Boot Actuator and its
+features.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>You will learn how to:</p>
+<ul>
+<li>
+<p>Configure Spring Boot Actuator</p>
+</li>
+<li>
+<p>Expose some or all Actuator endpoints</p>
+</li>
+<li>
+<p>Define custom metrics</p>
+</li>
+<li>
+<p>Extend the <em>/actuator/health</em> endpoint to add custom health checks</p>
+</li>
+</ul>
+<p>You will be using the <em>44-actuator</em> project.</p>
+<p>Estimated time to complete:
+30 minutes.</p>
+<h1 id="use-case">Use Case</h1>
+<p>All production applications should have health monitoring, and will
+often need metric gathering.
+Actuator gives us both of these.
+You will be enabling actuator in your project and implementing mechanisms
+to provide an additional custom metric to indicate the number of times
+Account details have been requested.
+Additionally, you will be creating a custom HealthIndicator and adding
+that to the overall health status that is obtained.</p>
+<h1 id="get-started">Get Started</h1>
+<h2 id="enabling-actuator">Enabling Actuator</h2>
+<p><strong>TODO-01</strong> : Check dependencies</p>
+<ol>
+<li>In the <code>pom.xml</code> or <code>build.gradle</code> for the <code>actuator</code> project,
+look for TODO-01.
+We have added the dependency on the Spring Boot Actuator starter.</li>
+</ol>
+<p><strong>TODO-02</strong> : Review application</p>
+<ol>
+<li>
+<p>Run the application and using a browser that can display JSON
+(Firefox, Chrome), open
+<a href="http://localhost:8080/actuator/" rel="noreferrer noopener">http://localhost:8080/actuator/</a>
+and explore the links.</p>
+<ul>
+<li>If you prefer you can use <code>curl</code> or <code>Postman</code> to examine the
+links referred to in this lab.</li>
+</ul>
+</li>
+<li>
+<p>Now visit the
+<a href="http://localhost:8080/actuator/metrics" rel="noreferrer noopener">http://localhost:8080/actuator/metrics</a>
+endpoint.</p>
+<p>You will see an error on this page.
+Even though there are many
+<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints" rel="noreferrer noopener">valid endpoints</a>,
+only the <code>info</code> and <code>health</code> endpoints are automatically exposed in
+Actuator.</p>
+</li>
+</ol>
+<h2 id="expose-actuator-endpoints">Expose Actuator endpoints</h2>
+<p><strong>TODO-03</strong> Expose HTTP actuator endpoints.</p>
+<ol>
+<li>
+<p>In the <code>application.properties</code> file, expose the
+<code>metrics</code> and <code>beans</code> endpoints by setting the appropriate Spring
+Boot property.</p>
+<ul>
+<li>These are two of the
+<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints" rel="noreferrer noopener">many endpoints</a>
+that can be exposed.</li>
+</ul>
+</li>
+<li>
+<p>Once the application restarts, visit the
+<a href="http://localhost:8080/actuator/metrics" rel="noreferrer noopener">/actuator/metrics</a> endpoint
+again.
+Now you will see a list of all the metrics tracked by Actuator.</p>
+<p>Try fetching the data for one of the metrics by constructing a url
+based on the name of the metric.
+For example, visit
+<a href="http://localhost:8080/actuator/metrics/jvm.memory.max" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/jvm.memory.max</a>.</p>
+</li>
+<li>
+<p>View the beans our application has loaded by visiting
+<a href="http://localhost:8080/actuator/beans" rel="noreferrer noopener">http://localhost:8080/actuator/beans</a>.</p>
+</li>
+<li>
+<p>Revisit <a href="http://localhost:8080/actuator/info" rel="noreferrer noopener">http://localhost:8080/actuator/info</a>
+endpoint.
+You will now see that it no longer loads.
+This is because once the <code>management.endpoints.web.exposure.include</code>
+property has been set, the default accessible endpoints are no
+longer available.</p>
+</li>
+</ol>
+<p><strong>TODO-04</strong> Expose all HTTP actuator endpoints.</p>
+<ol>
+<li>
+<p>Modify the property again to expose <em>all</em> actuator endpoints.
+Once the application restarts, visit the following endpoints:</p>
+<ul>
+<li><a href="http://localhost:8080/actuator/beans" rel="noreferrer noopener">http://localhost:8080/actuator/beans</a></li>
+<li><a href="http://localhost:8080/actuator/health" rel="noreferrer noopener">http://localhost:8080/actuator/health</a></li>
+<li><a href="http://localhost:8080/actuator/info" rel="noreferrer noopener">http://localhost:8080/actuator/info</a></li>
+<li><a href="http://localhost:8080/actuator/mappings" rel="noreferrer noopener">http://localhost:8080/actuator/mappings</a></li>
+<li><a href="http://localhost:8080/actuator/metrics/jvm.memory.max" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/jvm.memory.max</a></li>
+</ul>
+</li>
+<li>
+<p>Use tags with <code>metrics</code> endpoint</p>
+<ul>
+<li><a href="http://localhost:8080/actuator/metrics/http.server.requests" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/http.server.requests</a></li>
+<li><a href="http://localhost:8080/actuator/metrics/http.server.requests?tag=method:GET" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/http.server.requests?tag=method:GET</a></li>
+<li><a href="http://localhost:8080/actuator/metrics/http.server.requests?tag=uri:/actuator/beans" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/http.server.requests?tag=uri:/actuator/beans</a></li>
+</ul>
+</li>
+<li>
+<p>Access some URL endpoints that are not existent and get metrics on them.</p>
+<ul>
+<li><a href="http://localhost:8080/notexistent" rel="noreferrer noopener">http://localhost:8080/notexistent</a></li>
+<li><a href="http://localhost:8080/actuator/metrics/http.server.requests?tag=status:404" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/http.server.requests?tag=status:404</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="change-logging-level">Change logging level</h2>
+<p><strong>TODO-05</strong> Change log level via <code>./actuator/loggers</code> endpoint</p>
+<ol>
+<li>
+<p>Display logging level of <code>account.web</code> package</p>
+<ul>
+<li><a href="http://localhost:8080/actuator/loggers/accounts.web" rel="noreferrer noopener">http://localhost:8080/actuator/loggers/accounts.web</a></li>
+</ul>
+<p>Observe that the <code>effectiveLevel</code> is currently set to <code>DEBUG</code></p>
+<pre><code>{
+    &quot;configuredLevel&quot;: null,
+    &quot;effectiveLevel&quot;: &quot;DEBUG&quot;
+}
+</code></pre>
+</li>
+<li>
+<p>Add a log statement as shown below to the <code>accountSummary()</code> method of the controller</p>
+<pre><code class="language-java">@GetMapping(value = &quot;/accounts&quot;)
+public @ResponseBody List&lt;Account&gt; accountSummary() {
+   logger.debug(&quot;Logging message within accountSummary()&quot;); // add this line
+   return accountManager.getAllAccounts();
+}
+</code></pre>
+</li>
+<li>
+<p>Once the application restarts, access <code>/accounts</code> url and verify that
+the log message gets displayed</p>
+</li>
+<li>
+<p>Change the logging level to <code>INFO</code> using either <code>curl</code> or <code>Httpie</code> or <code>Postman</code></p>
+<pre><code>curl -i -XPOST -H&quot;Content-Type: application/json&quot; localhost:8080/actuator/loggers/accounts.web -d'{&quot;configuredLevel&quot;: &quot;INFO&quot;}'
+</code></pre>
+<pre><code>http post localhost:8080/actuator/loggers/accounts.web configuredLevel=INFO
+</code></pre>
+</li>
+<li>
+<p>Verify that the <code>effectiveLevel</code> of the <code>accounts.web</code> package is now
+changed to <code>INFO</code></p>
+<pre><code>{
+    &quot;configuredLevel&quot;: &quot;INFO&quot;,
+    &quot;effectiveLevel&quot;: &quot;INFO&quot;
+}
+</code></pre>
+</li>
+<li>
+<p>Access <code>/accounts</code> url again and verify that the log message no longer
+gets displayed</p>
+</li>
+</ol>
+<h2 id="publish-build-information">Publish build information</h2>
+<p>Spring Boot Actuator’s <code>info</code> endpoint automatically publishes
+information about your application specified in the
+<code>META-INF/build-info.properties</code> file.</p>
+<p>The <code>META-INF/build-info.properties</code> can be created by the
+Spring Boot Maven or Gradle Plugin during build</p>
+<p><strong>TODO-06</strong> Add Maven goal or Gradle task</p>
+<ol>
+<li>
+<p>If you are using Maven, add <code>build-info</code> goal</p>
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;build-info&lt;/goal&gt;
+      &lt;/goals&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre>
+<p>if you are using Gradle, add <code>BuildInfo</code> task</p>
+<pre><code>springBoot  {
+    buildInfo()
+}
+</code></pre>
+</li>
+<li>
+<p>Rebuild the application preferably at the command line</p>
+<pre><code>./mvnw -pl 00-rewards-common -pl 01-rewards-db clean install
+./mvnw -pl 44-actuator clean package
+</code></pre>
+<pre><code>./gradlew 44-actuator:clean 44-actuator:build
+</code></pre>
+</li>
+<li>
+<p>Verify that <code>target/classes/META-INF/build-info.properties</code> (for Maven) or
+<code>build/resources/main/META-INF/build-info.properties</code> (for Gradle) is created
+with build information</p>
+</li>
+<li>
+<p>Visit <code>info</code> endpoint and verify that the build info
+gets displayed</p>
+</li>
+</ol>
+<p><strong>TODO-07</strong> Add additonal build properties</p>
+<ol>
+<li>
+<p>If you are using Maven, add properties with appropriate values</p>
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;build-info&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;additionalProperties&gt;
+           &lt;name&gt;actuator app&lt;/name&gt;
+           &lt;javaVersion&gt;1.8.0_144&lt;/javaVersion&gt;
+           &lt;operatingSystem&gt;Mac OS X (10.13.6)&lt;/operatingSystem&gt;
+        &lt;/additionalProperties&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre>
+</li>
+<li>
+<p>If you are using Gradle, you can use system properties</p>
+<pre><code>springBoot  {
+    buildInfo {
+        properties {
+            name = &quot;actuator app&quot;
+            additional = [
+                javaVersion:     System.properties['java.version'],
+                operatingSystem: &quot;${System.properties['os.name']} (${System.properties['os.version']})&quot;
+            ]
+        }
+    }
+}  
+</code></pre>
+</li>
+<li>
+<p>Add the custom properties to the <code>application.properties</code></p>
+<pre><code>info.restaurant.location=New York
+info.restaurant.discountPercentage=10
+</code></pre>
+</li>
+<li>
+<p>Rebuild the application</p>
+</li>
+<li>
+<p>Visit <code>info</code> endpoint and verify that additional
+properties are displayed</p>
+</li>
+</ol>
+<h2 id="define-custom-metrics---counter">Define custom metrics - Counter</h2>
+<p>By default, Actuator exposes a number of useful but rather generic
+metrics.
+Often tracking metrics that are specific to your application's domain
+provides insights into operational, business, or other concerns.</p>
+<p>Let's add a custom metric specific to our application that counts
+the number of times the account finder method is used.</p>
+<p><strong>TODO-08</strong> : Add a counter with a tag</p>
+<ol>
+<li>
+<p>In the constructor of <code>AccountController</code>, add an instance of
+<code>MeterRegistry</code> as a second parameter.</p>
+</li>
+<li>
+<p>Using the <code>MeterRegistry</code>, create a Counter called <code>account.fetch</code>
+with a tag of <code>type</code>/<code>fromCode</code> key/value pair by
+calling <code>meterRegistry.counter(&quot;account.fetch&quot;, &quot;type&quot;, &quot;fromCode&quot;);</code>.</p>
+</li>
+<li>
+<p>Store the counter as a new data-member.</p>
+</li>
+</ol>
+<p><strong>TODO-09</strong> : Use the counter</p>
+<ol>
+<li>In the <code>accountDetails()</code> method, call <code>increment()</code> on the Counter.</li>
+</ol>
+<p><strong>TODO-10</strong> : Run the test</p>
+<ol>
+<li>Verify that the tests in <code>AccountControllerTests</code> pass.
+Particularly the <code>testHandleDetailsRequest()</code>, which checks that
+the counter is working correctly.</li>
+</ol>
+<p><strong>TODO-11</strong> : Verify the result</p>
+<ol>
+<li>
+<p>Once the application restarts, visit the
+<a href="http://localhost:8080/actuator/metrics" rel="noreferrer noopener">(http://localhost:8080/actuator/metrics</a>
+endpoint again.
+You should now see <code>account.fetch</code> listed.</p>
+</li>
+<li>
+<p>Visit the
+<a href="http://localhost:8080/actuator/metrics/account.fetch" rel="noreferrer noopener">http://localhost:8080/actuator/metrics/account.fetch</a>
+to view the data for your counter.
+This should display 0 since no accounts have been fetched yet.</p>
+</li>
+<li>
+<p>Fetch an account by visiting
+<a href="http://localhost:8080/accounts/1" rel="noreferrer noopener">http://localhost:8080/accounts/1</a>.</p>
+</li>
+<li>
+<p>Visit the
+<a href="http://localhost:8080/actuator/metrics/account.fetch" rel="noreferrer noopener">(http://localhost:8080/actuator/metrics/account.fetch</a>
+again, verify that the counter increase with each account fetch.</p>
+<p>Try restarting your application.
+What happens to the counter?</p>
+</li>
+</ol>
+<h2 id="define-custom-metrics---timer">Define custom metrics - Timer</h2>
+<p><strong>TODO-12</strong> : Add timer using @Timed annotation</p>
+<ol>
+<li>
+<p>Add the following annotation to the <code>accountSummary(..)</code> method.</p>
+<pre><code>@Timed(value=&quot;account.timer&quot;, extraTags = {&quot;source&quot;, &quot;accountSummary&quot;})
+</code></pre>
+</li>
+<li>
+<p>Add the following annotation to the <code>accountDetails(..)</code> method.</p>
+<pre><code>@Timed(value=&quot;account.timer&quot;, extraTags = {&quot;source&quot;, &quot;accountDetails&quot;})
+</code></pre>
+</li>
+</ol>
+<p><strong>TODO-13</strong> : Verify the result</p>
+<ol>
+<li>
+<p>Once the application restarts, visit the <a href="http://localhost:8080/accounts/1" rel="noreferrer noopener">localhost:8080/accounts/1</a> and <a href="http://localhost:8080/accounts" rel="noreferrer noopener">localhost:8080/accounts</a> for a few times</p>
+</li>
+<li>
+<p>Visit the
+<a href="http://localhost:8080/actuator/metrics/account.timer" rel="noreferrer noopener">(http://localhost:8080/actuator/metrics/account.timer</a> and verify the timer metric</p>
+</li>
+</ol>
+<h2 id="get-detail-health-checks">Get detail health checks</h2>
+<p><strong>TODO-14</strong> : Add more details to the health check</p>
+<ol>
+<li>
+<p>Visit the
+<a href="http://localhost:8080/actuator/health" rel="noreferrer noopener">/actuator/health</a> endpoint.</p>
+<p>By default there is very little info displayed at this endpoint.</p>
+</li>
+<li>
+<p>In your <code>application.properties</code> file, enable more detailed health
+info by setting the <code>management.endpoint.health.show-details</code> to
+<code>always</code>.</p>
+</li>
+<li>
+<p>Restart the application and refresh
+<a href="http://localhost:8080/actuator/health" rel="noreferrer noopener">/actuator/health</a> to see
+more health details.</p>
+</li>
+</ol>
+<h2 id="create-custom-health-checks">Create custom health checks</h2>
+<p>You can extend the default health checks so that your application
+reports whether it is down or up based on custom criteria or domain
+logic.</p>
+<p>In this case, we will determine the health of the application based on
+whether there are any restaurants in the database.
+If there are no restaurants, then the health status of the application
+will be considered <code>DOWN</code>.</p>
+<p><strong>NOTE:</strong> Stop the <code>ActuatorApplication</code> to avoid it constantly
+restarting whilst we add new classes.</p>
+<p><strong>TODO-15a and TODO-15b</strong> : Setup a test</p>
+<ol>
+<li>
+<p>Navigate to the <code>src/test/java</code> directory.
+Inside the <code>accounts.web</code> package, there is a class called
+<code>RestaurantHealthCheckTest</code>.
+It is mostly written for you.</p>
+</li>
+<li>
+<p>Modify the code to use the <code>RestaurantHealthCheck.health()</code> method
+in each test.
+The code will not compile yet - we have not written the code we are
+testing.</p>
+</li>
+</ol>
+<p><strong>TODO-16a and TDO-16b</strong> : Implement <code>RestaurantHealthCheck</code></p>
+<ol>
+<li>
+<p>Navigate to the <code>src/main/java</code> directory.
+Inside the <code>accounts.web</code> package create a class called
+<code>RestaurantHealthCheck</code>.</p>
+</li>
+<li>
+<p>Modify the class to implements the <code>HealthIndicator</code> interface.</p>
+</li>
+<li>
+<p>Implement the missing  <code>health()</code> method with the following logic:</p>
+<ul>
+<li>
+<p>If there are one or more restaurants in the database,
+return <code>Health.up().build()</code>.</p>
+</li>
+<li>
+<p>Otherwise return <code>Health.down().build()</code>.</p>
+</li>
+<li>
+<p>You will need to pass the <code>RestaurantRepository</code> into this
+object via a new constructor.</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>
+<p>Modify the test to match (<strong>TODO-15b</strong>).</p>
+</li>
+<li>
+<p><em>Remove <code>@Disabled</code> annotation from both tests</em></p>
+</li>
+<li>
+<p>The test should now pass.</p>
+</li>
+</ul>
+<p><strong>TODO-17</strong> : Access The Health Indicator</p>
+<ol>
+<li>
+<p>Restart the application.</p>
+</li>
+<li>
+<p>Refresh the health endpoint.
+You should see that your application is <code>DOWN</code> because there are
+no Restaurants in the database.</p>
+</li>
+</ol>
+<p><strong>TODO-18/19</strong> : Repeat with restaurants in the database</p>
+<ol>
+<li>
+<p>To populate your database with a Restaurant, change the
+<code>application.properties</code> to set <code>spring.datasource.data</code> property
+with <code>classpath:/data-with-restaurants.sql</code>.</p>
+</li>
+<li>
+<p>Once the server restarts refresh the health endpoint.
+You should now see that your application health reports <code>UP</code>.</p>
+</li>
+<li>
+<p>Verify that all tests in the <code>actuator</code> project pass.</p>
+</li>
+</ol>
+<h2 id="secure-actuator-endpoints">Secure Actuator endpoints</h2>
+<p><strong>TODO-20</strong> : Add security configuration</p>
+<ol>
+<li>
+<p>Add code to provide access control to actuator endpoints</p>
+<pre><code>@Override
+protected void configure(HttpSecurity http) throws Exception {
+
+    http.authorizeRequests()
+            .requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class, PrometheusScrapeEndpoint.class)).permitAll()
+            .requestMatchers(EndpointRequest.to(ConditionsReportEndpoint.class)).hasRole(&quot;ADMIN&quot;)
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole(&quot;ACTUATOR&quot;)
+            .anyRequest().authenticated()
+            .and()
+        .httpBasic();
+}
+</code></pre>
+</li>
+</ol>
+<p><strong>TODO-21</strong> : Run the tests</p>
+<ol>
+<li>
+<p>Take some time to understand what each test is for</p>
+</li>
+<li>
+<p>Remove @Disabled annotation from each test and run it</p>
+</li>
+<li>
+<p>Make sure all tests pass</p>
+</li>
+</ol>
+<h1 id="summary">Summary</h1>
+<p>In this lab you have configured Spring Boot Actuator.
+You have also leveraged Spring Boot Actuator to give detailed
+information about application metrics and customized health stats.</p>
+<p>Congratulations, you are done with the lab. If this were a production
+application, one logical next step would be to integrate Actuator with
+an external monitoring system.</p>
+<h1 id="optional-exercises">Optional exercises</h1>
+<p>Do the following exercises if you have an extra time.</p>
+<p><strong>TODO-22 (Optional)</strong> : Experiment with HealthIndicator</p>
+<ol>
+<li>
+<p>Include the restaurant count as extra detail in the health endpoint.
+Have a look at the <code>Health</code> class to see how this might work.</p>
+</li>
+<li>
+<p>Instead of returning <code>DOWN</code> when there are no restaurants, use a
+custom status (e.g. <code>NO_RESTAURANTS</code>).</p>
+</li>
+<li>
+<p>When there are no restaurants in the DB, what overall status is
+returned for the application?
+Fix this issue by adjusting the order of precedence for the health
+statuses using <code>management.endpoint.health.status.order</code>
+property in the <code>application.properties</code> file.</p>
+</li>
+</ol>
+<p><strong>TODO-23 (Optional)</strong> : Use AOP for counting logic</p>
+<p>If you are short on time, skip this step.</p>
+<p>In general, mixing up different concerns (controller logic
+and counter logic in this example code) is not considered
+a good practice: it violates single responsibility principle.
+Instead, usage of AOP provides cleaner code.</p>
+<ol>
+<li>
+<p>Add <code>spring-boot-starter-aop</code> starter to the <code>pom.xml</code> or the
+<code>build.gradle</code></p>
+</li>
+<li>
+<p>Create an aspect, through which <code>account.fetch</code> counter, which
+has a tag of <code>type</code>/<code>fromAspect</code> key/value pair, gets incremented
+everytime <code>accountSummary</code> method of the <code>AccountController</code> class
+is invoked</p>
+</li>
+<li>
+<p>Access <code>/accounts</code> several times and verify the metrics of
+<code>/actuator/metrics/account.fetch?tag=type:fromAspect</code></p>
+</li>
+</ol>
+<p><strong>TODO-24 (Optional)</strong> : Using JMX and JConsole</p>
+<p>If you are short on time, skip this step.</p>
+<ul>
+<li>
+<p>Open a terminal window and run <code>jconsole</code>.
+Accept the insecure connection if prompted</p>
+<p><img src="images/jconsole-new-connection.png" alt="Starting JConsole" class="figure" /></p>
+<p><strong>Figure 1:</strong> Starting JConsole</p>
+</li>
+<li>
+<p>Select the <code>MBeans</code> tab, find the <code>org.springframework.boot</code> folder,
+then open the <code>Endpoint</code> sub-folder.
+Note that all actuator endpoints ARE exposed for JMX</p>
+<p><img src="images/jconsole-health.png" alt="Starting JConsole" class="figure" /></p>
+<p><strong>Figure 2:</strong> Spring Boot endpoints in JConsole</p>
+</li>
+</ul>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use Case</a>
+
+        </li>
+        <li>
+        <a href="#get-started">Get Started</a>
+
+<ul>
+        <li>
+        <a href="#enabling-actuator">Enabling Actuator</a>
+
+        </li>
+        <li>
+        <a href="#expose-actuator-endpoints">Expose Actuator endpoints</a>
+
+        </li>
+        <li>
+        <a href="#change-logging-level">Change logging level</a>
+
+        </li>
+        <li>
+        <a href="#publish-build-information">Publish build information</a>
+
+        </li>
+        <li>
+        <a href="#define-custom-metrics---counter">Define custom metrics - Counter</a>
+
+        </li>
+        <li>
+        <a href="#define-custom-metrics---timer">Define custom metrics - Timer</a>
+
+        </li>
+        <li>
+        <a href="#get-detail-health-checks">Get detail health checks</a>
+
+        </li>
+        <li>
+        <a href="#create-custom-health-checks">Create custom health checks</a>
+
+        </li>
+        <li>
+        <a href="#secure-actuator-endpoints">Secure Actuator endpoints</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+        <li>
+        <a href="#optional-exercises">Optional exercises</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Spring Boot Actuators, Metrics and Health Indicators</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Spring Boot Actuators, Metrics and Health Indicators</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

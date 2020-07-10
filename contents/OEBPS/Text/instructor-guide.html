@@ -1,0 +1,1417 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.242Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Core Spring Instructor’s Guide</title>
+
+<link rel="icon" href="./theme-images/favicon.png">
+
+<link rel="stylesheet" href="./css/reset.css">
+<link rel="stylesheet" href="./css/theme.css">
+<link rel="stylesheet" href="./css/highlight.js.min.css">
+<link rel="stylesheet" href="./css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="./css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(./images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(./images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Core Spring Instructor’s Guide</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="overview">Overview</h1>
+<p>Here is the basic schedule. (*NL = no lab).</p>
+<table class="table">
+<thead>
+<tr>
+<th>Day 1</th>
+<th>Day 2</th>
+<th>Day 3</th>
+<th>Day 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>course-agenda (NL)</td>
+<td>inside-spring-container (NL)</td>
+<td>boot-introduction</td>
+<td>boot-testing</td>
+</tr>
+<tr>
+<td>spring-overview</td>
+<td>aop</td>
+<td>boot-closer-look</td>
+<td>spring-security</td>
+</tr>
+<tr>
+<td><em>java-config</em></td>
+<td>testing-spring-apps</td>
+<td>boot-data-jpa</td>
+<td>boot-actuator</td>
+</tr>
+<tr>
+<td><em>more-on-configuration</em> (NL)</td>
+<td>jdbc</td>
+<td>spring-mvc-intro</td>
+<td>(optional topic)</td>
+</tr>
+<tr>
+<td>annotations</td>
+<td>transaction</td>
+<td>restful-apps</td>
+<td></td>
+</tr>
+<tr>
+<td>factory-beans (NL)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If you encounter any errors in this document or if you have any
+suggestions/comments please contact us at <a href="mailto:education@pivotal.io" rel="noreferrer noopener">education@pivotal.io</a>.</p>
+<h2 id="schedule">Schedule</h2>
+<p><strong>Warning:</strong> This schedule applies to an <em>average</em> group. It also leaves
+time for the instructor to add examples, demos and answer questions. For
+many reasons you could be faster or slower than what is described in
+this schedule.</p>
+<p>In the next chapter we discuss the course in more detail, including the
+optional material*.</p>
+<h2 id="labs">LABS</h2>
+<p>General changes:</p>
+<ul>
+<li>
+<p>There is no installer any longer.
+Rather than installing a package containing STS, labs and
+dependencies, the student is expected to install the IDE of their own
+own choice, download the lab files and resolve dependencies from the
+internet or make appropriate configurations to resolve dependencies
+from an internal resource (i.e Artifactory).</p>
+</li>
+<li>
+<p>Students can choose either Maven or Gradle as their build system.</p>
+</li>
+<li>
+<p>All labs use JUnit 5 so students may be a little surprised at first.
+We will discuss JUnit 5 as part of the <code>integration-testing</code> topic on Day 2.
+A handy reference guide to JUnit 5 is in a new Appendix in the
+lab-instructions.
+The most noticeable change is <code>@BeforeEach</code> replaces <code>@Before</code>.</p>
+</li>
+<li>
+<p>Beginning with the Spring Boot introduction, all topics will presume
+Spring Boot and all labs are Spring Boot projects.</p>
+</li>
+</ul>
+<h2 id="day-1-basic-spring-configuration">DAY 1: Basic Spring Configuration</h2>
+<p>This is no longer such a big day to start since removing the XML
+Section.
+The new Factory Beans section is much shorter and has no lab.</p>
+<p><strong>Suggestion:</strong> As they introduce themselves, write all the names down
+on a sheet of paper in the same arrangement as the desks.
+If teaching overseas, get one of the students to write names on the
+whiteboard for you (again in desk order) so that you don’t end up
+stumbling over and misspelling unfamiliar names.
+Write the names down afterwards, in case some helpful person cleans the
+whiteboard overnight!</p>
+<table class="table">
+<thead>
+<tr>
+<th>Slides</th>
+<th>Approx Times</th>
+<th>Notes</th>
+<th>Lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>course-agenda</td>
+<td>9:00-9:30</td>
+<td>Sets the scene, the agenda and a bit of Pivotal background. Nice overview of the Spring ecosystem of products. On the logistics slide: introduce yourself, go around the room to let them introduce themselves.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>spring-overview</td>
+<td>9:30-10:15</td>
+<td>Overall background to Spring, what it does and why you need it. Lab contains no Spring but is designed to let students become familiar with their IDE and the Rewards application domain.</td>
+<td>YES 10:30-11:15</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>10-15-10:30</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>java-config</td>
+<td>11:30-12:30</td>
+<td>Basics of DI using Java Config. Be aware many long-time users of Spring often do not know Java Config.</td>
+<td>YES 12:30-2:15 including lunch</td>
+</tr>
+<tr>
+<td>LUNCH</td>
+<td>12:30-1:30</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>more-on-configuration</td>
+<td>2:15-2:45</td>
+<td>External properties, SpEL, Profiles and a first look at &quot;Spring Magic&quot;.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>2:45-3:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>annotations</td>
+<td>3:00-3:45</td>
+<td>Long slide deck – maybe take a 5 min break half-way. Advanced slides for after the lab.</td>
+<td>YES 3:45-4:30</td>
+</tr>
+<tr>
+<td>factory-beans</td>
+<td>4:30-5:00</td>
+<td>Brief introduction to Factory pattern and Spring’s FactoryBean<T> interface. Students will see factory beans later in the course and they will need to know FactoryBeans for certification.</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+<h2 id="day-2-advanced-topics-testing-data-management-1">Day 2: Advanced Topics, Testing, Data Management-1</h2>
+<table class="table">
+<thead>
+<tr>
+<th>Slides</th>
+<th>Approx Times</th>
+<th>Notes</th>
+<th>Lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://drive.google.com/open?id=1z3jUuE5KK8wlQ8rONl3ZMjfgW4Bv0JqQ670o5AzhMKs" rel="noreferrer noopener">pop-quiz</a></td>
+<td>9:00-9:30</td>
+<td>Get feedback about how was their first day. Go through pop-quiz for Day 1</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>inside-spring-container</td>
+<td>9:30-10:00</td>
+<td>Formerly &quot;Bean Lifecycle&quot; You can run through this briskly. First mention of proxies - important.</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>aop</td>
+<td>10:00-11:15 with break</td>
+<td>Probably one of the hardest sections of the course. Take it slow and make sure they are following. Taking a break before pointcut expressions works well.</td>
+<td>YES 11:15-12:00</td>
+</tr>
+<tr>
+<td>LUNCH</td>
+<td>12:00 - 1:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>testing-spring-apps</td>
+<td>1:00 - 1:30</td>
+<td>Works best if you engage students at the start with lots of questions about TDD/Agile and how they do testing (or not!)</td>
+<td>LAB 1:30-2:00</td>
+</tr>
+<tr>
+<td>jdbc</td>
+<td>2:00-2:45</td>
+<td>Easy section – many students have seen it before. If students are already familiar with JdbcTemplate, you can make up time by just doing first 2 sections of the lab – skipping ResultSet-Extractor. Or even skip the lab completely.</td>
+<td>LAB 2:45-3:45 with break</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>2:45-3:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>transaction</td>
+<td>3:45-4:30</td>
+<td>Take time on this – most students do not know transactions as well as they think they do!</td>
+<td>YES 4:30-5:00</td>
+</tr>
+</tbody>
+</table>
+<p>You really need to get through <em>jdbc</em> to be on pace.
+Better to skip the <em>jdbc</em> lab than start Day 3 running behind.</p>
+<h2 id="day-3-spring-boot-and-web">Day 3: Spring Boot and WEB</h2>
+<p>The goal starting on day 3 is to begin the Spring Boot topics.
+It may be that the transaction module spills over into the morning, but
+keep it tight.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Slides</th>
+<th>Approx Times</th>
+<th>Notes</th>
+<th>Lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://drive.google.com/open?id=1z3jUuE5KK8wlQ8rONl3ZMjfgW4Bv0JqQ670o5AzhMKs" rel="noreferrer noopener">pop-quiz</a></td>
+<td>9:00-9:30</td>
+<td>Pop Quiz: review day 2</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>boot-introduction</td>
+<td>9:30-10:15</td>
+<td>An introduction to Spring Boot and the key value propositions</td>
+<td>YES 10:15-11:15 with break</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>10:15-10:30</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boot-closer-look</td>
+<td>11:15-12:00</td>
+<td>Deep-dive into starters and auto-configuration.</td>
+<td>YES 12:00-1:30 with lunch</td>
+</tr>
+<tr>
+<td>LUNCH</td>
+<td>12:00-1:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boot-data-jpa</td>
+<td>1:30-2:15</td>
+<td>Spring Boot as it applies to JPA and building Spring Data repositories for JPA.</td>
+<td>YES 2:15-2:45</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>2:45-3:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boot-mvc-intro</td>
+<td>3:00-3:30</td>
+<td>Introduces the MVC architecture in the context of Spring Boot. Light coverage of web applications, but focus on REST.</td>
+<td>YES 3:30-4:00</td>
+</tr>
+<tr>
+<td>boot-rest-ws</td>
+<td>4:00-4:30</td>
+<td>Skip REST architecture section if students are familiar with REST.</td>
+<td>YES  4:30-5:00</td>
+</tr>
+</tbody>
+</table>
+<p>If you are running behind by lunch time, you need to consider how to
+recover.
+Most students will want to do the <em>Spring Boot - Closer Look</em>
+section, so something else will have to give.</p>
+<h2 id="day-4-final-topics">Day 4: Final Topics</h2>
+<table class="table">
+<thead>
+<tr>
+<th>Slides</th>
+<th>Approx Times</th>
+<th>Notes</th>
+<th>Lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://drive.google.com/open?id=1z3jUuE5KK8wlQ8rONl3ZMjfgW4Bv0JqQ670o5AzhMKs" rel="noreferrer noopener">pop-quiz</a></td>
+<td>9:00-9:30</td>
+<td>Pop Quiz: review day 3</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>boot-security</td>
+<td>9:30-10:15</td>
+<td>Review Spring Boot enhancements to testing</td>
+<td>YES 10:15-11:00 with break</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>10:45-11:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boot-actuator</td>
+<td>11:00-11:45</td>
+<td>Cover Spring Security.</td>
+<td>YES 11:45-1:30 with Lunch</td>
+</tr>
+<tr>
+<td>LUNCH</td>
+<td>12:00-1:00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boot-test</td>
+<td>1:30-2:15</td>
+<td>Overview of actuators and health indicators.</td>
+<td>YES 2:15-3:00</td>
+</tr>
+<tr>
+<td>BREAK</td>
+<td>3:00-3:15</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Optional topic</td>
+<td>3:15-4:00</td>
+<td>Choose any optional topic - or use this time for catch-up</td>
+<td>YES 4:00-4:30</td>
+</tr>
+<tr>
+<td>completed</td>
+<td>4:30-5:00</td>
+<td>Get students to do the evaluations and, optionally, run a retrospective (see section for details of both)</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+<p>With a fast group,
+you can arrange to finish mid-afternoon on day 4, sometimes required if students
+need to rush off to get home.</p>
+<p>Alternatively, there may be time, with a fast or competent group, to
+include some of the optional material (any
+of the optional sections and/or even a Cloud Foundry demo).</p>
+<h2 id="optional-material">Optional Material</h2>
+<p>For custom courses, some of the material previously part of this course
+is still available as optional material.</p>
+<p>Much of this material is directly relevant to the microservices trend:</p>
+<ol>
+<li>
+<p>Security with OAuth2</p>
+</li>
+<li>
+<p>Introduction to Reactive Spring</p>
+</li>
+<li>
+<p>Spring JMS</p>
+</li>
+</ol>
+<h1 id="topic-details">Topic Details</h1>
+<h2 id="section-1-the-container">Section 1: The Container</h2>
+<p>The first day and a half covers configuring and using the Spring
+container.</p>
+<h3 id="spring-intro">Spring-Intro</h3>
+<p>This module tries to showcase all the features of Spring and provides
+some background for why Spring exists.</p>
+<p>One way to introduce Spring is to compare the question of “big”
+containers (like JBoss, Websphere) vs servlet containers (like Jetty,
+Tomcat) to <em>Full Service</em> vs <em>Budget</em> airlines.
+The <em>full-service</em> airline has loads of features but you pay for them
+whether you want them or not.
+With a <em>budget</em> airline you only get what you pay for.
+So if you are using Tomcat you are not paying for loads of JEE
+features/overhead that you don’t need – it ‘s cheaper and lighter to
+run (especially in virtual/cloud environments).
+But to add extra features like JPA/JMS you need to <em>roll-your-own</em>
+container – which is where Spring comes in.</p>
+<p>We assume the 3-layer (Service, Repository and Infrastructure) model
+throughout the course; so it makes sense to mention it here.
+You can do so when discussing the Transfer example (which exhibit the
+green/purple color coding of the service and repository layers).
+The 3-layer model is discussed in detail in the Data Management section.</p>
+<p>Also mention the components Spring manages are just plain Java objects –
+no Spring interfaces or base-classes to make things work.</p>
+<p>We can explain the difference between technical and business interfaces.
+Make them consider the following statement: &quot;I should never have any
+<em>import org.springframework</em> at the top of my business classes&quot;[1].
+In that way, if one day I have to migrate to another DI framework, it
+will not have any impact on my java code.
+Spring users are not locked-in.</p>
+<p><strong>DRY and SoCs</strong></p>
+<p>It is worth mentioning the two principles behind Spring: <strong>DRY SoCs</strong> –
+<em>Don’t Repeat Yourself</em> and <em>Separation of Concerns</em> (which in turn
+implies <em>tight cohesion</em> and loose <em>coupling</em>). Put the three-layer
+diagram on the board with DRY SOCS and you can keep returning to it
+during the course.</p>
+<p><strong>History of Spring</strong></p>
+<p>There was a point in time when Spring was just the sample code of Rod
+Johnson’s book.
+People started to use it and it finally became a very popular framework.
+Spring V1.0 was released in 2004.
+It arose because EJB containers were so hard to use, but it is so much
+more than that now.</p>
+<p><strong>Why use dependency injection?</strong></p>
+<p>Unlike 2005, most modern students have familiarity with dependency
+injection so explanation should be brief, use this an opportunity to
+foster student interaction on the first day.
+Be careful to guard against students holding incorrect ideas or
+misunderstandings around this basic concept.</p>
+<p><strong>Eradicating the “new” keyword?</strong></p>
+<p>It is good to mention that not every class should be declared in Spring.
+You <em>do not</em> do dependency injection for classes such as DTOs, Domain
+objects etc.
+Spring is not a repository and is not intended to handle hundreds of
+thousands of objects.
+When considering DI, a class should consider whether it “owns” the
+related object.
+If so, it should create it using <em>new</em> in its constructor.
+If it doesn’t own it, the object should be passed in from the outside
+via DI.</p>
+<p><strong>Notes on the Lab</strong></p>
+<p>The lab requires students to complete the missing <strong>rewardAccountfor()</strong>
+method.
+It involves <em>no</em> Spring.
+The intention is to get students familiar with the course application
+before hitting them with any Spring.</p>
+<p>It is worth taking students through the project layout in the IDE, showing
+them the key classes, noting how there is a solution for each lab that
+they should ignore unless really stuck (they should ask you for help
+anyway!).</p>
+<p>To implement <strong>rewardAccountfor()</strong> we provide an interaction diagram to
+help them.
+Sadly many students have no idea how to use one.
+Take them through it and show them how to interpret it.
+It tells them everything they need to know except what is returned from
+each method.</p>
+<h3 id="java-configuration">Java Configuration</h3>
+<p>Introduces the concepts of Spring bean creation and how to perform
+dependency injection.</p>
+<p>One thing to make sure they understand is that if one bean has a
+dependency on another bean it should get that bean by invoking its @Bean
+method (<em>not</em> using operator new).
+This is <em>dependency injection</em> in Java Configuration – we come back to
+this point when discussing proxies in the next section.</p>
+<h3 id="more-on-configuration">More on Configuration</h3>
+<p>Property sources allow for the externalization of constant values
+(typically strings and numbers, such as those needed to configure a
+DataSource).</p>
+<p>Profiles allow one or more beans to be created conditionally – only if
+that profile is active. Commonly used to support different environments:
+test, QA or production.</p>
+<p>Spring Expression Language allows properties to be set from simple
+expressions using the same expression language as JSP/JSF utilize.
+Accessed via @Value.</p>
+<p>This section is the first to introduce &quot;Spring Magic&quot; - in this case,
+how an <code>@Bean</code> method can be invoked multiple times and still return a
+singleton.
+Essentially this is the first use of a proxy, although we don’t use that
+term any more, to avoid confusion with AOP proxies later.</p>
+<h3 id="annotations">Annotations</h3>
+<p>The use of <code>@Component</code>, <code>@Autowired</code> and component-scanning is termed
+<em>annotation driven</em>. This was originally in contrast to XML
+configuration.
+Compared to Java Config the term seems a bit odd, since Java Config
+already uses <code>@Configuration</code> and <code>@Bean</code>.</p>
+<p>Annotations are by far the most common way used to configure Spring and
+although it breaks the SoCs principle, it is so convenient, who cares!
+It performs DI implicitly via the annotations rather than explicitly
+using Java Config.
+Explain what <code>@Autowired</code> means – it’s not that obvious that
+dependencies need “wiring” when we haven’t seen bean diagrams with
+relationship lines (wires) on them – they appear later in XML DI.</p>
+<p><strong>Pros and Cons of annotations</strong></p>
+<p><em>Suggestion:</em> When talking about annotations, it is important to insist
+on best practices because, unlike XML, you can easily use annotations
+very badly.</p>
+<ul>
+<li>
+<p>It is harder to get your application’s big picture.
+You should have in-house conventions that everybody follows.</p>
+</li>
+<li>
+<p>Everybody on the project should be well-aware of the way annotations
+and component-scanning work.</p>
+</li>
+<li>
+<p>The trade off is between faster development and easier long-term
+maintenance and debugging.</p>
+</li>
+<li>
+<p>Don’t scan the whole classpath!</p>
+</li>
+</ul>
+<h3 id="factory-beans">Factory Beans</h3>
+<p>This material used to be in the XML Dependency Injection section - which
+we no longer use.</p>
+<p>However some factory-beans are still important even when using Java
+configuration.
+Specifically students will see them in the configuration for Caching
+and JPA.</p>
+<h3 id="inside-the-spring-container">Inside the Spring Container</h3>
+<p><strong>Init / Use / Destroy phases</strong></p>
+<p><em>Suggestion:</em> It’s important to talk about performance.
+Spring does nearly everything at startup with very little impact on
+performance at runtime.
+That’s a very satisfying solution when putting the priority on
+production (as opposed to development).
+If you do not want to waste time full restarting your server every time you
+do a minor change in Spring configuration, you can try Spring Boot
+DevTools or JRebel (it is commercial product).</p>
+<p><strong>BeanFactoryPostProcessor</strong></p>
+<p>Even if you don’t want to modify the bean definitions, the BFPP is a
+useful entry-point to define code that you can guarantee will run just
+before Spring starts creating objects.
+When running in web-application (WAR), you don’t control the main flow
+so it can be hard to get code to run when you want it to.</p>
+<p><strong>BeanPostProcessor</strong></p>
+<p><em>Suggestion:</em> You can stress the fact that, if Spring did not provide
+BeanPostProcessors, they would probably not be sitting here today for a
+Core Spring class.
+That’s because BeanPostProcessors are the entry point to all the
+enterprise features of Spring (transactions, security, logging etc).
+It is the BPPs that implement Spring’s “magic” - they make the proxies
+happen.</p>
+<p><strong>Proxies</strong></p>
+<p>Spring performs a lot of “magic” - clever stuff that “just happens”. As
+a general rule on this course: <em>magic = proxies</em>! Note that mocks and
+Hibernate lazy loading are also implemented using proxies.</p>
+<p>This is the first time we see proxies, so it is useful to discuss what a
+proxy is first in human terms (a substitute/representative that goes to
+an auction or a shareholders meeting in your place).</p>
+<p>Why might you send a proxy to an auction?</p>
+<p><em>One reason:</em> because the proxy has better knowledge and you trust them
+to act in your best interests.
+However, a human proxy may not always do what you tell them – they may
+vote differently (against your interests) because they have been bribed!</p>
+<p>We use proxies for both these reasons – to provide extra capabilities
+(transactional proxy) or to prevent actions happening in certain
+circumstances (security proxy).</p>
+<p>Students are familiar with the Internet proxy used at work to control
+access through the company firewall.
+A good example is trying to access Facebook from the office – a &quot;smart&quot;
+proxy may refuse access during work hours because staff should be
+working!
+Again, the proxy both enables controlled access and prevents unwanted
+things happening.</p>
+<h3 id="testing-spring-apps">Testing Spring Apps</h3>
+<p>It is a good opportunity for you to make outrageous statements about
+poor software development practices and bring out your war stories.
+Try to entertain and provoke to keep them awake.
+The slides on database-testing show a new feature from Spring 4.1.
+The slides on Stubs and Mocks from previous versions have been moved to
+an optional section after the lab to make this section shorter and more
+relevant to Spring.</p>
+<p><strong>JUnit</strong></p>
+<p>Something worth pointing out: Unit testing is usually done with JUnit
+with mocks whereas System/Integration testing is usually done with <em>Spring context</em>!.</p>
+<p><strong>The Lab</strong></p>
+<p>Point out that the lab gets them to use three profile combinations:</p>
+<ol>
+<li>
+<p>stubs</p>
+</li>
+<li>
+<p>jdbc and jdbc-dev</p>
+</li>
+<li>
+<p>jdbc and jdbc-production</p>
+</li>
+</ol>
+<h3 id="aop">AOP</h3>
+<p>Many find this the hardest section in the course, so take it nice and
+easy.
+Many will never have seen AOP before.
+Pointcut Expressions are the most important concept - they reappear in
+Transactions and Security for example.
+Emphasize the difference between <strong>*</strong> and <strong>..</strong> in pointcut
+expressions.</p>
+<p>With a weak class, skip the advanced section of the presentation.</p>
+<p>The Lab exercise is scheduled for 45 mins, but often takes some
+students longer.
+Suggestions:</p>
+<ol>
+<li>
+<p>Make sure students are aware that a green unit test is not enough.
+It <em>must</em> output to the console.</p>
+</li>
+<li>
+<p>Recommend students spend no more than 5 mins trying to work out the
+first pointcut expression.
+Remind them that you are there to help and there is no shame in not
+knowing – AOP is hard for even experienced Java developers.
+With a quiet/shy group, work the room more aggressively than you
+would normally so you can keep asking if
+they need help.</p>
+</li>
+</ol>
+<p><strong>Story behind AOP and AspectJ</strong></p>
+<p>As an introduction to the slides, you can tell the story behind AOP and
+AspectJ.
+Adrian Colyer was the AspectJ lead for 10 years at IBM in the UK.
+He joined SpringSource in 2004 and that’s the time we started to invest
+heavily on simplifying AOP usage.</p>
+<p><strong>Examples of cross-cutting concerns (logging, caching…)</strong></p>
+<p>Get students to consider the different kinds of pointcut.
+You can make a pop-quiz out of the list of examples of cross-cutting
+concerns.
+For transactions, where would you inject your code?
+Before? After? Around?
+And what about security?</p>
+<p><strong>Practical case</strong></p>
+<p><em>Suggestion:</em> to introduce AOP, ask the following question: &quot;Imagine
+that you have 500 service classes in your application, each of them
+having 10 business methods.
+You are experiencing performance issues but can’t identify where the
+problem is.
+You want to monitor the time spent in each of those methods in
+production.
+What are your options?&quot;</p>
+<p><em>Solution 1:</em> Copying and pasting the same instructions 5000 times.
+There are 10 people in the room, if we split the work we should be
+finished by tomorrow night :).</p>
+<p><em>Solution 2:</em> Use AOP and it will take you less than 1 hour (and you can
+verify that because you will be doing it yourself in the lab).</p>
+<p><strong>Core AOP concepts (Joinpoint, Pointcut, Advice, Aspect)</strong></p>
+<p>Those keywords are very hard to remember.
+People get confused with them all the time.
+One way to teach them is to be as practical as possible and show them
+on the whiteboard some examples of Joinpoint/Pointcut/Advice/Aspect.</p>
+<h2 id="section-2-data-management">Section 2: Data Management</h2>
+<p>One day of material on data-management in a Spring application split
+across days 2-3 of the course.</p>
+<h3 id="data-management">Data Management</h3>
+<p>The background information on how Spring does data-management sets the
+scene for the next few topics, is important but don’t dwell</p>
+<p>You can give this section quite fast, they can always read it for
+themselves later.</p>
+<p>However, the discussion on <code>DataAccessExceptions</code> is important.
+And most students find the section on Caching worthwhile.</p>
+<h3 id="jdbc">JDBC</h3>
+<p>Pretty straightforward, most students &quot;get it&quot; easily.
+Lab involves ripping out loads of JDBC - very satisfying to do (but see
+note on lab below).</p>
+<p>Mention that even if you <em>are</em> using an ORM (probably JPA) there are
+still uses for raw SQL using JDBC (tables with weird schemas, returning
+large data-sets without materializing Java objects, in tests to verify
+JPA code).</p>
+<p><strong>The Lab</strong></p>
+<ul>
+<li>
+<p>Warn them NOT to delete the INSERT JDBC in <code>RewardsRepository</code> until
+they have written the <code>JdbcTemplate</code> alternative because they will
+need to copy the values to insert.</p>
+</li>
+<li>
+<p>To save time the third part of the lab (<em>ResultSetExtractor</em>) is
+optional.</p>
+</li>
+<li>
+<p>Many may have used <em>JdbcTemplate</em> before and the lab is pretty
+straightforward.
+Skip to regain time.</p>
+</li>
+</ul>
+<h3 id="transactions">Transactions</h3>
+<p>Transaction management is a highly popular feature of Spring.</p>
+<p>From the education standpoint, it refers nicely back to both the aop and
+jdbc sections.
+Transactions are a classic cross-cutting concern and there is no point
+getting rid of JDBC if you have to bring it back to define transactions.
+Go over the ACID properties on the whiteboard.
+Everyone knows what transactions are - until you ask them in detail!
+Skim the different transaction APIs, the point is not to learn them but
+to show how there are so many and Spring hides them all.
+Very important:
+the type of transaction you get is entirely due to the configuration,
+nothing to do with your code – easy to switch.</p>
+<h3 id="spring-essentias-review">Spring Essentias Review</h3>
+<p>This slide deck is provided as an optional topic only for the 2-day
+Spring Boot class.
+When majority of students lack basic Spring framework
+knowledge, you can use this deck, at your discretion, to cover
+the basics before moving on to the Spring Boot topics.</p>
+<h3 id="spring-boot-introduction">Spring Boot Introduction</h3>
+<p>It is at this point in the course that the focus shifts to building
+applications the Spring Boot way.</p>
+<p>This topic provides an introduction to Spring Boot and a basic lab.
+Spring Boot is used in all subsequent topics and labs.</p>
+<p>One way to get the idea behind Spring Boot is to do a live demo based on
+the &quot;Hello World&quot; example in the slides.
+If you have a working Internet connection:</p>
+<ul>
+<li>
+<p>Use IntelliJ or STS to create a new <em>Spring Starter Project</em> with JDBC
+dependency – you might also like to show <a href="http://start.spring.io" rel="noreferrer noopener">http://start.spring.io</a>.</p>
+</li>
+<li>
+<p>Create the Hello World application</p>
+</li>
+<li>
+<p>Run the app, show output in the console</p>
+</li>
+<li>
+<p><strong>Recommendation:</strong> Do this demo once <em>*first in private*</em> so (1)
+you know it works and (2) so maven downloads all the dependencies it
+needs first.</p>
+</li>
+</ul>
+<p>The main ideas in this chapter are to describe the dependency
+management, auto configuration (which you really can’t appreciate unless
+you’ve configured something like Spring JPA manually), and &quot;fat&quot; JAR
+packaging.</p>
+<p>Note that <em>SpringApplication.run()</em> is a Spring Boot class.
+We have just been using it to load Spring configurations manually.
+You need to specify <em>@EnableAutoConfiguration</em> to make Spring Boot use
+its defaults.</p>
+<h3 id="spring-boot---a-closer-look">Spring Boot - A Closer Look</h3>
+<p>This topic expands on a number of the ideas introduced in the first
+module and in particular, the lab.
+While much of the first lab is done by following a tutorial-like
+approach, this section explains what was going on.
+This includes what happens with the Spring Boot starters, what happens
+with autoconfiguration and how the built-in mechanisms of Spring Boot
+are able to determine what to configure.</p>
+<p>The most important point with this section is to get across how Spring
+Boot works.
+Spring Boot contains many, many @Configuration classes, written by
+Spring, to setup what we think are the best/most commonly used defaults
+for Spring and related technologies.
+All such configurations are protected by @Conditional annotations that
+are only used if:</p>
+<ol>
+<li>
+<p><code>@EnableAutoConfiguration</code> is specified</p>
+</li>
+<li>
+<p>Certain classes exist on the classpath and/or certain beans (by name
+or type) have been declared and/or certain properties have been
+defined</p>
+</li>
+</ol>
+<p>A lot of the &quot;mystery&quot; of Spring Boot can be explained here by taking
+time to go through an example configuration.
+A really good one to use is the <code>DataSourceAutoconfiguration</code> class.
+You can open</p>
+<h3 id="spring-data-jpa">Spring Data JPA</h3>
+<p>Two important themes:</p>
+<ul>
+<li>
+<p>Configuring a JPA application using Spring Boot - hiding much of
+the boiler-plate tasks.</p>
+</li>
+<li>
+<p>Spring Data &quot;Instant Repositories&quot; using JPA - hiding most of the
+JPA they saw before.</p>
+</li>
+</ul>
+<p>But you can’t really appreciate what Spring Boot and Data are doing
+unless you’ve done it the hard way first.</p>
+<h2 id="section-3-web-applications">Section 3: Web Applications</h2>
+<p>The rest of the course covers applications that rely on HTTP and/or
+REST.</p>
+<h3 id="note-on-timings">Note on Timings</h3>
+<p>If you are running seriously behind you will have to decide what to
+skip.
+Better to have skipped the first JPA lab (or run it as a demo) earlier
+so the course doesn’t feel rushed on the last day.</p>
+<p>Equally, if running ahead you will need extra material – although no-one
+will complain if you finish early!
+Check if anyone has to leave early to travel back home, plan the rest of
+the course accordingly.</p>
+<p>Another option is to have a working lunch (if it is possible to present
+whilst students eat) - for example to present the Advanced Spring Boot
+material to those students who are interested.</p>
+<h3 id="spring-mvc">Spring MVC</h3>
+<p>Building a simple Spring MVC Application configured using Spring Boot.
+The emphasis has changed slightly to focus more on the RESTful approach
+to building applications.
+Some template/server-side rendering is needed to explain how Spring MVC
+works, but the focus is more on the architecture and how to build a
+simple REST service.</p>
+<p><strong>The Lab</strong></p>
+<ul>
+<li>Application now runs container-less using embedded Tomcat.
+No need to setup a server first.</li>
+</ul>
+<h3 id="rest-web-services">Rest Web Services</h3>
+<p>There is a lot of material to cover and the lab always takes over an
+hour with a typical group.
+The worked examples for GET, POST, PUT and DELETE provide most of what
+they need for the labs, so emphasize them.</p>
+<p>If really running out of time, you can just spend time talking through
+what is in the <em>Putting it All Together</em> section (the 4 worked
+examples).
+They summarize almost every important point covered.
+If presenting the whole desk, this section they gives students a chance
+to see everything working in one go … and are excellent reference for
+the lab.</p>
+<p><em>Again the <strong>lab</strong> is a Spring Boot application not a WAR</em>. The lab
+contains four sections – one for each of the HTTP methods.
+You can save time by just getting them to do the first few steps only.
+Implementing POST is the hardest, so that’s a good place to stop (before
+TODO-06).</p>
+<h3 id="security">Security</h3>
+<p>Remarkably easy introduction to a difficult topic.
+Make sure you get Authentication and Authorization the correct way
+round - far too easy to muddle these terms and completely confuse the
+students!</p>
+<p>The application is a Spring Boot JAR application using embedded Tomcat
+and can no longer be run as a WAR (using <em>Run As → Run on Server</em>
+fails).
+Use <em>Run As → Spring Boot App</em> instead.</p>
+<ol>
+<li>
+<p>Since we moved this to Java configuration, the use of SpEL and
+Security EL is only shown in the <code>@PreAuthorize</code> annotation.</p>
+</li>
+<li>
+<p>Roles name like ADMIN, GUEST are held internally as ROLE_ADMIN and
+ROLE_GUEST. this is hidden most of the time, except when we show
+<code>@RolesAllowed</code></p>
+</li>
+<li>
+<p>There are no predefined roles in Spring Security - they are just
+strings prefixed by ROLE_.</p>
+</li>
+<li>
+<p>There is no hierarchy of roles in Spring Security. If a user needs
+to be able to do multiple things, you must give them multiple roles.</p>
+</li>
+</ol>
+<p><strong>The Lab</strong></p>
+<p>A nice feature of this lab is that it is incremental: at each point,
+students modify some configuration and then immediately try to see if it
+works.
+So if you finish the lab early or if some students don’t finish, they
+should still have made and seen some progress.
+If you are running tight on time, you can limit students to exactly 30
+or 45 mins to do the lab and even the slower students should have seen
+something work.</p>
+<h3 id="spring-boot-actuator">Spring Boot Actuator</h3>
+<p>This is one of the core features of Spring Boot.  Expect to spend
+at least 2 hours on this topic.</p>
+<p>One topic that is not covered in detail is 3rd party monitoring
+system. And we do not have a lab either.</p>
+<p>One suggestion is to demo &quot;Prometheus&quot; and &quot;Grafana&quot;. This topic
+will be enhanced in the future release.</p>
+<h3 id="spring-boot-test">Spring Boot Test</h3>
+<p>It covers end-to-end testing with <code>@SpringBootTest</code> and slice
+testings.<br />
+The focus of the slice testing is on MVC slice
+even though other layers (service layer and repository layer)
+are also covered.
+Spend sometime to explain the classes used for the MVC slice
+testing.</p>
+<p><strong>The Lab</strong></p>
+<p>The focus of the lab is how to perform end-to-end testing
+with <code>@SpringBootTest</code> and <code>TestRestTemplate</code>.<br />
+Let students
+understand that the Tomcat server gets started by the
+testing framework.</p>
+<p>The MVC slice testing might look somewhat complicated
+for the students who are doing the lab for the first time.
+Maybe a quick demo before the lab could ease the pain.</p>
+<h2 id="section-4-finishing-up">Section 4: Finishing Up</h2>
+<p>Two advanced topics are included next but you will probably only have
+time to do one of them.
+The intention is that students pick the one they
+are interested in.
+Neither will be in the Certification exam.</p>
+<p>Both OAuth2 and Reactive Programming are relatively new to many
+developers but are increasingly seen as options for developing
+distributed applications, especially in a Cloud environment.</p>
+<p>Both provide just a taste of a much bigger topic.
+Interested students may like to consider taking a further course:</p>
+<ul>
+<li>
+<p><strong>Security with OAuth2</strong> - Covers basic concept of OAuth2</p>
+</li>
+<li>
+<p><strong>Reactive Programming with Spring</strong> - covers
+reactive programming and the reactive support in Spring Framework
+V5.</p>
+</li>
+</ul>
+<h3 id="option-1-security-with-oauth2">Option 1: Security with OAuth2</h3>
+<p>As more and more organizations are moving to Microservices, OAuth2
+is becoming the defacto security scheme.</p>
+<h3 id="option-2-reactive-programming">Option 2: Reactive Programming</h3>
+<p>Divides into two parts.
+First a brief introduction to the concepts behind reactive programming
+and then an overview of the new reactive additions in Spring Framework 5.</p>
+<p>The lab uses the reactive (non-blocking) REST client, <code>WebClient</code> and
+compares it to <code>RestTemplate</code>. The two points to notice:</p>
+<ol>
+<li>
+<p>The <code>WebClient</code> automatically uses multiple threads to execute it’s
+HTTP requests to a standard MVC Controller.</p>
+</li>
+<li>
+<p>Once a delay is introduced into the controller, the <code>WebClient</code> is
+significantly faster.</p>
+</li>
+</ol>
+<h3 id="completed">Completed</h3>
+<p>This section closes the course.
+It covers certification, other Spring and Pivotal courses, available
+resources/support and the evaluation.
+You should know the evaluation link for your company.</p>
+<p>After the evaluation, a 5-10 minute &quot;Retrospective&quot; is a good way to get
+more detailed feedback from the students as to:</p>
+<ul>
+<li>
+<p>&quot;What they liked&quot;</p>
+</li>
+<li>
+<p>&quot;What was so-so&quot;</p>
+</li>
+<li>
+<p>&quot;What they didn’t like&quot;</p>
+</li>
+</ul>
+<p>Please feedback course errors and improvement suggestions via the
+Instructor’s Forum Google group.</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="./index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#overview">Overview</a>
+
+<ul>
+        <li>
+        <a href="#schedule">Schedule</a>
+
+        </li>
+        <li>
+        <a href="#labs">LABS</a>
+
+        </li>
+        <li>
+        <a href="#day-1-basic-spring-configuration">DAY 1: Basic Spring Configuration</a>
+
+        </li>
+        <li>
+        <a href="#day-2-advanced-topics-testing-data-management-1">Day 2: Advanced Topics, Testing, Data Management-1</a>
+
+        </li>
+        <li>
+        <a href="#day-3-spring-boot-and-web">Day 3: Spring Boot and WEB</a>
+
+        </li>
+        <li>
+        <a href="#day-4-final-topics">Day 4: Final Topics</a>
+
+        </li>
+        <li>
+        <a href="#optional-material">Optional Material</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#topic-details">Topic Details</a>
+
+<ul>
+        <li>
+        <a href="#section-1-the-container">Section 1: The Container</a>
+
+<ul>
+        <li>
+        <a href="#spring-intro">Spring-Intro</a>
+
+        </li>
+        <li>
+        <a href="#java-configuration">Java Configuration</a>
+
+        </li>
+        <li>
+        <a href="#more-on-configuration">More on Configuration</a>
+
+        </li>
+        <li>
+        <a href="#annotations">Annotations</a>
+
+        </li>
+        <li>
+        <a href="#factory-beans">Factory Beans</a>
+
+        </li>
+        <li>
+        <a href="#inside-the-spring-container">Inside the Spring Container</a>
+
+        </li>
+        <li>
+        <a href="#testing-spring-apps">Testing Spring Apps</a>
+
+        </li>
+        <li>
+        <a href="#aop">AOP</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#section-2-data-management">Section 2: Data Management</a>
+
+<ul>
+        <li>
+        <a href="#data-management">Data Management</a>
+
+        </li>
+        <li>
+        <a href="#jdbc">JDBC</a>
+
+        </li>
+        <li>
+        <a href="#transactions">Transactions</a>
+
+        </li>
+        <li>
+        <a href="#spring-essentias-review">Spring Essentias Review</a>
+
+        </li>
+        <li>
+        <a href="#spring-boot-introduction">Spring Boot Introduction</a>
+
+        </li>
+        <li>
+        <a href="#spring-boot---a-closer-look">Spring Boot - A Closer Look</a>
+
+        </li>
+        <li>
+        <a href="#spring-data-jpa">Spring Data JPA</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#section-3-web-applications">Section 3: Web Applications</a>
+
+<ul>
+        <li>
+        <a href="#note-on-timings">Note on Timings</a>
+
+        </li>
+        <li>
+        <a href="#spring-mvc">Spring MVC</a>
+
+        </li>
+        <li>
+        <a href="#rest-web-services">Rest Web Services</a>
+
+        </li>
+        <li>
+        <a href="#security">Security</a>
+
+        </li>
+        <li>
+        <a href="#spring-boot-actuator">Spring Boot Actuator</a>
+
+        </li>
+        <li>
+        <a href="#spring-boot-test">Spring Boot Test</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#section-4-finishing-up">Section 4: Finishing Up</a>
+
+<ul>
+        <li>
+        <a href="#option-1-security-with-oauth2">Option 1: Security with OAuth2</a>
+
+        </li>
+        <li>
+        <a href="#option-2-reactive-programming">Option 2: Reactive Programming</a>
+
+        </li>
+        <li>
+        <a href="#completed">Completed</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Core Spring Instructor’s Guide</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Core Spring Instructor’s Guide</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="./audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="./js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="./js/assignmentSubmission.js"></script>
+<script src="./js/shipkin.js"></script>
+<script src="./js/slides.js"></script>
+
+</body>
+</html>
+

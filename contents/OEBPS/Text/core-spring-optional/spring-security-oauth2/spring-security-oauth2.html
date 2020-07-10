@@ -1,0 +1,631 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.503Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Securing Web Applications with Spring Security</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Securing Web Applications with Spring Security</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab, you will gain experience with using Spring Security to
+secure the REST Account Server using OAuth2.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>What you will learn:</p>
+<ol>
+<li>How to integrate OAuth2 into your application</li>
+</ol>
+<p>Specific subjects you will gain experience with:</p>
+<ol>
+<li>Writing an OAuth2 Authorization Server and Resource Server</li>
+<li><code>OAuth2RestTemplate</code></li>
+</ol>
+<p>You will be using the <em>61-security-oauth2</em> project, which you have
+used in the previous lab.</p>
+<p>Estimated time to complete:
+25 minutes.</p>
+<h1 id="use-case">Use Case</h1>
+<p>There are 2 parts to this lab:</p>
+<ul>
+<li>Convert the Authorization Server into an OAuth2 Authorization
+Server and configure it.</li>
+<li>Convert the Account Server into an OAuth2 Resource Server</li>
+</ul>
+<p><img src="images/test-system.png" alt="Test system" class="figure" /></p>
+<ul>
+<li>Unusually the OAuth2 client is our JUnit test.</li>
+</ul>
+<p>As this project contains 2 executables, they cannot both use
+<code>application.properties</code>, so we set <code>spring.config.name</code> for each
+of them to define a different property file to use:</p>
+<ul>
+<li><code>AuthorizationServer</code> uses <code>auth-server.properties</code></li>
+<li><code>SecureRestAccountsApplication</code> uses <code>account-server.properties</code></li>
+</ul>
+<h1 id="quick-instructions">Quick Instructions</h1>
+<p>If you are already knowledgeable with the lesson concepts, you may
+consider jumping right to the code, and execute the lab by following the
+embedded TODO comments (tasks).
+Instructions on how to view them are
+<a href="/appendix/appendix-tasks.html" rel="noreferrer noopener">here</a>.</p>
+<p>If you aren’t sure, try the TODO instructions first and refer to the
+lab instructions by TODO number (below) if you need more help.</p>
+<h1 id="instructions">Instructions</h1>
+<h2 id="create-an-oauth2-authorization-server">Create an OAuth2 Authorization Server</h2>
+<p>The Authorization Server is intended to be used for OAuth2
+authorization.
+That is the goal of this section.</p>
+<p><strong>TODO-01</strong> : Annotate <code>AuthorizationServer</code></p>
+<ul>
+<li>Annotate the AuthorizationServer class to make it work as an
+OAuth2 authorization server.</li>
+</ul>
+<p><strong>TODO-02</strong> : Enable <code>AuthorizationServerConfigurer</code> Bean</p>
+<ul>
+<li>An <code>AuthorizationServerConfigurer</code> has already been partly defined
+for you in the <code>AuthorizationServer</code> class.
+However it is not being used as a bean yet.</li>
+<li>Uncomment its <code>@Bean</code> annotation so Spring will create one.</li>
+</ul>
+<p><strong>TODO-03</strong> : Specify Valid Token Access</p>
+<ul>
+<li>
+<p>Use the <code>configure(AuthorizationServerSecurityConfigurer security)</code>
+method to specify that any process using the authorization server
+to fetch or validate tokens must have &quot;Trusted-Client&quot; role.</p>
+</li>
+<li>
+<p>Suggestions:</p>
+<ul>
+<li>You need to use <code>hasAuthority(...)</code></li>
+<li>The <code>ROLE_TRUSTED_CLIENT</code> constant may be useful here.</li>
+<li>Refer to the slides for an example.</li>
+</ul>
+</li>
+</ul>
+<p><strong>TODO-04</strong> : Register Resource server and Client to the authorization server</p>
+<ul>
+<li>
+<p>There are two actors that need to talk the authrization server:
+The Resource server (actually our account server) and the Client
+(which is actually our JUnit tests in <code>AccountClientTests</code>).</p>
+</li>
+<li>
+<p>Their credentials are:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td><code>Constants.ACCOUNT_SERVER</code></td>
+</tr>
+<tr>
+<td>Password</td>
+<td>encoded <em>&quot;secret&quot;</em></td>
+</tr>
+<tr>
+<td>Grant</td>
+<td><code>CLIENT_CREDENTIALS</code></td>
+</tr>
+<tr>
+<td>Authority</td>
+<td><code>ROLE_TRUSTED_CLIENT</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>User</td>
+<td><code>Constants.ACCOUNT_TESTER_CLIENT</code></td>
+</tr>
+<tr>
+<td>Password</td>
+<td>encoded <em>&quot;secret&quot;</em></td>
+</tr>
+<tr>
+<td>Grant</td>
+<td><code>CLIENT_CREDENTIALS</code></td>
+</tr>
+<tr>
+<td>Scopes</td>
+<td><code>ACCOUNT_READ</code>, <code>ACCOUNT_WRITE</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Refer to the slides for an example.</p>
+</li>
+<li>
+<p>Start the AuthorizationServer</p>
+</li>
+</ul>
+<p><strong>TODO-05</strong> : Test the code by getting a Token manually</p>
+<ul>
+<li>
+<p>Open <code>AuthorizationServerTests</code>. Review the method
+<code>getToken()</code> - this simulates what a Client does to get
+an OAuth2 token.  The comments describe the HTTP request
+to send.</p>
+</li>
+<li>
+<p>Remove <code>@Disabled</code> from the <code>canGetToken()</code> method and run
+the test. It should work if your configuration is correct.</p>
+<ul>
+<li>If not, edit <code>auth-server.properties</code> and uncomment the
+logging.level properties to enable <code>DEBUG</code> logging for both
+Spring Security and Boot.</li>
+<li>Rerun the test and see if the log output helps you fix
+the server.</li>
+<li>Change <code>DEBUG</code> to <code>INFO</code> once it works.</li>
+</ul>
+</li>
+</ul>
+<p><strong>TODO-06</strong> : Check a Token manually</p>
+<ul>
+<li>
+<p>Still in <code>AuthorizationServerTests</code>, review the method
+<code>checkToken()</code> - this simulates what a resource server does to
+validate an OAuth2 token.  The comments describe the HTTP request
+to send.</p>
+</li>
+<li>
+<p>Remove <code>@Disabled</code> from the <code>canUseToken()</code> method and run
+the test. It should work.</p>
+</li>
+</ul>
+<p><strong>TODO-07</strong> : Check URLs used on the <code>AuthorizationServer</code></p>
+<ul>
+<li>
+<p>Access
+<a href="http://localhost:1111/admin/httptrace" rel="noreferrer noopener">http://localhost:1111/admin/httptrace</a> and
+search for &quot;/oauth&quot; string.</p>
+</li>
+<li>
+<p>Note the URLs invoked to check and fetch tokens.</p>
+</li>
+</ul>
+<h2 id="make-the-account-server-an-oauth2-resource-server">Make the Account Server an OAuth2 Resource Server</h2>
+<p>Finally we need to make the Account Server a Resource Server so
+we can secure access to its REST URLs using OAuth2.</p>
+<p><strong>TODO-08</strong> : Annotate Account Server Application.</p>
+<ul>
+<li>
+<p>Run <code>SecureRestAccountsApplication</code>.</p>
+</li>
+<li>
+<p>If you try and access
+<a href="http://localhost:8080" rel="noreferrer noopener">http://localhost:8080</a>, you will be
+forced to login with a username and password because Spring Boot
+has set up default security.
+<em>You do not need to login</em>.</p>
+</li>
+<li>
+<p>Manual login is not useful for a REST server.
+Instead we will use OAuth2.</p>
+</li>
+<li>
+<p>Add the necessary annotation to <code>SecureRestAccountsApplication</code>.</p>
+</li>
+</ul>
+<p><strong>TODO-09</strong> : Configure access control</p>
+<p>A <code>ResourceServerConfigurer</code> configuration bean has been created
+for you.</p>
+<ul>
+<li>
+<p><strong>TODO-09a</strong> : Review the code.
+The <code>configure(HttpSecurity http)</code> sets out the access restrictions
+for URLs</p>
+<ul>
+<li>Access to <code>GET</code> requests requires <code>account.read</code> scope.</li>
+<li>Access to <code>POST</code> requests requires <code>account.write</code> scope.</li>
+</ul>
+</li>
+<li>
+<p><strong>TODO-09b</strong> : If you got the configuration in the
+<code>AuthorizationServerConfigurer</code> in <code>AuthorizationServer.java</code>
+correct, you gave the <code>ACCOUNT_TESTER_CLIENT</code> the scopes
+<code>ACCOUNT_READ</code> (&quot;<em>account.read</em>&quot;) and <code>ACCOUNT_WRITE</code>
+(&quot;<em>account.write</em>&quot;).
+These constants are defined at the top of the class.</p>
+</li>
+<li>
+<p><strong>TODO-09c</strong> : Return to <code>SecureRestAccountsApplication.java</code>
+and enable the <code>ResourceServerConfigurer</code> bean by uncommenting
+the <code>@Bean</code> annotation.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> A <em>scope</em> is another type of &quot;Authority&quot;. (Roles are the
+most familiar type of Authority).  Authority names are whatever you
+want them to be. There are <em>no</em> predefined Authority names in Spring
+Security.</p>
+</blockquote>
+<p><strong>TODO-10</strong> : Check the account-server is restricted</p>
+<ul>
+<li>
+<p>Run <code>SecureRestAccountsApplication</code> as a Spring Boot application.</p>
+</li>
+<li>
+<p>If you try and access
+<a href="http://localhost:8080" rel="noreferrer noopener">http://localhost:8080</a>
+you should now get an &quot;authentication is required&quot; or &quot;access
+denied&quot; response, depending on your browser.</p>
+</li>
+</ul>
+<p><strong>TODO-11</strong> : Access Resource Server using OAuth2 to validate</p>
+<ul>
+<li>
+<p>Return to the <code>AuthorizationServerTests</code> and find
+<code>getAccountUsingToken</code>.  This sends an authorized request for
+data using an access token from the authorization server.</p>
+</li>
+<li>
+<p>Find <code>canGetAccountUsingToken()</code> and remove <code>@Disabled</code>.
+Run the test, it should pass.</p>
+</li>
+</ul>
+<p><strong>TODO-12</strong> : Review Resource server OAuth 2 configuration</p>
+<ul>
+<li>Open <code>account-server.properties</code> file and review the
+<code>security.oauth2.client.*</code> properties.</li>
+</ul>
+<h2 id="run-client">Run client</h2>
+<p>The <code>AccountClientTests</code> we used in the REST lab are the OAuth2
+Client in this scenario.</p>
+<p><strong>TODO-13</strong> : Configure the Client</p>
+<ul>
+<li>Open <code>client-oauth2.properties</code> file and review the
+<code>security.oauth2.client.*</code> properties.  These allow the
+Client to authenticate with the Authentication Server and get the
+access token needed to access the account-server.</li>
+</ul>
+<p><strong>TODO-14</strong> : Run the <code>AccountClientTests</code>. They should all pass.</p>
+<h1 id="summary">Summary</h1>
+<p>In this lab, we implemented OAuth2 authorization by setting up an OAuth2
+Authorization Server and made the Account Server an OAuth2
+Resource Server.</p>
+<p>We ran the OAuth2 &quot;dance&quot; manually using a standard <code>RestTemplate</code>
+and then accessed the secured Account Service transparently using
+Spring Security's <code>OAuth2RestTemplate</code>.</p>
+<p>Congratulations, you are done with the lab!</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use Case</a>
+
+        </li>
+        <li>
+        <a href="#quick-instructions">Quick Instructions</a>
+
+        </li>
+        <li>
+        <a href="#instructions">Instructions</a>
+
+<ul>
+        <li>
+        <a href="#create-an-oauth2-authorization-server">Create an OAuth2 Authorization Server</a>
+
+        </li>
+        <li>
+        <a href="#make-the-account-server-an-oauth2-resource-server">Make the Account Server an OAuth2 Resource Server</a>
+
+        </li>
+        <li>
+        <a href="#run-client">Run client</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Securing Web Applications with Spring Security</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Securing Web Applications with Spring Security</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

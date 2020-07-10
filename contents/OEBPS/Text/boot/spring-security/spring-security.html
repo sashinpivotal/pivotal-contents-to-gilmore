@@ -1,0 +1,655 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.477Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Securing REST Application with Spring Security</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Securing REST Application with Spring Security</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab you will gain experience with using Spring
+Security to secure the REST application through
+authentication and authorization.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>What you will learn:</p>
+<ol>
+<li>
+<p>How to implement authentication</p>
+</li>
+<li>
+<p>How to restrict access to URLs and/or HTTP methods</p>
+</li>
+<li>
+<p>How to test secured application</p>
+</li>
+</ol>
+<p>Specific subjects you will gain experience with:</p>
+<ol>
+<li>Spring Security and the <code>WebSecurityConfigurerAdapter</code></li>
+</ol>
+<p>You will be using the <em>42-security-rest</em> project.</p>
+<p>Estimated time to complete:
+45 minutes.</p>
+<h1 id="use-case">Use Case</h1>
+<ul>
+<li>Implement authentication and authorization against REST application</li>
+</ul>
+<h1 id="quick-instructions">Quick Instructions</h1>
+<p>If you are already knowledgeable with the lesson concepts, you may
+consider jumping right to the code, and execute the lab by following the
+embedded TODO comments (tasks).
+Instructions on how to view them are
+<a href="/appendix/appendix-tasks.html" rel="noreferrer noopener">here</a>.</p>
+<p>If you aren’t sure, try the TODO instructions first and refer to the
+lab instructions by TODO number (below) if you need more help.</p>
+<h1 id="instructions">Instructions</h1>
+<p>The <code>RestWsApplication</code> you built in the previous lab is not secured.
+You are going to secure it through authentication and authorization.</p>
+<h2 id="explore-default-behaviour-of-spring-boot-security">Explore default behaviour of Spring Boot Security</h2>
+<p><strong>TODO-01</strong> : Verify the presence of Spring security dependencies</p>
+<p>When Spring Boot sees <code>spring-boot-starter-security</code> on the classpath, it
+will set up default authentication and authorization - it will set up
+a single user and all endpoints are secured.</p>
+<p>The <code>spring-security-test</code> dependency provides testing support.</p>
+<p><strong>TODO-02a</strong> : Observe the default security behaviour of the Spring
+Boot application using a browser</p>
+<p>Spring Boot application relies on Spring Security’s content-negotiation
+strategy to determine whether to use Basic authentication
+or Form-based authentication.</p>
+<p>When you are using a browser, Spring Boot application will use
+Form-based authentication.</p>
+<ul>
+<li>
+<p>Using Chrome Incognito browser, access
+<a href="http://localhost:8080/accounts" rel="noreferrer noopener">http://localhost:8080/accounts</a>
+and observe that a login page gets displayed</p>
+</li>
+<li>
+<p>Enter <code>user</code> in the <code>Username</code> field and Spring Boot generated
+password into the <code>Password</code> field and verify that the accounts
+get displayed
+(If the browser keeps displaying the login page, make sure
+to use Chrome Incognito browser.)</p>
+<p><img src="images/pwd-on-console.png" alt="Password output to stdout" class="figure" /></p>
+<p><strong>Figure 1: Password output to stdout</strong></p>
+</li>
+<li>
+<p>Access <a href="http://localhost:8080/logout" rel="noreferrer noopener">http://localhost:8080/logout</a>
+and click <code>Log out</code> button</p>
+</li>
+</ul>
+<p><strong>TODO-02b</strong> : Observe the default security behaviour of the Spring
+Boot application using <code>curl</code> command</p>
+<p>When you are sending a REST request using <code>curl</code> command, Spring Boot
+application will use Basic authentication.</p>
+<p>When you are sending a REST request without valid username/password
+pair, the application will
+respond with <code>401 Unauthorized</code>.</p>
+<ul>
+<li>Open a terminal window</li>
+<li>Run &quot;curl -i localhost:8080/accounts&quot; and observe 401 Unauthorized response</li>
+<li>Run &quot;curl -i -u user:&lt;Spring-Boot-Generated-Password&gt; localhost:8080/accounts&quot;
+and observe a successful response</li>
+</ul>
+<h2 id="enable-web-security">Enable Web Security</h2>
+<p>Spring Boot's default setup is deliberately minimal.
+It is not intended for production.
+Instead you should configure you own security rules using a
+class that extends <code>WebSecurityConfigurerAdapter</code> class.</p>
+<p><strong>TODO-03</strong> : Import security configuration class</p>
+<p>The <code>SecurityConfig</code> class, which is located under <code>config</code> package,
+needs to be explicitly imported since
+it will not be found through component-scanning from the
+<code>accounts</code> package.</p>
+<h2 id="configure-authentication-and-authorization">Configure authentication and authorization</h2>
+<p>Since Web security is enabled, we are ready to configure
+authentication and authorization.</p>
+<p><strong>TODO-04</strong> : Configure authorization</p>
+<p>The most common form of authorization (access control) is
+through the usage of roles.</p>
+<p>You are going define 3 roles - <code>USER</code>, <code>ADMIN</code>, and <code>SUPERADMIN</code>
+with the following access control rules:</p>
+<ul>
+<li>Allow DELETE on the /accounts resource (or any sub-resource)
+for &quot;SUPERADMIN&quot; role only</li>
+<li>Allow POST or PUT on the /accounts resource
+(or any sub-resource) for &quot;ADMIN&quot; or &quot;SUPERADMIN&quot; role only</li>
+<li>Allow GET on the /accounts resource (or any sub-resource)
+for all roles - &quot;USER&quot;, &quot;ADMIN&quot;, &quot;SUPERADMIN&quot;</li>
+</ul>
+<p><strong>TODO-05</strong> : Configure authentication</p>
+<p>Here you are going to set up in-memory <code>UserDetailsService</code> and
+define three users with corresponding set of roles assigned.</p>
+<ul>
+<li><code>user</code>/<code>user</code> with <code>USER</code> role</li>
+<li><code>admin</code>/<code>admin</code> with <code>USER</code> and <code>ADMIN</code> roles</li>
+<li><code>superadmin</code>/<code>superadmin</code> with <code>USER</code>, <code>ADMIN</code>, and <code>SUPERADMIN</code></li>
+</ul>
+<p><strong>TODO-06a</strong> : Perform security testing against MVC layer</p>
+<p>Now You are going to test if the security configuration works
+against MVC layer using <code>@WebMvcTest</code> and <code>@WithMockUser</code>
+annotations.</p>
+<p>The tests covers the following scenarios:</p>
+<ul>
+<li>Using an invalid user credential to perform any operation
+should result in <code>401 Unauthorized</code> response</li>
+<li>Using <code>USER</code> role, you can only perform read operation</li>
+<li>Using <code>ADMIN</code> role, you can perform create/update operation</li>
+<li>Using <code>SUPERADMIN</code> role, you can perform delete operation</li>
+</ul>
+<p>Most tests already provided.<br />
+Make sure you understand what each test is meant to verify.</p>
+<p><strong>TODO-06b</strong>: Write a test that verifies that a user with <code>USER</code> role
+is not permitted to perform create operation</p>
+<p>This is an opportunity for you to write a  simple security test code.</p>
+<p><strong>TODO-07a</strong>: Perform security testing against a running server</p>
+<p>Now You are going to test if the security configuration works
+using end-to-end testing against the applcation running over
+the embedded server.</p>
+<p>The tests cover the similar set of scenarios mentioned above.</p>
+<p><strong>TODO-07b</strong>: Write a test that verifies that <code>user</code>/<code>user</code>
+is not permitted to create a new <code>Account</code></p>
+<h2 id="retrieve-authorities-roles-for-the-logged-in-user">Retrieve authorities (roles) for the logged-in user</h2>
+<p>Once authentication is successful, security context is being
+maintained in the <code>ThreadLocal</code> during the processing of a request.</p>
+<p>This allows any method in the call stack in the same thread of execution
+can access the security context even if the security context is not explicitly passed around as an argument to those methods.</p>
+<p>Using a ThreadLocal in this way is quite safe if care is taken to clear the thread after the present principal’s request is processed.
+Of course, Spring Security takes care of this for you automatically so there is no need to worry about it.</p>
+<p>You are going to access the security context via
+<code>SecurityContextHolder</code> class.</p>
+<p><strong>TODO-08</strong>: Retrieve authorities (roles) for the logged-in user</p>
+<p>Use <code>SecurityContextHolder</code> class to get Security context,
+which in turn can be used to get <code>Authentication</code> object,
+which is then used to get authorties.</p>
+<p>An example code might look like following:</p>
+<pre><code>Collection&lt;? extends GrantedAuthority&gt; grantedAuthorities
+        = SecurityContextHolder.getContext()
+                               .getAuthentication()
+                               .getAuthorities();
+</code></pre>
+<h2 id="implement-method-security">Implement method security</h2>
+<p><strong>TODO-09</strong>: Add method security annotation to a method</p>
+<p>Here you are going to use method security so that
+the method will be invoked only when both of the following
+conditions are met:</p>
+<ul>
+<li>The logged-in user belongs to <code>ADMIN</code> role</li>
+<li>The value of the <code>username</code> request parameter
+of the request URL matches the value of the principal's
+username.<br />
+This condition can be specified using SpEL
+(Spring Expression language).</li>
+</ul>
+<p>An example could be either</p>
+<pre><code>@PreAuthorize(&quot;hasRole('ADMIN')   &amp;&amp; &quot; +
+               &quot;#username == principal.username&quot;)
+</code></pre>
+<p>or</p>
+<pre><code>@PreAuthorize(&quot;hasRole('ADMIN')   &amp;&amp; &quot; +
+               &quot;#username == authentication.name&quot;)
+</code></pre>
+<p><strong>TODO-10</strong>: Enable global method security</p>
+<p>The method security needs to be abled via
+<code>@EnableGlobalMethodSecurity</code> annotation.
+The <code>prePostEnabled</code> attribute needs to be
+set to <code>true</code> in order to use <code>@PreAuthorize</code>
+annotation.</p>
+<p>An example code is as following:</p>
+<pre><code>@EnableGlobalMethodSecurity(prePostEnabled = true)
+</code></pre>
+<p><strong>TODO-11</strong>: Test the method security using a browser or <code>curl</code></p>
+<p>Now let's see if the method security works against a running application.</p>
+<ul>
+<li>
+<p>Re-run this application</p>
+</li>
+<li>
+<p>Use <code>user</code>/<code>user</code> credential to access the method,
+and verify the application returns <code>403 Forbidden</code> response
+since <code>user</code>/<code>user</code> does belong to neither <code>ADMIN</code> nor
+<code>SUPERADMIN</code> role.</p>
+<pre><code>curl -i -u user:user http://localhost:8080/authorities?username=user
+</code></pre>
+</li>
+<li>
+<p>Use <code>admin</code>/<code>admin</code> and verify that the roles are displayed successfully</p>
+<pre><code>curl -i -u admin:admin http://localhost:8080/authorities?username=admin
+</code></pre>
+</li>
+<li>
+<p>Use <code>superadmin</code>/<code>superadmin</code> and verify that the roles are displayed successfully</p>
+<pre><code>curl -i -u superadmin:superadmin http://localhost:8080/authorities?username=superadmin
+</code></pre>
+</li>
+</ul>
+<p><strong>TODO-12a</strong>: Perform method security testing</p>
+<p>The <code>AccountServiceMethodSecurityTest</code> class contains tests
+that you are going to use for performing method security testing.</p>
+<p><strong>TODO-12b</strong>: Write a test that verifies that getting authorities
+using <code>http://localhost:8080/authorities?username=superadmin</code> with
+<code>superadmin</code>/<code>superadmin</code> credential should return
+three roles <code>ROLE_SUPERADMIN</code>, <code>ROLE_ADMIN</code>, and
+<code>ROLE_USER</code>.</p>
+<p>This is an opportunity for you to write a test code.</p>
+<h2 id="create-custom-userdetailsservice-optional">Create custom UserDetailsService (Optional)</h2>
+<p>Do the remaining steps only if you have extra time.</p>
+<p><strong>TODO-13</strong>: Create custom <code>UserDetailsService</code></p>
+<p>Note that it needs to implement <code>loadUserByUsername</code> method
+of the <code>UserDetailsService</code> interface.</p>
+<p>The custom <code>UserDetailsService</code> maintains <code>UserDetails</code>
+of two users:</p>
+<ul>
+<li><code>mary</code>/<code>mary</code> with <code>USER</code> role and</li>
+<li><code>joe</code>/<code>joe</code> with <code>USER</code> and <code>ADMIN</code> role</li>
+</ul>
+<p>Typically you would use some kind of persistence
+storage for maintaining user data but in this lab, for the sake
+of simplicity, you are going to just return
+hard-coded <code>UserDetails</code> object given a username.</p>
+<p><strong>TODO-14</strong>: Add authentication based upon the custom <code>UserDetailsService</code></p>
+<p>Now you are going to add authentication based upon the
+custom UserDetailsService using <code>AuthenticationManagerBuilder</code>
+object.</p>
+<pre><code>auth.userDetailsService(new CustomUserDetailsService(passwordEncoder));
+</code></pre>
+<p>So now there are 5 users configured - <code>user</code>/<code>user</code>, <code>admin</code>/<code>admin</code>,
+<code>superadmin</code>/<code>superadmin</code>, <code>mary</code>/<code>mary</code>, and <code>joe</code>/<code>joe</code>.</p>
+<p><strong>TODO-15</strong>: Verify that the newly added custom <code>UserDetailsService</code>
+works</p>
+<p>Since the custom <code>UserDetailsService</code> maintains
+<code>UserDetails</code> on two users,
+<code>mary</code>/<code>mary</code> and <code>joe</code>/<code>joe</code>, you can now verify that
+you can access a secured resource using the identity of
+one of these two users.</p>
+<pre><code>curl -i -u mary:mary http://localhost:8080/accounts/0
+</code></pre>
+<pre><code>curl -i -u joe:joe http://localhost:8080/accounts/0
+</code></pre>
+<p><strong>TODO-16</strong>: Perform security testing for the two users added
+through custom <code>UserDetailsService</code></p>
+<h2 id="create-custom-authenticationprovider-optional">Create custom AuthenticationProvider (Optional)</h2>
+<p><strong>TODO-17</strong>: Create custom <code>AuthenticationProvider</code></p>
+<p>Note that it needs to implement <code>AuthenticationProvider</code> interface.</p>
+<p>Typically you will use a custom authentcation system
+for the verification of the passed identity.</p>
+<p>In this lab, we are just faking it so that it handles
+a user with the following identity.</p>
+<ul>
+<li><code>spring</code>/<code>spring</code> with <code>ROLE_ADMIN</code> role</li>
+</ul>
+<p><strong>TODO-18</strong>: Add authentication based upon the custom <code>AuthenticationProvider</code></p>
+<p>Now you are going to add authentication based upon the
+custom <code>AuthenticationProvider</code> using <code>AuthenticationManagerBuilder</code>
+object.</p>
+<pre><code>auth.authenticationProvider(new CustomAuthenticationProvider());
+</code></pre>
+<p>So now there are 6 users configured - <code>user</code>/<code>user</code>, <code>admin</code>/<code>admin</code>,
+<code>superadmin</code>/<code>superadmin</code>, <code>mary</code>/<code>mary</code>, <code>joe</code>/<code>joe</code>, and <code>spring</code>/<code>spring</code>.</p>
+<p><strong>TODO-19</strong>: Verify that the newly added custom <code>AuthenticationProvider</code> works</p>
+<p>Since the custom <code>AuthenticationProvider</code> can validate
+the identity of
+<code>spring</code>/<code>spring</code>, you can now verify that
+you can access a secured resource using it.</p>
+<pre><code>curl -i -u spring:spring http://localhost:8080/accounts/0
+</code></pre>
+<p><strong>TODO-20</strong>: Perform security testing for the user added
+through custom <code>AuthenticationProvider</code></p>
+<h1 id="summary">Summary</h1>
+<p>In this lab, we secured Spring REST application with
+authentication and auhtorization.</p>
+<p>We also secured a service-layer method using method security.</p>
+<p>Finally we configured custom <code>UserDetailsService</code> and
+<code>AuthenticationProvider</code>.</p>
+<p>Congratulations, you are done with the lab!</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use Case</a>
+
+        </li>
+        <li>
+        <a href="#quick-instructions">Quick Instructions</a>
+
+        </li>
+        <li>
+        <a href="#instructions">Instructions</a>
+
+<ul>
+        <li>
+        <a href="#explore-default-behaviour-of-spring-boot-security">Explore default behaviour of Spring Boot Security</a>
+
+        </li>
+        <li>
+        <a href="#enable-web-security">Enable Web Security</a>
+
+        </li>
+        <li>
+        <a href="#configure-authentication-and-authorization">Configure authentication and authorization</a>
+
+        </li>
+        <li>
+        <a href="#retrieve-authorities-roles-for-the-logged-in-user">Retrieve authorities (roles) for the logged-in user</a>
+
+        </li>
+        <li>
+        <a href="#implement-method-security">Implement method security</a>
+
+        </li>
+        <li>
+        <a href="#create-custom-userdetailsservice-optional">Create custom UserDetailsService (Optional)</a>
+
+        </li>
+        <li>
+        <a href="#create-custom-authenticationprovider-optional">Create custom AuthenticationProvider (Optional)</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Securing REST Application with Spring Security</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Securing REST Application with Spring Security</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

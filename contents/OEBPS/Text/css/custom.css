@@ -1,0 +1,93 @@
+header {
+    background-color: #34302d;
+    border-top: 4px solid #6db33f;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+header .container {
+    width: 76rem;
+    padding: 1rem;
+}
+
+header p {
+    color: white;
+    font-size: 13px;
+}
+
+#spring-logo {
+    display: block;
+    width: 224px;
+    height: 46px;
+    margin-bottom: 1rem;
+}
+
+#spring-logo span {
+    display: block;
+    width: 224px;
+    height: 46px;
+    opacity: 0;
+    -moz-transition: opacity .12s ease-in-out;
+    -webkit-transition: opacity .12s ease-in-out;
+    -o-transition: opacity .12s ease-in-out;
+}
+
+#spring-logo:hover span {
+    opacity: 1;
+}
+
+#sidebar {
+    border: 1px solid #ccc;
+    box-shadow: 0 -4px 0 #34302d;
+    border-radius: 0;
+}
+
+.container.title {
+    padding-top: 1rem;
+    padding-bottom: 0;
+}
+
+
+.container.title h1 {
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.container.title:before {
+    content: 'instructions';
+    text-transform: uppercase;
+    padding-top: .3rem;
+    font-size: .8rem;
+
+    border-top: 3px solid #5fa134;
+}
+
+/* Remove the ugly quotes */
+blockquote::before {
+    content: none;
+}
+
+/* Highlight and center any paragraph containing only bold text - used for Figure titles */
+p > img + p > strong:only-child {
+    margin: auto;
+    display: block;
+    width: 77%;
+    /*text-align: center;*/
+    color: #2E3092;
+}
+
+/* Highlight any bold text at start of a blockquote such as NOTE or WARNING */
+blockquote > p > strong:first-child {
+    color: #007CA2;
+}
+
+/* Centre images */
+img {
+    min-width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

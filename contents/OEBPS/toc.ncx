@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
+   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="urn:uuid:2ae04a9f-8f17-41d3-b479-c1fb21949101" />
+    <meta name="dtb:depth" content="0" />
+    <meta name="dtb:totalPageCount" content="0" />
+    <meta name="dtb:maxPageNumber" content="0" />
+  </head>
+<docTitle>
+  <text>Unknown</text>
+</docTitle>
+<navMap>
+<navPoint id="navPoint-1" playOrder="1">
+  <navLabel>
+    <text>Landing Page</text>
+  </navLabel>
+  <content src="Text/index.html" />
+</navPoint>
+<navPoint id="navPoint-2" playOrder="2">
+  <navLabel>
+    <text>Lab Setup</text>
+  </navLabel>
+  <content src="Text/course-intro/setup/setup.html" />
+</navPoint>
+
+</navMap></ncx>

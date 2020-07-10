@@ -1,0 +1,589 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.562Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Integration Testing</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Integration Testing</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>In this lab you will refactor the <code>RewardNetworkTests</code> using Spring’s
+system test support library to simplify and improve the performance of
+your testing system.
+You will then use Spring profiles to define multiple tests using
+different implementations of the <code>AccountRepository</code>,
+<code>RestaurantRepository</code> and <code>RewardRepository</code> for different
+environments.</p>
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p>What you will learn:</p>
+<ol>
+<li>The recommended way of system testing an application configured by
+Spring</li>
+<li>How to write multiple test scenarios</li>
+</ol>
+<p>Specific subjects you will gain experience with:</p>
+<ol>
+<li>JUnit 5</li>
+<li>Spring’s TestContext framework</li>
+<li>Spring Profiles</li>
+</ol>
+<p>You will be using the <em>24-test</em> project.</p>
+<p>Estimated time to complete:
+30 minutes.</p>
+<h1 id="use-case">Use case</h1>
+<p>In the previous lab, you have written test code in which test target
+object (<code>RewardNetwork</code> object) gets recreated each time test method
+gets invoked.
+This results in inefficient and slow testing performance.
+In this lab, you are going to use Spring's TestContext framework to
+address that.</p>
+<p>There is also a need to provide different testing configuration data
+depending on environments.
+You will leverage Spring's profiles for that purpose.</p>
+<h1 id="quick-start-instructions">Quick-start instructions</h1>
+<p>If you are already knowledgeable with the lesson concepts, you may
+consider jumping right to the code, and execute the lab in form of
+embedded TODO comments.
+Instructions on how to view them are
+<a href="../../appendix/appendix-tasks.html" rel="noreferrer noopener">here</a>.</p>
+<p>If you aren’t sure, try the TODO instructions first and refer to the
+lab instructions by TODO number if you need more help.</p>
+<h1 id="instructions">Instructions</h1>
+<h2 id="refactor-to-use-springs-testcontext-framework">Refactor to use Spring’s TestContext framework</h2>
+<p>In <code>rewards.RewardNetworkTests</code> we setup our test-environment using
+Spring in the <code>@BeforeEach</code> setUp method.
+Instead we are going to use Spring’s test-extension.</p>
+<p><strong>TODO-01</strong>: Use Spring TestContext framework</p>
+<ul>
+<li>
+<p>Remove <code>setUp()</code> and <code>tearDown()</code> methods
+in the <code>rewards/RewardNetworkTests</code> class</p>
+</li>
+<li>
+<p>Annotate the class with
+<code>@SpringJUnitConfig(classes=TestInfrastructureConfig.class)</code>,
+which is a composite annotation of <code>@ExtendWith(SpringExtension.class)</code>
+and <code>@ContextConfiguration(classes=TestInfrastructureConfig.class)</code></p>
+<p>Spring’s TestContext framework offers full support for JUnit 5 via
+the <code>SpringExtension</code> class.</p>
+</li>
+<li>
+<p>Remove the attribute 'context' which is not needed anymore</p>
+</li>
+<li>
+<p>Run the test.
+You will get a red bar because the <code>rewardNetwork</code> field is null.</p>
+</li>
+<li>
+<p>Use <code>@Autowired</code> to populate the <code>rewardNetwork</code> bean.</p>
+<p>When you run your test, the test runner’s setup logic will use
+<em>auto-wiring</em> on your test class to set values from the
+ApplicationContext.
+This means the <code>rewardNetwork</code> field will be assigned to the
+<code>RewardNetwork</code> bean from the context automatically.</p>
+</li>
+<li>
+<p>Re-run your test and verify the test succeeds.</p>
+<p>When you have successful test, you’ve successfully reconfigured the
+rewards integration test, and at the same time simplified your
+system test by leveraging Spring’s test support.</p>
+<p>In addition, the performance of your system test has potentially
+improved as the <code>ApplicationContext</code> is now created once per test
+case run (and cached) instead of once per test method.
+This test has only one method so it doesn’t make any difference
+here, however.</p>
+</li>
+</ul>
+<h2 id="configure-repository-implementations-using-profiles">Configure Repository Implementations using Profiles</h2>
+<p>We are now going to modify the test to use different repository
+implementations - either Stubs or using JDBC.</p>
+<p><strong>TODO-02</strong>: Annotate all 'Stub*Repository' classes</p>
+<ul>
+<li>
+<p>First we are going to use the stub repositories in
+<code>/src/test/java/rewards/internal</code>.</p>
+<p>We need to make them Spring beans by annotating them as repository
+components. Annotate the stub classes with <code>@Repository</code>.</p>
+</li>
+<li>
+<p>If you run <code>RewardNetworkTests</code> again, it should fail because you
+have multiple beans of the same type - the original JDBC
+implementations and now the stubs.</p>
+<p>To fix this we will introduce two profiles:</p>
+<ul>
+<li>
+<p>The stub repositories will belong to the &quot;stub&quot; profile</p>
+</li>
+<li>
+<p>The JDBC repositories to the &quot;jdbc&quot; profile.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>TODO-03</strong>: Assign the 'jdbc' profile to all Jdbc*Repository classes</p>
+<ul>
+<li>
+<p>Follow all the <code>TODO 03</code> steps and use the <code>@Profile</code> annotation to
+put all the repositories in this project into their correct
+profile - there are 6 repository classes to annotate in total.</p>
+</li>
+<li>
+<p>Annotate the <code>RewardNetworkTests</code> class with @ActiveProfiles
+to make &quot;stub&quot; the active profile.</p>
+</li>
+<li>
+<p>Rerun the test - it should work now.</p>
+</li>
+<li>
+<p>Check the console to see that the stub repository implementations
+are being used.</p>
+<p>Notice that the embedded database is also being created even though
+we don’t use it.
+We will fix this soon.</p>
+</li>
+</ul>
+<p><strong>TODO-04</strong>: Change active-profile to &quot;jdbc&quot;</p>
+<ul>
+<li>
+<p>Switch the active-profile to &quot;jdbc&quot;.</p>
+</li>
+<li>
+<p>Rerun the test - it should still work.</p>
+</li>
+<li>
+<p>Check the console again to see that the JDBC repository
+implementations are being used.</p>
+</li>
+</ul>
+<h2 id="switching-between-development-and-production-profiles">Switching between Development and Production Profiles</h2>
+<p>Profiles allow different configurations for different environments such
+as development, testing, QA (Quality Assurance), UAT (User Acceptance
+Testing), production and so forth.</p>
+<p>In this step, we will introduce two new profiles:
+&quot;local&quot; and &quot;jndi&quot;.</p>
+<p>In both cases, we will be using the JDBC implementations of our
+repositories so two profiles will need to be active at once.</p>
+<p>The difference between <em>local</em> and <em>jndi</em> is different
+infrastructure configuration.</p>
+<p>In this case, we are going to swap between an in-memory test database
+(<em>local</em> profile) and the &quot;real&quot; database defined as a JNDI
+resource (<em>jndi</em> profile).</p>
+<p><strong>TODO-05</strong>: Assign beans to the &quot;local&quot; profile</p>
+<ul>
+<li>
+<p>Modify <code>TestInfrastructureLocalConfig.java</code> so that all the beans
+defined in this configuration class are members of the profile
+called &quot;local&quot;.</p>
+</li>
+<li>
+<p>Does <code>RewardNetworkTests</code> still run OK?
+Why not?</p>
+</li>
+</ul>
+<p><strong>TODO-06</strong>: Use &quot;jdbc&quot; and &quot;local&quot; as active profiles</p>
+<ul>
+<li>
+<p>Fix the test by adding the &quot;local&quot; profile to the
+<code>@ActiveProfiles</code> annotation in <code>RewardNetworkTests</code>.</p>
+<p>Remember you will need to retain the &quot;jdbc&quot; profile as well.</p>
+</li>
+<li>
+<p>Rerun the test - it should work again.</p>
+</li>
+</ul>
+<p><strong>TODO-07</strong>: Use &quot;jdbc&quot; and &quot;jndi&quot; as active profiles</p>
+<ul>
+<li>
+<p>We have already setup the &quot;real&quot; dataSource for you using a JNDI
+lookup.
+We use a standalone JNDI implementation in this lab - normally JNDI
+would be provided by your JEE container (such as Tomcat, JBoss or
+WebLogic).</p>
+</li>
+<li>
+<p>Change the active profile of <code>RewardNetworkTests</code> from &quot;local&quot; to
+&quot;jndi&quot;.</p>
+</li>
+<li>
+<p>Rerun the test, it should still work.</p>
+</li>
+<li>
+<p>To see what has changed, look at the console and you will see
+logging from an extra bean called <code>SimpleJndiHelper</code>.</p>
+</li>
+<li>
+<p>Switch the profile back from &quot;jndi&quot; to &quot;local&quot; and rerun.
+Check the console and note that the <code>SimpleJndiHelper</code> is no longer
+used.</p>
+</li>
+</ul>
+<h2 id="optional-step---further-refactoring">Optional Step - Further Refactoring</h2>
+<p><strong>TODO-08</strong>: Use inner class configuration</p>
+<ul>
+<li>
+<p>When no class is specified, Spring’s test framework will
+look for an inner static class marked with @Configuration.
+Since the <code>TestInfrastructureConfig</code> class is so small anyway,
+copy the entire class definition, including annotations, to an
+inner static class within the test class.</p>
+</li>
+<li>
+<p>Remove the configuration class reference from the
+<code>@SpringJUnitConfig</code> annotation (no property in the brackets).</p>
+<p>This is an example of convention over configuration.</p>
+</li>
+<li>
+<p>Run the test.</p>
+<p>Does the test still pass?</p>
+</li>
+<li>
+<p>When you copy the <code>TestInfrastructureConfig</code> class into
+<code>RewardNetworkTests</code>, remember to make it <code>static</code> - refer to example
+in slides if unsure.</p>
+</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>In this lab, you have refactored testing code of the
+<a href="/course-intro/reference-domain/reference-domain.html" rel="noreferrer noopener">Rewards Application</a>
+to use Spring's TestContext framework.
+Then you have used Spring's profiles to provide different testing
+configurations.</p>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#learning-outcomes">Learning Outcomes</a>
+
+        </li>
+        <li>
+        <a href="#use-case">Use case</a>
+
+        </li>
+        <li>
+        <a href="#quick-start-instructions">Quick-start instructions</a>
+
+        </li>
+        <li>
+        <a href="#instructions">Instructions</a>
+
+<ul>
+        <li>
+        <a href="#refactor-to-use-springs-testcontext-framework">Refactor to use Spring’s TestContext framework</a>
+
+        </li>
+        <li>
+        <a href="#configure-repository-implementations-using-profiles">Configure Repository Implementations using Profiles</a>
+
+        </li>
+        <li>
+        <a href="#switching-between-development-and-production-profiles">Switching between Development and Production Profiles</a>
+
+        </li>
+        <li>
+        <a href="#optional-step---further-refactoring">Optional Step - Further Refactoring</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#summary">Summary</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Integration Testing</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Integration Testing</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+

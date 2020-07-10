@@ -1,0 +1,992 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.264Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Designing Applications with Spring and Spring Boot</title>
+
+<link rel="icon" href="../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/highlight.js.min.css">
+<link rel="stylesheet" href="../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href=".."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Designing Applications with Spring and Spring Boot</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="purpose">Purpose</h1>
+<p>This article documents design practices, patterns, and solution
+guidelines for production ready Spring Boot applications.</p>
+<p>Some of the concepts may be referred to in appropriate sections of the
+cause, some are not.</p>
+<p>Consider this challenge or advanced reading material, future advanced
+Spring Boot courses may derive from it.</p>
+<h1 id="background">Background</h1>
+<p>This section outlines background features, patterns and solutions common
+to Spring Boot applications, and gives light context, benefits and
+trade-offs.</p>
+<h2 id="dependency-management">Dependency Management</h2>
+<p>While Spring Boot project advertizes simplification of dependency
+management, it is still a complex subject with pitfalls.</p>
+<p>Spring Boot provides two key features to help manage dependencies,
+we will talk about both.</p>
+<h3 id="spring-initializr">Spring Initializr</h3>
+<p>Spring Initializr curates a set of Spring Boot projects and their
+dependencies, and even specific versions of Spring Boot.
+Running Initializr creates a project starter for dependencies that you
+select available from the Initializr dependency set.</p>
+<p>You may also author your own Initializr to curate specfic projects,
+dependencies and Spring Boot versions if you so desire.</p>
+<p><strong>Benefits</strong>:</p>
+<ul>
+<li>
+<p>Provides a consistent interface to building a project from scratch.</p>
+</li>
+<li>
+<p>Allows tight curation of project dependencies.
+This is a compelling feature for large Enterprise customers.</p>
+</li>
+</ul>
+<p><strong>Trade-offs</strong>:</p>
+<ul>
+<li>
+<p>Hides complexity - Developers may get false sense of security that
+Initialzr may handle transistive dependency conflicts, where it may
+not</p>
+</li>
+<li>
+<p>Out-of-box Spring Initializr changes versions at a frequent basis -
+this may be an issue for a program's project version
+synchronization.</p>
+</li>
+</ul>
+<p>We will talk about mitigation of trade-offs in the
+<a href="#design-guidelines" rel="noreferrer noopener">Design Guidelines</a> section.</p>
+<h3 id="starter-boms">Starter BOMs</h3>
+<p>Starter BOMs are the building blocks for dependency management in a
+Spring Boot application.
+The Spring Initializr has a buffet of starters named by tag, from which
+you may select to include in a project.</p>
+<p>You may author your own starter BOMs if you want to publish custom
+Spring Boot code for reuse.</p>
+<p><strong>Benefits</strong> :</p>
+<ul>
+<li>
+<p>Simplifies dependency management</p>
+</li>
+<li>
+<p>Consistent with Maven Dependency management BOM pattern</p>
+</li>
+</ul>
+<p><strong>Trade-offs</strong> :</p>
+<ul>
+<li>
+<p>Hides complexity of dependency management.</p>
+</li>
+<li>
+<p>You may be consuming unnecessary dependencies by consuming them.</p>
+</li>
+</ul>
+<p>We will talk about mitigation of trade-offs in the
+<a href="#design-guidelines" rel="noreferrer noopener">Design Guidelines</a> section.</p>
+<h2 id="creational-patterns">Creational Patterns</h2>
+<p>Spring handles the lifecycle of its beans, part of which are their
+<em>creation</em>.</p>
+<p>In their well-known book on <a href="https://www.oreilly.com/library/view/design-patterns-elements/0201633612/" rel="noreferrer noopener">Design Patterns</a>
+the so-called &quot;Gang of Four&quot; authors (GoF) define several
+<a href="https://www.gofpatterns.com/creational-design-patterns/index.php" rel="noreferrer noopener">creational patterns</a>
+that require hand-crafted solutions in Java and other OO languages
+pre-dating Spring:</p>
+<ul>
+<li>Factory</li>
+<li>Builder (<em>GoF</em>)</li>
+<li>Singleton</li>
+</ul>
+<h2 id="spring-creational-solutions">Spring Creational Solutions</h2>
+<p>Spring and Java offer some modern solutions for creating of beans:</p>
+<h3 id="spring-java-config">Spring Java Config</h3>
+<p>The bean is imperatively created from a Spring Configuration class:</p>
+<pre><code class="language-java">@Configuration
+public final SomeConfig {
+    SomeSpringBean someSpringBean() {
+        return new SomeSpringBean();
+    }
+}
+</code></pre>
+<p><strong>Benefits</strong> :</p>
+<ul>
+<li>
+<p>Expressive way to organize and define Spring beans</p>
+</li>
+<li>
+<p>Allows decoupling of Java domain logic (POJOs) from Spring
+applications.</p>
+</li>
+<li>
+<p>Auto-configuration is based on Java Config, so you can use as part
+of your own auto-configuration.</p>
+</li>
+</ul>
+<p><strong>Trade-offs</strong> :</p>
+<ul>
+<li>More complicated than use of annotations, separating configuration
+from a Spring coupled class.</li>
+</ul>
+<h3 id="spring-annotations">Spring Annotations</h3>
+<p>The bean is implicitly created through the class @Component (or
+derived stereotype) annotation by Spring's component-scanner:</p>
+<pre><code class="language-java">@Component
+public final class SomeSpringBean {
+    ...
+}
+</code></pre>
+<p><strong>Benefits</strong> :</p>
+<ul>
+<li>
+<p>Simplest solution to create beans declaratively in a Spring
+application.</p>
+</li>
+<li>
+<p>Use of stereotype annotations add <em>semantic meaning</em> to the
+annotated class (the class is a controller, a service or whatever)
+by indicating its purpose.</p>
+</li>
+</ul>
+<p><strong>Trade-offs</strong> :</p>
+<ul>
+<li>
+<p>Potential to scatter configuration code throughout a Spring
+application.</p>
+<ul>
+<li>Trying to work out what beans were created by the
+component-scanner can make debugging and maintenance harder.</li>
+</ul>
+</li>
+<li>
+<p>Breaks one of Spring's core principals: <em>Separation of Concerns</em>.
+It is no concern of any class how it will be used by Spring
+(or anyone else)</p>
+<ul>
+<li>Couples a class to specific versions of Spring or Spring Boot.</li>
+</ul>
+</li>
+</ul>
+<h3 id="builder-fluent-api">Builder (Fluent API)</h3>
+<p>This is a Java solution modelled after the <em>GoF</em> Builder concept, but
+with a twist:</p>
+<p>We want some intuitive DSL or syntactic sugar that better expresses
+contributions to the object build process in a simple statement.</p>
+<p>Consider the following class that implements a fluent API builder:</p>
+<pre><code class="language-java">public class SomeBean {
+    private String name;
+
+    // Creation access only through the static builder
+    private SomeBean() {}
+
+    // Creation originates here...
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    private static class Builder {
+        private SomeBean someBean = new SomeBean();
+
+        private Builder() {}
+
+        public Builder name(String name) {
+            someBean.name = name;
+            return this;
+        }
+
+        // Decorate with something special...
+        public Builder special() {
+            if (null == someBean.name)
+                throw new RuntimeException(&quot;Name cannot be null&quot;);
+            else
+                someBean.name += &quot; is special&quot;;
+            return this;
+        }
+
+        // Validate and return instance
+        public SomeBean build() {
+            if (null == someBean.name)
+                throw new RuntimeException(&quot;Name cannot be null&quot;);
+
+            return someBean;
+        }
+    }
+    ...
+}
+</code></pre>
+<p>A client might access an instance of <code>SomeBean</code> this:</p>
+<pre><code class="language-java">SomeBean someBean = SomeBean.builder()
+                    .name(&quot;John&quot;)
+                    .special()
+                    .build();
+</code></pre>
+<p>Or like this:</p>
+<pre><code class="language-java">SomeBean someBean = SomeBean.builder()
+                    .name(&quot;John&quot;)
+                    .build();
+</code></pre>
+<p><strong>Benefits</strong> :</p>
+<ul>
+<li>Can be decoupled from Spring, or used with Spring Java Config</li>
+<li>Provides elegant solution for complex dependencies where
+constructor injection falls short.</li>
+</ul>
+<p><strong>Trade-offs</strong> :</p>
+<ul>
+<li>More design effort is required to build an intuitive and simple API
+for potentially complex factory or builder logic</li>
+<li>Complexity of the build validation logic</li>
+<li>For examples as trivial as above, this is probably not an ideal
+solution.</li>
+</ul>
+<p>You will see Fluent API used heavily in Spring Integration and Spring
+Security.
+Spring Security is inherently complex, and benefits from a refined
+DSL.</p>
+<h2 id="spring-scoped-beans">Spring Scoped Beans</h2>
+<p>As part of the creation lifecycle event, Spring also supplies different
+scopes for beans, impacting their lifecycle from creation to release:</p>
+<ul>
+<li>
+<p>Singleton (default)</p>
+</li>
+<li>
+<p>Prototype</p>
+</li>
+<li>
+<p>Web environment scopes</p>
+<ul>
+<li>
+<p>Session</p>
+</li>
+<li>
+<p>Request</p>
+</li>
+<li>
+<p>Web Socket</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Specialized scopes</p>
+<ul>
+<li>
+<p>Refresh (Config Server)</p>
+</li>
+<li>
+<p>Thread</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>These are covered within the <em>Java Configuration</em> lesson, but we will
+go a bit deeper in the next sections.</p>
+<h1 id="design-guidelines">Design Guidelines</h1>
+<p>This section covers some recommended guidelines for how to use Spring
+solution patterns and features in production ready Spring Boot
+applications.</p>
+<h2 id="use-of-spring-initializr-and-starters">Use of Spring Initializr and Starters</h2>
+<p>Consider using Spring Initializr when:</p>
+<ul>
+<li>
+<p>You are starting a new project</p>
+</li>
+<li>
+<p>You are not familiar or proficient with the build and project
+setup for a Springboot app, or its starters and dependencies.</p>
+</li>
+<li>
+<p>Consuming dependencies from Maven Central is allowed.</p>
+</li>
+</ul>
+<p>Consider implementing a custom Initializr when:</p>
+<ul>
+<li>
+<p>Your company has regulatory requirements around software licensing
+and/or security whitelists, and you want to curate common project
+dependencies around them.</p>
+</li>
+<li>
+<p>Your company blocks access to Maven Central and forces you towards
+an internal Maven repository.</p>
+</li>
+</ul>
+<h2 id="creational-strategies">Creational strategies</h2>
+<p>In this section we will talk about creation guidelines with the Spring
+creation pattern options earlier in the document.
+We will also talk about some organizational recommendations for your
+projects and code.</p>
+<h3 id="annotations-andor-java-config">Annotations and/or Java Config</h3>
+<p>Creation strategies may use either, or both solutions.
+Some guidelines:</p>
+<p>Annotations will be required in following cases:</p>
+<ul>
+<li>
+<p>Annotations are required to provide functional behavior provided by
+a Spring runtime container.
+Examples:</p>
+<ul>
+<li>
+<p><code>@Controllers</code> and <code>@RestControllers</code></p>
+</li>
+<li>
+<p><code>@ContextConfiguration</code> for testing</p>
+</li>
+<li>
+<p>Tying to Spring Boot or Spring Cloud abstractions, such as
+<code>@LoadBalanced</code>, <code>@HystrixCommand</code>, <code>@DiscoveryClient</code>, etc</p>
+</li>
+<li>
+<p>You are clearly coupling your code to Spring in production
+runtime.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Annotations may be desired over Java Config in simple Spring apps where:</p>
+<ul>
+<li>
+<p>The code base is easy to understand at a glance.
+The developer will not have to search to understand creational
+patterns.</p>
+</li>
+<li>
+<p>The entire application will run <em>only</em> in a Spring runtime.
+This implies no reuse of the application code outside of Spring.</p>
+</li>
+</ul>
+<p>Use of Java Configuration is preferred over <code>@Component</code> annotations:</p>
+<ul>
+<li>
+<p>Application is complex, may have multiple related beans</p>
+</li>
+<li>
+<p>If a builder pattern is required</p>
+</li>
+<li>
+<p>Decoupling domain logic or other POJOs from Spring.
+This is important for <em>Independent Deployability</em>, which we talk
+about toward the end of the article.</p>
+</li>
+</ul>
+<h3 id="spring-bean-scope-selection">Spring Bean Scope Selection</h3>
+<ul>
+<li>
+<p>Use the default <em>singleton</em> scope when implementing immutable
+classes.
+You should strive for immutability in modern Java designs where
+possible.</p>
+</li>
+<li>
+<p>Use non-default scopes by intention and judiciously:</p>
+<ul>
+<li>
+<p>Web scopes for legacy or stateful web applications, such as
+<em>session</em>, <em>request</em> or <em>web socket</em> scope.</p>
+<p>In a web-application a <em>request</em> scoped bean is equivalent to a
+<em>prototype</em> bean.</p>
+<p>Modern web application designs tend to favor Cloud Native
+<a href="http://12factor.net" rel="noreferrer noopener">12 Factor</a> guidelines, where handling
+state in your application tier is strongly discouraged.
+If you are writing &quot;green-field&quot; applications, carefully think
+about use of these scopes, and whether or not they will play
+well on your runtime platform.</p>
+<p>Consider the
+<a href="https://spring.io/projects/spring-session" rel="noreferrer noopener">Spring Session project</a>
+to easily implement persistent sessions in a cloud-native or
+containerized environment (such as Docker) .</p>
+</li>
+<li>
+<p>Use <em>prototype</em> scope only if (all apply):</p>
+<ul>
+<li>
+<p>There is a complex short-lived object creation requirement
+in your application</p>
+</li>
+<li>
+<p>Your consuming bean is coupled with Spring</p>
+</li>
+<li>
+<p>It is a simpler solution to use prototype than a Java Fluent
+API builder solution instead.</p>
+</li>
+<li>
+<p>Note that in most instances use of Java Fluent API or simply
+<code>new</code> keyword will be better solutions to keep domain logic
+free from Spring.</p>
+</li>
+<li>
+<p>Note that domain objects are <em>never</em> Spring beans but the
+Repositories or DAOs that manage them are typically
+singleton beans.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Use <em>Refresh Scope</em> beans selectively:</p>
+<ul>
+<li>Use of <em>Spring Cloud Config Server</em> required</li>
+<li>Use of <em>Actuator</em> required - but then again, you are using
+it already, right?!</li>
+<li>Logging changes without restart</li>
+<li>Dynamic Feature Toggles</li>
+<li>Dynamic Operations Toggles - non-functional tuning
+configuration, such as in Netflix Hystrix, thread pools.</li>
+<li>You application <em>must</em> handle potential transient failures
+during the refreshable bean destruction and re-creation.
+Ideally you should do fair amount of non-functional and load
+testing to determine behavior during refresh events</li>
+<li>In modern Cloud Native 12 Factor applications, we design for
+<em>disposability</em> and <em>immutability</em>.
+If we have graceful and fast application start-up and
+shutdown, do we <em>really</em> need dynamic refresh?
+It is arguable whether changing the configuration of a
+running production application is even a good idea.</li>
+</ul>
+</li>
+<li>
+<p>Avoid use of <em>Thread Scope</em>:</p>
+<ul>
+<li>
+<p>Modern applications moving toward Reactive Patterns</p>
+</li>
+<li>
+<p>Most modern Java containers leverage thread pools - so the
+same thread is used to process multiple requests.</p>
+<ul>
+<li>
+<p>Thread-scoped data <em>must</em> be cleared after <em>every</em>
+request - so why not just use <em>request</em> scope instead?</p>
+</li>
+<li>
+<p>For this reason <em>thread</em> scope is <em>not</em> enabled by
+default in Spring - you must first register it to use
+it.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Niche use case for legacy code where you want to handle
+state-per-thread - but note the warning</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="spring-bean-access-strategies">Spring Bean Access Strategies</h2>
+<p>A Spring Ccontainer will create beans according to scope lifecycle.
+Then in our applications we need to get access to them.
+This section discusses options and guidelines.</p>
+<h3 id="available-methods">Available Methods</h3>
+<ul>
+<li>
+<p><strong>Constructor Injection</strong>:
+This is simple Java constructor based dependency injection.
+It could also be used with more complex DI patterns such as passing
+Factory objects to an object in its constructor.
+The key takeaway is that this method decouples your class from
+Spring.
+We will discuss trade-offs in the next section.</p>
+</li>
+<li>
+<p><strong>Autowired</strong>:
+Both constructors and setters can be automatically invoked by Spring
+at bean creation time if annotated with <code>@Autowired</code>.
+Constructors should used for manadatory and/or immutable (final)
+dependencies.
+Setters can be optional uing <code>@Autowired (required=false)</code>.</p>
+</li>
+<li>
+<p>Combining <strong>Constructor Injection</strong> and <strong>Autowired</strong>:
+IF a bean has more than one constructor, use <code>@Autowired</code> to tell
+Spring which one to use.</p>
+</li>
+</ul>
+<h3 id="interfaces-versus-classes">Interfaces versus Classes</h3>
+<ul>
+<li>
+<p>Prefer interfaces over abstract or concrete classes.
+The boundaries in your applications should be decoupled by
+interfaces.
+Access to such dependencies should be by a reference to an
+interface, not a class.</p>
+<p>For example, an <code>AccountRepository</code> reference...</p>
+<pre><code class="language-java">public interface AccountRepository {
+    Account update(Account someObject);
+    Account readById(Long id);
+}
+</code></pre>
+<p>...with a <code>JdbcRepository</code> implementation...</p>
+<pre><code class="language-java">public class JdbcAccountRepository implements AccountRepository {
+    Account update(Account someObject) {
+        ...
+    }
+
+    Account readById(Long id) {
+        ...
+    }
+}
+</code></pre>
+<p>Do <em>not</em> create a Spring Bean this way:</p>
+<pre><code class="language-java">JdbcAccountRepository accountRepository() {
+    return new JdbcAccountRepository();
+}
+</code></pre>
+<p>Do it <em>this</em> way:</p>
+<pre><code class="language-java">AccountRepository accountRepository() {
+    return new JdbcAccountRepository();
+}
+</code></pre>
+<p>Downstream references will treat it as an <code>AccountRepository</code>
+without knowing the implementation, thus allowing swapping out
+implementations with only Spring configuration code changes.</p>
+<p>Only return a concrete class if it implements <em>multiple</em> interfaces
+and will be injected elsewhere as more than one of those interfaces.
+A better solution (as shown in the course) is to implement a
+compound interface that extends all the others and return that
+interface instead.</p>
+<p>Spring calls this being &quot;sufficiently expressive&quot; - the return type
+should be sufficient for its use - in most cases an interface.</p>
+</li>
+</ul>
+<h3 id="bean-naming">Bean Naming</h3>
+<p>Similarly the bean name should reflect the <em>role</em> of the bean not its
+implementation.
+Thus <code>accountRepository</code> reflects its role (and not coincidentally is
+the same as the interface it implements).</p>
+<p>Only if there is ambiguity should a bean be given a name including its
+implementation - but ask yourself do you really need two implementations
+of the same interface.</p>
+<h2 id="backing-resources">Backing Resources</h2>
+<p>Spring Boot is primed to support Cloud Native development practices,
+including 12 Factor applications.</p>
+<p>We will talk about how Spring Boot facilitates building integration to
+<a href="https://12factor.net/backing-services" rel="noreferrer noopener">Backing Services</a>
+here.</p>
+<p>Review the following:</p>
+<ul>
+<li>
+<p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure" rel="noreferrer noopener">Spring Boot Auto-configuration</a></p>
+</li>
+<li>
+<p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-actuator/src/main/java/org/springframework/boot/actuate" rel="noreferrer noopener">Spring Boot Actuator</a></p>
+</li>
+<li>
+<p><a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters" rel="noreferrer noopener">Spring Boot Starters</a></p>
+</li>
+</ul>
+<p>You will see some level of parity between the three directory structures
+associated &quot;Backing Resources&quot; such as relational and no-sql databases,
+caches, and middleware.</p>
+<p>This should clue you in that if you want to integrate to a 3rd party or
+custom resource, you can do so by implementing each of the following for
+it:</p>
+<ol>
+<li>
+<p>A starter (BOM), plug in to Spring Initializr</p>
+</li>
+<li>
+<p>Auto-configuration behavior</p>
+</li>
+<li>
+<p>Actuator behavior for health check, monitoring and/or managing it</p>
+</li>
+</ol>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://www.pearson.com/us/higher-education/program/Bloch-Effective-Java-3rd-Edition/PGM1763855.html" rel="noreferrer noopener">Effective Java 3rd Edition</a></li>
+</ul>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#purpose">Purpose</a>
+
+        </li>
+        <li>
+        <a href="#background">Background</a>
+
+<ul>
+        <li>
+        <a href="#dependency-management">Dependency Management</a>
+
+<ul>
+        <li>
+        <a href="#spring-initializr">Spring Initializr</a>
+
+        </li>
+        <li>
+        <a href="#starter-boms">Starter BOMs</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#creational-patterns">Creational Patterns</a>
+
+        </li>
+        <li>
+        <a href="#spring-creational-solutions">Spring Creational Solutions</a>
+
+<ul>
+        <li>
+        <a href="#spring-java-config">Spring Java Config</a>
+
+        </li>
+        <li>
+        <a href="#spring-annotations">Spring Annotations</a>
+
+        </li>
+        <li>
+        <a href="#builder-fluent-api">Builder (Fluent API)</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#spring-scoped-beans">Spring Scoped Beans</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#design-guidelines">Design Guidelines</a>
+
+<ul>
+        <li>
+        <a href="#use-of-spring-initializr-and-starters">Use of Spring Initializr and Starters</a>
+
+        </li>
+        <li>
+        <a href="#creational-strategies">Creational strategies</a>
+
+<ul>
+        <li>
+        <a href="#annotations-andor-java-config">Annotations and/or Java Config</a>
+
+        </li>
+        <li>
+        <a href="#spring-bean-scope-selection">Spring Bean Scope Selection</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#spring-bean-access-strategies">Spring Bean Access Strategies</a>
+
+<ul>
+        <li>
+        <a href="#available-methods">Available Methods</a>
+
+        </li>
+        <li>
+        <a href="#interfaces-versus-classes">Interfaces versus Classes</a>
+
+        </li>
+        <li>
+        <a href="#bean-naming">Bean Naming</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#backing-resources">Backing Resources</a>
+
+        </li>
+</ul>
+        </li>
+        <li>
+        <a href="#references">References</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Designing Applications with Spring and Spring Boot</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Designing Applications with Spring and Spring Boot</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../js/assignmentSubmission.js"></script>
+<script src="../js/shipkin.js"></script>
+<script src="../js/slides.js"></script>
+
+</body>
+</html>
+

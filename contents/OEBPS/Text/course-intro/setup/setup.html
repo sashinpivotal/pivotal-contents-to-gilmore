@@ -1,0 +1,475 @@
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="course version" content="1.8.1">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:8.5.2, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2020-05-23T13:27:08.518Z">
+<meta name="theme-color" content="#34302d">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Core Spring - Set up your environment</title>
+
+<link rel="icon" href="../../theme-images/favicon.png">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #header {
+        border-color: #6db33f;
+        background-color: #34302d;
+    }
+
+    .disclaimer {
+        background-color: #34302d;
+    }
+
+    footer {
+        background-color: #34302d;
+    }
+
+    .label.label-default {
+        background-color: #5fa134;
+    }
+
+    a {
+        color: #5fa134;
+    }
+
+    th {
+        background-color: #34302d;
+        border-color: #34302d;
+    }
+
+    blockquote:before {
+        color: #34302d;
+    }
+
+    .label.label-default:hover, .label.label-default:focus {
+        background-color: #6eb043;
+    }
+
+    a:hover, a:focus {
+        color: #6eb043;
+    }
+
+    .slide {
+        color: #34302d;
+    }
+
+    .slide h2, .slide label {
+        color: #5fa134;
+    }
+
+    .slide input {
+        color: rgba(52, 48, 45, 0.65);
+    }
+
+    .face path {
+        fill: #5fa134;
+    }
+
+    body {
+        background-color: #f1f1f1;
+    }
+
+    .slide {
+        background-color: rgba(241, 241, 241, 0.9);
+    }
+
+    .slide.text {
+        background-color: #f1f1f1;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+    body {
+        color: #34302d;
+    }
+
+    td {
+        border-color: #34302d;
+    }
+
+    html, body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+</style>
+
+<link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    #spring-logo {
+        background: url(../../images/spring-logo.png) -1px -1px no-repeat;
+    }
+    #spring-logo span {
+        background: url(../../images/spring-logo.png) -1px -48px no-repeat;
+    }
+</style>
+
+<header>
+    <div class="container">
+        <a id="spring-logo"
+           href="../.."><span></span></a>
+
+        <p>
+            Customer agrees that the <a rel="noreferrer noopener"
+                                        href="https://pivotal.io/svcs-terms">Professional
+                Services Terms and Conditions</a>
+            and the <a rel="noreferrer noopener"
+                       href="https://pivotal.io/training/terms">Education
+                And Training Services Terms Of Use</a>
+            are incorporated by reference into this Data Sheet and shall
+            govern the provision of the Pivotal Services and content
+            accessible on from this
+            page. Customer may not record or reproduce the training in
+            any medium. Customer may not copy, reproduce, or distribute
+            or otherwise share the
+            training materials in any capacity.
+        </p>
+    </div>
+</header>
+
+<div class="container title">
+    <h1>Set up your environment</h1>
+</div>
+
+
+<a class="feedback" href="https://docs.google.com/forms/d/1EI7PkShHp5FoKHcfYX_eVWJfMtxE-tFTWCPr7H6zodA/viewform" data-url-field="entry.1915922799" target="_blank" rel="noreferrer noopener">
+    <button>feedback</button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="download-lab-zip-file">Download lab zip file</h1>
+<ol>
+<li>
+<p><strong><strong><a href="../../codebases/core-spring-labfiles.zip" rel="noreferrer noopener">Download the lab zip file</a></strong></strong>.</p>
+</li>
+<li>
+<p>Once you have downloaded the file, unzip it under
+a directory of your choice.
+The unzipped directory <code>core-spring-labfiles/lab</code>
+contains the lab projects.</p>
+</li>
+</ol>
+<h1 id="install-required-software">Install required software</h1>
+<p>Install the following software if they are not installed already
+on your machine.</p>
+<ol>
+<li>
+<p>Java 8 or 11:</p>
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" rel="noreferrer noopener">Oracle JDK 8</a></li>
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html" rel="noreferrer noopener">Oracle Java 11</a></li>
+<li><a href="https://openjdk.java.net/install/" rel="noreferrer noopener">Open JDK Installations</a></li>
+</ul>
+<p>The course is currently set up for Java 8.
+If you want to swith to Java 11,
+update the root build java version:</p>
+<p>Maven:</p>
+<ul>
+<li>Comment out the <code>&lt;java.version&gt;1.8&lt;/java.version&gt;</code> line.</li>
+<li>Uncomment out the <code>&lt;!--&lt;java.version&gt;11&lt;/java.version&gt;--&gt;</code> line.</li>
+</ul>
+<p>Gradle:</p>
+<ul>
+<li>Comment out the <code>sourceCompatibility = '1.8'</code> line.</li>
+<li>Uncomment out the <code>//    sourceCompatibility = '11'</code> line.</li>
+</ul>
+</li>
+<li>
+<p>REST client</p>
+<ul>
+<li><a href="https://curl.haxx.se/download.html" rel="noreferrer noopener">curl</a> or</li>
+<li><a href="https://www.getpostman.com/apps" rel="noreferrer noopener">Postman</a></li>
+</ul>
+</li>
+</ol>
+<h1 id="build-the-projects">Build the projects</h1>
+<ol>
+<li>
+<p>Build the projects under <code>core-spring-labfiles/lab</code>
+directory. This will download and install
+required dependencies to local repository.</p>
+<p>Windows:</p>
+<pre><code class="language-bash">mvnw clean install
+</code></pre>
+<p>MacOSX or Linux:</p>
+<pre><code class="language-bash">chmod 755 mvnw
+./mvnw clean install
+</code></pre>
+</li>
+<li>
+<p>If you experience any build failure, check firewalls or proxy
+settings in the <code>&lt;Home-Directory&gt;/.m2/settings.xml</code> file.</p>
+</li>
+</ol>
+<h1 id="choose-an-ide">Choose an IDE</h1>
+<p>While the lab projects can be built and run without an IDE,
+usage of a mainstream Java IDE is strongly encouraged.</p>
+<p>The course assumes one of the following, although you may pick an
+alternate one with feature parity:</p>
+<ul>
+<li>Spring Tools 4 (STS) <a href="https://spring.io/tools" rel="noreferrer noopener">https://spring.io/tools</a></li>
+<li>JetBrains IntelliJ <a href="https://www.jetbrains.com/idea" rel="noreferrer noopener">https://www.jetbrains.com/idea</a></li>
+</ul>
+<p>The Spring Tools 4 (STS) is a free IDE built on the Eclipse Platform
+with additional plugins to support Spring, Aspect Oriented Programming
+and Pivotal's Cloud Foundry deployment platform.</p>
+<h1 id="import-projects-into-your-ide">Import projects into your IDE</h1>
+<ol>
+<li>
+<p>Import the projects in <code>core-spring-labfiles/lab</code> into your IDE.
+You can import them as either Maven or Gradle projects.</p>
+<ul>
+<li>
+<p>For STS, you can perform &quot;Import&quot; from the <code>lab</code> directory,
+which will import the projects underneath it.</p>
+</li>
+<li>
+<p>For IntelliJ, you can perform &quot;Import Projects&quot;
+via the parent <code>pom.xml</code> or <code>build.gradle</code>, and IntelliJ will
+automatically set them up as a multi-module project.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Verify that the projects are imported correctly.</p>
+<ul>
+<li>
+<p>STS:
+<img src="images/sts-with-imported-projects.png" alt="STS" class="figure" /></p>
+</li>
+<li>
+<p>IntelliJ:
+<img src="images/intellij-with-imported-projects.png" alt="STS" class="figure" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Review <a href="../../appendix/appendix-tasks.html" rel="noreferrer noopener">Configuring TODOs (Tasks)</a>
+under Appendix section of course contents</p>
+</li>
+</ol>
+<h1 id="trouble-shooting">Trouble-shooting</h1>
+<p>After importing the lab projects, your IDE may report errors, typically related to project dependencies.  You can resolve these issues using the following techniques:</p>
+<ul>
+<li>For STS:
+<ul>
+<li>Select all projects, right-click, Maven, Update Projects.</li>
+<li>Clean all selected projects</li>
+<li>Close &amp; Open all projects</li>
+</ul>
+</li>
+</ul>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Core Spring</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#download-lab-zip-file">Download lab zip file</a>
+
+        </li>
+        <li>
+        <a href="#install-required-software">Install required software</a>
+
+        </li>
+        <li>
+        <a href="#build-the-projects">Build the projects</a>
+
+        </li>
+        <li>
+        <a href="#choose-an-ide">Choose an IDE</a>
+
+        </li>
+        <li>
+        <a href="#import-projects-into-your-ide">Import projects into your IDE</a>
+
+        </li>
+        <li>
+        <a href="#trouble-shooting">Trouble-shooting</a>
+
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+
+<div class="slide" data-slide="1">
+    <h1>Set up your environment</h1>
+</div>
+
+<div class="slide transparent" data-slide="2">
+    <h1>Get started!</h1>
+    <h2>Set up your environment</h2>
+</div>
+
+<div class="slide" data-slide="3">
+    <h1>Wrap up</h1>
+
+    <div class="faces">
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z"/>
+        </svg>
+
+        <svg class="face" viewBox="0 0 24 24">
+            <path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z"/>
+        </svg>
+    </div>
+</div>
+
+<div class="slide text" data-slide="4">
+    <div class="inner">
+        <h1>Instructor notes</h1>
+        <h1>Core Spring - Instructor Setup</h1>
+<p>As an instructor you will need to setup your machine just like a student
+machine.</p>
+<p>In addition, you will require:</p>
+<ul>
+<li>
+<p>Internet Access is more essential than it was in former version.
+Confirm with your training venue whether access is possible.</p>
+</li>
+<li>
+<p>When teaching on-site, the corporate Internet is usually restricted
+and guest Internet access may not be not available.
+This is especially problematic when overseas and you do not have 4G
+roaming or it is prohibitively expensive.
+You may be able to persuade one of your students to
+let you tether to their phone.</p>
+</li>
+</ul>
+
+    </div>
+</div>
+
+<div class="slide lemon-squeezy" data-slide="7">
+    <h1>Easy peasy</h1>
+    <h1>lemon squeezy!</h1>
+</div>
+
+<div class="slide" data-slide="8">
+    <h1>Lunch time!</h1>
+    <label for="lunch-end">will return</label>
+    <input type="text" name="lunch-end" data-time="90">
+</div>
+
+<div class="slide" data-slide="9">
+    <h1>Break time!</h1>
+    <label for="break-end">will return</label>
+    <input type="text" name="break-end" data-time="15">
+</div>
+
+<audio src="../../audio/gong.mp3"
+       id="gong"
+       preload>
+</audio>
+
+<div class="slide" data-slide="?">
+    <h2>Keyboard shortcuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Show <em>introduction</em> slide</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Show <em>get started</em> slide</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Show <em>wrap up</em> slide</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Show <em>instructor notes</em></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Easy peasy</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Show <em>lunch time</em> slide</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Show <em>break time</em> slide</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Play gong sound</td>
+        </tr>
+        <tr>
+            <td>x</td>
+            <td>Close slide</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>Show this help message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div>
+        © Copyright 2020 Pivotal Software, Inc. All Rights Reserved. •
+        <a href="https://pivotal.io/privacy-policy" rel="noreferrer noopener">Privacy Policy</a> •
+        <a href="https://pivotal.io/legal" rel="noreferrer noopener">Terms of Use</a>
+    </div>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.8.1<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/assignmentSubmission.js"></script>
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body>
+</html>
+
