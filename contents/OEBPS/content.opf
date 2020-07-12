@@ -29,33 +29,33 @@
     <item id="boot.1pAe6BTkaX11jcI1UDbQKHsamqUXdhMVWm2WqevyvcNM.html" href="Text/boot/1pAe6BTkaX11jcI1UDbQKHsamqUXdhMVWm2WqevyvcNM.html" media-type="text/html" />
     <item id="boot.1U2wSuZ5ftV6aQd5R02cQjevg1Ywl81JhYIiLPMiSDpY.html" href="Text/boot/1U2wSuZ5ftV6aQd5R02cQjevg1Ywl81JhYIiLPMiSDpY.html" media-type="text/html" />
     <item id="boot.1yb7jmS_Be7JUxP71RJcYJ7QjgBNESLpJQ5JlIuhSFz8.html" href="Text/boot/1yb7jmS_Be7JUxP71RJcYJ7QjgBNESLpJQ5JlIuhSFz8.html" media-type="text/html" />
-    <item id="boot.custom-autoconfiguration/custom-autoconfiguration.html" href="Text/boot/custom-autoconfiguration/custom-autoconfiguration.html" media-type="text/html" />
-    <item id="boot.spring-boot-actuators/spring-boot-actuators.html" href="Text/boot/spring-boot-actuators/spring-boot-actuators.html" media-type="text/html" />
-    <item id="boot.spring-boot-autoconfiguration/spring-boot-autoconfiguration-alt.html" href="Text/boot/spring-boot-autoconfiguration/spring-boot-autoconfiguration-alt.html" media-type="text/html" />
-    <item id="boot.spring-boot-autoconfiguration/spring-boot-autoconfiguration.html" href="Text/boot/spring-boot-autoconfiguration/spring-boot-autoconfiguration.html" media-type="text/html" />
-    <item id="boot.spring-boot-data/spring-boot-data.html" href="Text/boot/spring-boot-data/spring-boot-data.html" media-type="text/html" />
-    <item id="boot.spring-boot-intro/spring-boot-intro.html" href="Text/boot/spring-boot-intro/spring-boot-intro.html" media-type="text/html" />
-    <item id="boot.spring-boot-rest/spring-boot-rest.html" href="Text/boot/spring-boot-rest/spring-boot-rest.html" media-type="text/html" />
-    <item id="boot.spring-boot-testing/spring-boot-testing.html" href="Text/boot/spring-boot-testing/spring-boot-testing.html" media-type="text/html" />
-    <item id="boot.spring-mvc-intro/spring-mvc-intro.html" href="Text/boot/spring-mvc-intro/spring-mvc-intro.html" media-type="text/html" />
-    <item id="boot.spring-security/spring-security.html" href="Text/boot/spring-security/spring-security.html" media-type="text/html" />
-    <item id="boot.template/template.html" href="Text/boot/template/template.html" media-type="text/html" />
+    <item id="boot.custom-autoconfiguration.custom-autoconfiguration.html" href="Text/boot/custom-autoconfiguration/custom-autoconfiguration.html" media-type="text/html" />
+    <item id="boot.spring-boot-actuators.spring-boot-actuators.html" href="Text/boot/spring-boot-actuators/spring-boot-actuators.html" media-type="text/html" />
+    <item id="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration-alt.html" href="Text/boot/spring-boot-autoconfiguration/spring-boot-autoconfiguration-alt.html" media-type="text/html" />
+    <item id="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration.html" href="Text/boot/spring-boot-autoconfiguration/spring-boot-autoconfiguration.html" media-type="text/html" />
+    <item id="boot.spring-boot-data.spring-boot-data.html" href="Text/boot/spring-boot-data/spring-boot-data.html" media-type="text/html" />
+    <item id="boot.spring-boot-intro.spring-boot-intro.html" href="Text/boot/spring-boot-intro/spring-boot-intro.html" media-type="text/html" />
+    <item id="boot.spring-boot-rest.spring-boot-rest.html" href="Text/boot/spring-boot-rest/spring-boot-rest.html" media-type="text/html" />
+    <item id="boot.spring-boot-testing.spring-boot-testing.html" href="Text/boot/spring-boot-testing/spring-boot-testing.html" media-type="text/html" />
+    <item id="boot.spring-mvc-intro.spring-mvc-intro.html" href="Text/boot/spring-mvc-intro/spring-mvc-intro.html" media-type="text/html" />
+    <item id="boot.spring-security.spring-security.html" href="Text/boot/spring-security/spring-security.html" media-type="text/html" />
+    <item id="boot.template.template.html" href="Text/boot/template/template.html" media-type="text/html" />
     <item id="changelog.index.html" href="Text/changelog.index.html" media-type="text/html" />
-    <item id="core-spring-intro/1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" href="Text/core-spring-intro/1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" media-type="text/html" />
-    <item id="core-spring-intro/1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" href="Text/core-spring-intro/1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" media-type="text/html" />
-    <item id="core-spring-intro/spring-intro/spring-intro.html" href="Text/core-spring-intro/spring-intro/spring-intro.html" media-type="text/html" />
+    <item id="core-spring-intro.1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" href="Text/core-spring-intro/1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" media-type="text/html" />
+    <item id="core-spring-intro.1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" href="Text/core-spring-intro/1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" media-type="text/html" />
+    <item id="core-spring-intro.spring-intro.spring-intro.html" href="Text/core-spring-intro/spring-intro/spring-intro.html" media-type="text/html" />
     <item id="core-spring-optional.1brR3_UmIbFmJ5f4KdcMHUx7px9SM1D23t2HvpBVLtvs.html" href="Text/core-spring-optional/1brR3_UmIbFmJ5f4KdcMHUx7px9SM1D23t2HvpBVLtvs.html" media-type="text/html" />
     <item id="core-spring-optional.1isWgYJwv2N1n_Fuef5v2ZP6GIAO9bnZcUvoRkIOMz4k.html" href="Text/core-spring-optional/1isWgYJwv2N1n_Fuef5v2ZP6GIAO9bnZcUvoRkIOMz4k.html" media-type="text/html" />
     <item id="core-spring-optional.1kpuLh2aMBc9QLlxaQRpn4DBTSbOugg_sei71duIqCFo.html" href="Text/core-spring-optional/1kpuLh2aMBc9QLlxaQRpn4DBTSbOugg_sei71duIqCFo.html" media-type="text/html" />
     <item id="core-spring-optional.1N1YS41JGRo0-hBpZCxf1U9VJ2ZNKd7_tTnfR9OhLedw.html" href="Text/core-spring-optional/1N1YS41JGRo0-hBpZCxf1U9VJ2ZNKd7_tTnfR9OhLedw.html" media-type="text/html" />
     <item id="core-spring-optional.1Q1VSSVuKIakugrFy9t-VFTAkHOPiyCY1sm1tlZIlIjU.html" href="Text/core-spring-optional/1Q1VSSVuKIakugrFy9t-VFTAkHOPiyCY1sm1tlZIlIjU.html" media-type="text/html" />
     <item id="core-spring-optional.1rSZqhaj8SvzstjZoDbqFSkAzyZdzwM1bgpMhyPIzRBw.html" href="Text/core-spring-optional/1rSZqhaj8SvzstjZoDbqFSkAzyZdzwM1bgpMhyPIzRBw.html" media-type="text/html" />
-    <item id="core-spring-optional.jms/jms-spring.html" href="Text/core-spring-optional/jms/jms-spring.html" media-type="text/html" />
-    <item id="core-spring-optional.reactive/reactive-spring.html" href="Text/core-spring-optional/reactive/reactive-spring.html" media-type="text/html" />
-    <item id="core-spring-optional.spring-security-oauth2/spring-security-oauth2.html" href="Text/core-spring-optional/spring-security-oauth2/spring-security-oauth2.html" media-type="text/html" />
-    <item id="core-spring-wrap-up/1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" href="Text/core-spring-wrap-up/1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" media-type="text/html" />
-    <item id="course-intro/reference-domain/reference-domain.html" href="Text/course-intro/reference-domain/reference-domain.html" media-type="text/html" />
-    <item id="course-intro/setup/setup.html" href="Text/course-intro/setup/setup.html" media-type="text/html" />
+    <item id="core-spring-optional.jms.jms-spring.html" href="Text/core-spring-optional/jms/jms-spring.html" media-type="text/html" />
+    <item id="core-spring-optional.reactive.reactive-spring.html" href="Text/core-spring-optional/reactive/reactive-spring.html" media-type="text/html" />
+    <item id="core-spring-optional.spring-security-oauth2.spring-security-oauth2.html" href="Text/core-spring-optional/spring-security-oauth2/spring-security-oauth2.html" media-type="text/html" />
+    <item id="core-spring-wrap-up.1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" href="Text/core-spring-wrap-up/1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" media-type="text/html" />
+    <item id="course-intro.reference-domain.reference-domain.html" href="Text/course-intro/reference-domain/reference-domain.html" media-type="text/html" />
+    <item id="course-intro.setup.setup.html" href="Text/course-intro/setup/setup.html" media-type="text/html" />
     <item id="essentials.10c3Eq55PLFZOa9Ewr8hQu2mpp3dX2dUIvr_hiRJy-cQ.html" href="Text/essentials/10c3Eq55PLFZOa9Ewr8hQu2mpp3dX2dUIvr_hiRJy-cQ.html" media-type="text/html" />
     <item id="essentials.154kpZOc2L4Yfsbc79BDLqc8bVjGmr-0ySJfhEUFazRQ.html" href="Text/essentials/154kpZOc2L4Yfsbc79BDLqc8bVjGmr-0ySJfhEUFazRQ.html" media-type="text/html" />
     <item id="essentials.1CHqK3LCey-vhBKjbKYSSvGTa-awVVwrplG4Y6AkGd-4.html" href="Text/essentials/1CHqK3LCey-vhBKjbKYSSvGTa-awVVwrplG4Y6AkGd-4.html" media-type="text/html" />
@@ -65,12 +65,12 @@
     <item id="essentials.1LMrkJpFHy6Gp4GziUqa6he_rzMYqweNxFFZJBsM32vc.html" href="Text/essentials/1LMrkJpFHy6Gp4GziUqa6he_rzMYqweNxFFZJBsM32vc.html" media-type="text/html" />
     <item id="essentials.1SJbXone4KTvaS2EcHat4O83AkGasJFVyXKKUvRg0b8o.html" href="Text/essentials/1SJbXone4KTvaS2EcHat4O83AkGasJFVyXKKUvRg0b8o.html" media-type="text/html" />
     <item id="essentials.1yff5aPnfjCLdcKFpcpteF8EU_dKbbjyg_GBQFcHzIAU.html" href="Text/essentials/1yff5aPnfjCLdcKFpcpteF8EU_dKbbjyg_GBQFcHzIAU.html" media-type="text/html" />
-    <item id="essentials.aop/aop.html" href="Text/essentials/aop/aop.html" media-type="text/html" />
-    <item id="essentials.component-scanning/component-scanning.html" href="Text/essentials/component-scanning/component-scanning.html" media-type="text/html" />
-    <item id="essentials.javaconfig-dependency-injection/javaconfig-dependency-injection.html" href="Text/essentials/javaconfig-dependency-injection/javaconfig-dependency-injection.html" media-type="text/html" />
-    <item id="essentials.jdbc/jdbc.html" href="Text/essentials/jdbc/jdbc.html" media-type="text/html" />
-    <item id="essentials.test/test.html" href="Text/essentials/test/test.html" media-type="text/html" />
-    <item id="essentials.transactions/transactions.html" href="Text/essentials/transactions/transactions.html" media-type="text/html" />
+    <item id="essentials.aop.aop.html" href="Text/essentials/aop/aop.html" media-type="text/html" />
+    <item id="essentials.component-scanning.component-scanning.html" href="Text/essentials/component-scanning/component-scanning.html" media-type="text/html" />
+    <item id="essentials.javaconfig-dependency-injection.javaconfig-dependency-injection.html" href="Text/essentials/javaconfig-dependency-injection/javaconfig-dependency-injection.html" media-type="text/html" />
+    <item id="essentials.jdbc.jdbc.html" href="Text/essentials/jdbc/jdbc.html" media-type="text/html" />
+    <item id="essentials.test.test.html" href="Text/essentials/test/test.html" media-type="text/html" />
+    <item id="essentials.transactions.transactions.html" href="Text/essentials/transactions/transactions.html" media-type="text/html" />
     <item id="appendix.images.eclipse-generated-junit-test.png" href="Text/appendix/images/eclipse-generated-junit-test.png" media-type="image/png" />
     <item id="appendix.images.eclipse-junit-create-dialog.png" href="Text/appendix/images/eclipse-junit-create-dialog.png" media-type="image/png" />
     <item id="appendix.images.eclipse-junit-methods-select-dialog.png" href="Text/appendix/images/eclipse-junit-methods-select-dialog.png" media-type="image/png" />
@@ -137,92 +137,92 @@
     <item id="appendix.images.task2.png" href="Text/appendix/images/task2.png" media-type="image/png" />
     <item id="appendix.images.tasks-view.png" href="Text/appendix/images/tasks-view.png" media-type="image/png" />
     <item id="appendix.images.tasks.png" href="Text/appendix/images/tasks.png" media-type="image/png" />
-    <item id="boot.spring-boot-actuators/images/jconsole-health.png" href="Text/boot/spring-boot-actuators/images/jconsole-health.png" media-type="image/png" />
-    <item id="boot.spring-boot-actuators/images/jconsole-new-connection.png" href="Text/boot/spring-boot-actuators/images/jconsole-new-connection.png" media-type="image/png" />
-    <item id="boot.spring-boot-intro/images/datasource-message.png" href="Text/boot/spring-boot-intro/images/datasource-message.png" media-type="image/png" />
-    <item id="boot.spring-boot-intro/images/spring-boot-quickstart.png" href="Text/boot/spring-boot-intro/images/spring-boot-quickstart.png" media-type="image/png" />
-    <item id="boot.spring-boot-rest/images/rest-ws/classpath.png" href="Text/boot/spring-boot-rest/images/rest-ws/classpath.png" media-type="image/png" />
-    <item id="boot.spring-boot-rest/images/rest-ws/monitor-properties.png" href="Text/boot/spring-boot-rest/images/rest-ws/monitor-properties.png" media-type="image/png" />
-    <item id="boot.spring-mvc-intro/images/extended-system-diagram.png" href="Text/boot/spring-mvc-intro/images/extended-system-diagram.png" media-type="image/png" />
-    <item id="boot.spring-mvc-intro/images/mvc-home-page.png" href="Text/boot/spring-mvc-intro/images/mvc-home-page.png" media-type="image/png" />
-    <item id="boot.spring-security/images/dashboard-home-page.png" href="Text/boot/spring-security/images/dashboard-home-page.png" media-type="image/png" />
-    <item id="boot.spring-security/images/pwd-on-console.png" href="Text/boot/spring-security/images/pwd-on-console.png" media-type="image/png" />
-    <item id="boot.spring-security/images/test-system.png" href="Text/boot/spring-security/images/test-system.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/dependencies.png" href="Text/core-spring-intro/spring-intro/images/dependencies.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/rewardAccountForDining-sequence-color.png" href="Text/core-spring-intro/spring-intro/images/rewardAccountForDining-sequence-color.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/rewardnetwork-classdiagram-basic.png" href="Text/core-spring-intro/spring-intro/images/rewardnetwork-classdiagram-basic.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/rewardnetworkimpl-classdiagram.png" href="Text/core-spring-intro/spring-intro/images/rewardnetworkimpl-classdiagram.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/rewards-package.png" href="Text/core-spring-intro/spring-intro/images/rewards-package.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/rewards-project.png" href="Text/core-spring-intro/spring-intro/images/rewards-project.png" media-type="image/png" />
-    <item id="core-spring-intro/spring-intro/images/test-tree.png" href="Text/core-spring-intro/spring-intro/images/test-tree.png" media-type="image/png" />
-    <item id="core-spring-optional.jms/images/jms-1/batch-processing-jms.png" href="Text/core-spring-optional/jms/images/jms-1/batch-processing-jms.png" media-type="image/png" />
-    <item id="core-spring-optional.spring-security-oauth2/images/dashboard-home-page.png" href="Text/core-spring-optional/spring-security-oauth2/images/dashboard-home-page.png" media-type="image/png" />
-    <item id="core-spring-optional.spring-security-oauth2/images/pwd-on-console.png" href="Text/core-spring-optional/spring-security-oauth2/images/pwd-on-console.png" media-type="image/png" />
-    <item id="core-spring-optional.spring-security-oauth2/images/test-system.png" href="Text/core-spring-optional/spring-security-oauth2/images/test-system.png" media-type="image/png" />
-    <item id="course-intro/reference-domain/images/annabelle.png" href="Text/course-intro/reference-domain/images/annabelle.png" media-type="image/png" />
-    <item id="course-intro/reference-domain/images/keith-dining.png" href="Text/course-intro/reference-domain/images/keith-dining.png" media-type="image/png" />
-    <item id="course-intro/reference-domain/images/rewardDining-databaseSchema.png" href="Text/course-intro/reference-domain/images/rewardDining-databaseSchema.png" media-type="image/png" />
-    <item id="course-intro/reference-domain/images/rewardnetwork-domainobject-interaction.png" href="Text/course-intro/reference-domain/images/rewardnetwork-domainobject-interaction.png" media-type="image/png" />
-    <item id="course-intro/reference-domain/images/rewards-application.png" href="Text/course-intro/reference-domain/images/rewards-application.png" media-type="image/png" />
-    <item id="course-intro/setup/images/intellij-with-imported-projects.png" href="Text/course-intro/setup/images/intellij-with-imported-projects.png" media-type="image/png" />
-    <item id="course-intro/setup/images/sts-with-imported-projects.png" href="Text/course-intro/setup/images/sts-with-imported-projects.png" media-type="image/png" />
-    <item id="essentials.aop/images/autoproxycreator.png" href="Text/essentials/aop/images/autoproxycreator.png" media-type="image/png" />
-    <item id="essentials.aop/images/proxystructure.png" href="Text/essentials/aop/images/proxystructure.png" media-type="image/png" />
-    <item id="essentials.component-scanning/images/caching-repository-lifecycle-sequence.png" href="Text/essentials/component-scanning/images/caching-repository-lifecycle-sequence.png" media-type="image/png" />
-    <item id="essentials.images/annabelle.png" href="Text/essentials/images/annabelle.png" media-type="image/png" />
-    <item id="essentials.images/autoproxycreator.png" href="Text/essentials/images/autoproxycreator.png" media-type="image/png" />
-    <item id="essentials.images/caching-repository-destroy-sequence.png" href="Text/essentials/images/caching-repository-destroy-sequence.png" media-type="image/png" />
-    <item id="essentials.images/caching-repository-init-sequence.png" href="Text/essentials/images/caching-repository-init-sequence.png" media-type="image/png" />
-    <item id="essentials.images/caching-repository-lifecycle-sequence.png" href="Text/essentials/images/caching-repository-lifecycle-sequence.png" media-type="image/png" />
-    <item id="essentials.images/caching-repository-use-sequence.png" href="Text/essentials/images/caching-repository-use-sequence.png" media-type="image/png" />
-    <item id="essentials.images/dependencies.png" href="Text/essentials/images/dependencies.png" media-type="image/png" />
-    <item id="essentials.images/dependency-graph.png" href="Text/essentials/images/dependency-graph.png" media-type="image/png" />
-    <item id="essentials.images/keith-dining.png" href="Text/essentials/images/keith-dining.png" media-type="image/png" />
-    <item id="essentials.images/logging.png" href="Text/essentials/images/logging.png" media-type="image/png" />
-    <item id="essentials.images/monitor-repository-sequence-horizontal.png" href="Text/essentials/images/monitor-repository-sequence-horizontal.png" media-type="image/png" />
-    <item id="essentials.images/monitor-repository-sequence-vertical.png" href="Text/essentials/images/monitor-repository-sequence-vertical.png" media-type="image/png" />
-    <item id="essentials.images/proxystructure.png" href="Text/essentials/images/proxystructure.png" media-type="image/png" />
-    <item id="essentials.images/reward-network-system-diagram.png" href="Text/essentials/images/reward-network-system-diagram.png" media-type="image/png" />
-    <item id="essentials.images/rewardAccountForDining-sequence-color.png" href="Text/essentials/images/rewardAccountForDining-sequence-color.png" media-type="image/png" />
-    <item id="essentials.images/rewardAccountForDining-sequence-horizontal.png" href="Text/essentials/images/rewardAccountForDining-sequence-horizontal.png" media-type="image/png" />
-    <item id="essentials.images/rewardAccountForDining-sequence.png" href="Text/essentials/images/rewardAccountForDining-sequence.png" media-type="image/png" />
-    <item id="essentials.images/rewardDining-databaseSchema.png" href="Text/essentials/images/rewardDining-databaseSchema.png" media-type="image/png" />
-    <item id="essentials.images/rewardnetwork-classdiagram-basic.png" href="Text/essentials/images/rewardnetwork-classdiagram-basic.png" media-type="image/png" />
-    <item id="essentials.images/rewardnetwork-domainobject-interaction.png" href="Text/essentials/images/rewardnetwork-domainobject-interaction.png" media-type="image/png" />
-    <item id="essentials.images/rewardnetworkimpl-classdiagram.png" href="Text/essentials/images/rewardnetworkimpl-classdiagram.png" media-type="image/png" />
-    <item id="essentials.images/rewards-application.png" href="Text/essentials/images/rewards-application.png" media-type="image/png" />
-    <item id="essentials.images/rewards-configuration.png" href="Text/essentials/images/rewards-configuration.png" media-type="image/png" />
-    <item id="essentials.images/rewards-package.png" href="Text/essentials/images/rewards-package.png" media-type="image/png" />
-    <item id="essentials.images/rewards-project.png" href="Text/essentials/images/rewards-project.png" media-type="image/png" />
-    <item id="essentials.images/spring-aop-provider.png" href="Text/essentials/images/spring-aop-provider.png" media-type="image/png" />
-    <item id="essentials.images/springide-beans-cross-references.png" href="Text/essentials/images/springide-beans-cross-references.png" media-type="image/png" />
-    <item id="essentials.images/springide-gutter-1.png" href="Text/essentials/images/springide-gutter-1.png" media-type="image/png" />
-    <item id="essentials.images/springide-gutter-2.png" href="Text/essentials/images/springide-gutter-2.png" media-type="image/png" />
-    <item id="essentials.images/springide-visualizer.png" href="Text/essentials/images/springide-visualizer.png" media-type="image/png" />
-    <item id="essentials.images/task1.png" href="Text/essentials/images/task1.png" media-type="image/png" />
-    <item id="essentials.images/task2.png" href="Text/essentials/images/task2.png" media-type="image/png" />
-    <item id="essentials.images/test-tree.png" href="Text/essentials/images/test-tree.png" media-type="image/png" />
-    <item id="essentials.images/visualizer-preferences.png" href="Text/essentials/images/visualizer-preferences.png" media-type="image/png" />
-    <item id="essentials.javaconfig-dependency-injection/images/reward-network-system-diagram.png" href="Text/essentials/javaconfig-dependency-injection/images/reward-network-system-diagram.png" media-type="image/png" />
-    <item id="essentials.jdbc/images/jdbc/restaurantrowmapper.png" href="Text/essentials/jdbc/images/jdbc/restaurantrowmapper.png" media-type="image/png" />
-    <item id="essentials.transactions/images/context-configuration.png" href="Text/essentials/transactions/images/context-configuration.png" media-type="image/png" />
-    <item id="icons/P_Mark_TealOnWhite.png" href="Text/icons/P_Mark_TealOnWhite.png" media-type="image/png" />
-    <item id="icons/P_Mark_WhiteOnTeal.png" href="Text/icons/P_Mark_WhiteOnTeal.png" media-type="image/png" />
-    <item id="images/favicon.png" href="Text/images/favicon.png" media-type="image/png" />
-    <item id="images/pal-logo.png" href="Text/images/pal-logo.png" media-type="image/png" />
-    <item id="images/spring-logo.png" href="Text/images/spring-logo.png" media-type="image/png" />
+    <item id="boot.spring-boot-actuators.images.jconsole-health.png" href="Text/boot/spring-boot-actuators/images/jconsole-health.png" media-type="image/png" />
+    <item id="boot.spring-boot-actuators.images.jconsole-new-connection.png" href="Text/boot/spring-boot-actuators/images/jconsole-new-connection.png" media-type="image/png" />
+    <item id="boot.spring-boot-intro.images.datasource-message.png" href="Text/boot/spring-boot-intro/images/datasource-message.png" media-type="image/png" />
+    <item id="boot.spring-boot-intro.images.spring-boot-quickstart.png" href="Text/boot/spring-boot-intro/images/spring-boot-quickstart.png" media-type="image/png" />
+    <item id="boot.spring-boot-rest.images.rest-ws.classpath.png" href="Text/boot/spring-boot-rest/images/rest-ws/classpath.png" media-type="image/png" />
+    <item id="boot.spring-boot-rest.images.rest-ws.monitor-properties.png" href="Text/boot/spring-boot-rest/images/rest-ws/monitor-properties.png" media-type="image/png" />
+    <item id="boot.spring-mvc-intro.images.extended-system-diagram.png" href="Text/boot/spring-mvc-intro/images/extended-system-diagram.png" media-type="image/png" />
+    <item id="boot.spring-mvc-intro.images.mvc-home-page.png" href="Text/boot/spring-mvc-intro/images/mvc-home-page.png" media-type="image/png" />
+    <item id="boot.spring-security.images.dashboard-home-page.png" href="Text/boot/spring-security/images/dashboard-home-page.png" media-type="image/png" />
+    <item id="boot.spring-security.images.pwd-on-console.png" href="Text/boot/spring-security/images/pwd-on-console.png" media-type="image/png" />
+    <item id="boot.spring-security.images.test-system.png" href="Text/boot/spring-security/images/test-system.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.dependencies.png" href="Text/core-spring-intro/spring-intro/images/dependencies.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.rewardAccountForDining-sequence-color.png" href="Text/core-spring-intro/spring-intro/images/rewardAccountForDining-sequence-color.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.rewardnetwork-classdiagram-basic.png" href="Text/core-spring-intro/spring-intro/images/rewardnetwork-classdiagram-basic.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.rewardnetworkimpl-classdiagram.png" href="Text/core-spring-intro/spring-intro/images/rewardnetworkimpl-classdiagram.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.rewards-package.png" href="Text/core-spring-intro/spring-intro/images/rewards-package.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.rewards-project.png" href="Text/core-spring-intro/spring-intro/images/rewards-project.png" media-type="image/png" />
+    <item id="core-spring-intro.spring-intro.images.test-tree.png" href="Text/core-spring-intro/spring-intro/images/test-tree.png" media-type="image/png" />
+    <item id="core-spring-optional.jms.images.jms-1.batch-processing-jms.png" href="Text/core-spring-optional/jms/images/jms-1/batch-processing-jms.png" media-type="image/png" />
+    <item id="core-spring-optional.spring-security-oauth2.images.dashboard-home-page.png" href="Text/core-spring-optional/spring-security-oauth2/images/dashboard-home-page.png" media-type="image/png" />
+    <item id="core-spring-optional.spring-security-oauth2.images.pwd-on-console.png" href="Text/core-spring-optional/spring-security-oauth2/images/pwd-on-console.png" media-type="image/png" />
+    <item id="core-spring-optional.spring-security-oauth2.images.test-system.png" href="Text/core-spring-optional/spring-security-oauth2/images/test-system.png" media-type="image/png" />
+    <item id="course-intro.reference-domain.images.annabelle.png" href="Text/course-intro/reference-domain/images/annabelle.png" media-type="image/png" />
+    <item id="course-intro.reference-domain.images.keith-dining.png" href="Text/course-intro/reference-domain/images/keith-dining.png" media-type="image/png" />
+    <item id="course-intro.reference-domain.images.rewardDining-databaseSchema.png" href="Text/course-intro/reference-domain/images/rewardDining-databaseSchema.png" media-type="image/png" />
+    <item id="course-intro.reference-domain.images.rewardnetwork-domainobject-interaction.png" href="Text/course-intro/reference-domain/images/rewardnetwork-domainobject-interaction.png" media-type="image/png" />
+    <item id="course-intro.reference-domain.images.rewards-application.png" href="Text/course-intro/reference-domain/images/rewards-application.png" media-type="image/png" />
+    <item id="course-intro.setup.images.intellij-with-imported-projects.png" href="Text/course-intro/setup/images/intellij-with-imported-projects.png" media-type="image/png" />
+    <item id="course-intro.setup.images.sts-with-imported-projects.png" href="Text/course-intro/setup/images/sts-with-imported-projects.png" media-type="image/png" />
+    <item id="essentials.aop.images.autoproxycreator.png" href="Text/essentials/aop/images/autoproxycreator.png" media-type="image/png" />
+    <item id="essentials.aop.images.proxystructure.png" href="Text/essentials/aop/images/proxystructure.png" media-type="image/png" />
+    <item id="essentials.component-scanning.images.caching-repository-lifecycle-sequence.png" href="Text/essentials/component-scanning/images/caching-repository-lifecycle-sequence.png" media-type="image/png" />
+    <item id="essentials.images.annabelle.png" href="Text/essentials/images/annabelle.png" media-type="image/png" />
+    <item id="essentials.images.autoproxycreator.png" href="Text/essentials/images/autoproxycreator.png" media-type="image/png" />
+    <item id="essentials.images.caching-repository-destroy-sequence.png" href="Text/essentials/images/caching-repository-destroy-sequence.png" media-type="image/png" />
+    <item id="essentials.images.caching-repository-init-sequence.png" href="Text/essentials/images/caching-repository-init-sequence.png" media-type="image/png" />
+    <item id="essentials.images.caching-repository-lifecycle-sequence.png" href="Text/essentials/images/caching-repository-lifecycle-sequence.png" media-type="image/png" />
+    <item id="essentials.images.caching-repository-use-sequence.png" href="Text/essentials/images/caching-repository-use-sequence.png" media-type="image/png" />
+    <item id="essentials.images.dependencies.png" href="Text/essentials/images/dependencies.png" media-type="image/png" />
+    <item id="essentials.images.dependency-graph.png" href="Text/essentials/images/dependency-graph.png" media-type="image/png" />
+    <item id="essentials.images.keith-dining.png" href="Text/essentials/images/keith-dining.png" media-type="image/png" />
+    <item id="essentials.images.logging.png" href="Text/essentials/images/logging.png" media-type="image/png" />
+    <item id="essentials.images.monitor-repository-sequence-horizontal.png" href="Text/essentials/images/monitor-repository-sequence-horizontal.png" media-type="image/png" />
+    <item id="essentials.images.monitor-repository-sequence-vertical.png" href="Text/essentials/images/monitor-repository-sequence-vertical.png" media-type="image/png" />
+    <item id="essentials.images.proxystructure.png" href="Text/essentials/images/proxystructure.png" media-type="image/png" />
+    <item id="essentials.images.reward-network-system-diagram.png" href="Text/essentials/images/reward-network-system-diagram.png" media-type="image/png" />
+    <item id="essentials.images.rewardAccountForDining-sequence-color.png" href="Text/essentials/images/rewardAccountForDining-sequence-color.png" media-type="image/png" />
+    <item id="essentials.images.rewardAccountForDining-sequence-horizontal.png" href="Text/essentials/images/rewardAccountForDining-sequence-horizontal.png" media-type="image/png" />
+    <item id="essentials.images.rewardAccountForDining-sequence.png" href="Text/essentials/images/rewardAccountForDining-sequence.png" media-type="image/png" />
+    <item id="essentials.images.rewardDining-databaseSchema.png" href="Text/essentials/images/rewardDining-databaseSchema.png" media-type="image/png" />
+    <item id="essentials.images.rewardnetwork-classdiagram-basic.png" href="Text/essentials/images/rewardnetwork-classdiagram-basic.png" media-type="image/png" />
+    <item id="essentials.images.rewardnetwork-domainobject-interaction.png" href="Text/essentials/images/rewardnetwork-domainobject-interaction.png" media-type="image/png" />
+    <item id="essentials.images.rewardnetworkimpl-classdiagram.png" href="Text/essentials/images/rewardnetworkimpl-classdiagram.png" media-type="image/png" />
+    <item id="essentials.images.rewards-application.png" href="Text/essentials/images/rewards-application.png" media-type="image/png" />
+    <item id="essentials.images.rewards-configuration.png" href="Text/essentials/images/rewards-configuration.png" media-type="image/png" />
+    <item id="essentials.images.rewards-package.png" href="Text/essentials/images/rewards-package.png" media-type="image/png" />
+    <item id="essentials.images.rewards-project.png" href="Text/essentials/images/rewards-project.png" media-type="image/png" />
+    <item id="essentials.images.spring-aop-provider.png" href="Text/essentials/images/spring-aop-provider.png" media-type="image/png" />
+    <item id="essentials.images.springide-beans-cross-references.png" href="Text/essentials/images/springide-beans-cross-references.png" media-type="image/png" />
+    <item id="essentials.images.springide-gutter-1.png" href="Text/essentials/images/springide-gutter-1.png" media-type="image/png" />
+    <item id="essentials.images.springide-gutter-2.png" href="Text/essentials/images/springide-gutter-2.png" media-type="image/png" />
+    <item id="essentials.images.springide-visualizer.png" href="Text/essentials/images/springide-visualizer.png" media-type="image/png" />
+    <item id="essentials.images.task1.png" href="Text/essentials/images/task1.png" media-type="image/png" />
+    <item id="essentials.images.task2.png" href="Text/essentials/images/task2.png" media-type="image/png" />
+    <item id="essentials.images.test-tree.png" href="Text/essentials/images/test-tree.png" media-type="image/png" />
+    <item id="essentials.images.visualizer-preferences.png" href="Text/essentials/images/visualizer-preferences.png" media-type="image/png" />
+    <item id="essentials.javaconfig-dependency-injection.images.reward-network-system-diagram.png" href="Text/essentials/javaconfig-dependency-injection/images/reward-network-system-diagram.png" media-type="image/png" />
+    <item id="essentials.jdbc.images.jdbc.restaurantrowmapper.png" href="Text/essentials/jdbc/images/jdbc/restaurantrowmapper.png" media-type="image/png" />
+    <item id="essentials.transactions.images.context-configuration.png" href="Text/essentials/transactions/images/context-configuration.png" media-type="image/png" />
+    <item id="icons.P_Mark_TealOnWhite.png" href="Text/icons/P_Mark_TealOnWhite.png" media-type="image/png" />
+    <item id="icons.P_Mark_WhiteOnTeal.png" href="Text/icons/P_Mark_WhiteOnTeal.png" media-type="image/png" />
+    <item id="images.favicon.png" href="Text/images/favicon.png" media-type="image/png" />
+    <item id="images.pal-logo.png" href="Text/images/pal-logo.png" media-type="image/png" />
+    <item id="images.spring-logo.png" href="Text/images/spring-logo.png" media-type="image/png" />
   </manifest>
   <spine toc="ncx">
     <itemref idref="index.html" linear="yes" />
     <itemref idref="instructor-guide.html" linear="yes" />
     <itemref idref="LearningObjectives.html" linear="yes" />
-    <itemref idref="appendix/appendix-design-guidelines.html" linear="yes" />
-    <itemref idref="appendix/appendix-design-independent-deployment.html" linear="yes" />
-    <itemref idref="appendix/appendix-initializr.html" linear="yes" />
-    <itemref idref="appendix/appendix-junit.html" linear="yes" />
-    <itemref idref="appendix/appendix-running.html" linear="yes" />
-    <itemref idref="appendix/appendix-tasks.html" linear="yes" />
-    <itemref idref="appendix/appendix-tcp-monitor.html" linear="yes" />
+    <itemref idref="appendix.appendix-design-guidelines.html" linear="yes" />
+    <itemref idref="appendix.appendix-design-independent-deployment.html" linear="yes" />
+    <itemref idref="appendix.appendix-initializr.html" linear="yes" />
+    <itemref idref="appendix.appendix-junit.html" linear="yes" />
+    <itemref idref="appendix.appendix-running.html" linear="yes" />
+    <itemref idref="appendix.appendix-tasks.html" linear="yes" />
+    <itemref idref="appendix.appendix-tcp-monitor.html" linear="yes" />
     <itemref idref="boot.1ESi_AOIyeY4nn_TqdISfXwOlpbjuaKqjU1c1hfx4AV8.html" linear="yes" />
     <itemref idref="boot.1EzDSsKDA6VHjUeiqhyHtqFG8xpRPQjYIp1S5Lm10LmI.html" linear="yes" />
     <itemref idref="boot.1j1qEfx8P-IBxs4W4orHMKAbaW3m-V-nqfgIqb8gg9zA.html" linear="yes" />
@@ -232,32 +232,32 @@
     <itemref idref="boot.1U2wSuZ5ftV6aQd5R02cQjevg1Ywl81JhYIiLPMiSDpY.html" linear="yes" />
     <itemref idref="boot.1yb7jmS_Be7JUxP71RJcYJ7QjgBNESLpJQ5JlIuhSFz8.html" linear="yes" />
     <itemref idref="boot.custom-autoconfiguration/custom-autoconfiguration.html" linear="yes" />
-    <itemref idref="boot.spring-boot-actuators/spring-boot-actuators.html" linear="yes" />
-    <itemref idref="boot.spring-boot-autoconfiguration/spring-boot-autoconfiguration-alt.html" linear="yes" />
-    <itemref idref="boot.spring-boot-autoconfiguration/spring-boot-autoconfiguration.html" linear="yes" />
-    <itemref idref="boot.spring-boot-data/spring-boot-data.html" linear="yes" />
-    <itemref idref="boot.spring-boot-intro/spring-boot-intro.html" linear="yes" />
-    <itemref idref="boot.spring-boot-rest/spring-boot-rest.html" linear="yes" />
-    <itemref idref="boot.spring-boot-testing/spring-boot-testing.html" linear="yes" />
-    <itemref idref="boot.spring-mvc-intro/spring-mvc-intro.html" linear="yes" />
-    <itemref idref="boot.spring-security/spring-security.html" linear="yes" />
-    <itemref idref="boot.template/template.html" linear="yes" />
+    <itemref idref="boot.spring-boot-actuators.spring-boot-actuators.html" linear="yes" />
+    <itemref idref="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration-alt.html" linear="yes" />
+    <itemref idref="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration.html" linear="yes" />
+    <itemref idref="boot.spring-boot-data.spring-boot-data.html" linear="yes" />
+    <itemref idref="boot.spring-boot-intro.spring-boot-intro.html" linear="yes" />
+    <itemref idref="boot.spring-boot-rest.spring-boot-rest.html" linear="yes" />
+    <itemref idref="boot.spring-boot-testing.spring-boot-testing.html" linear="yes" />
+    <itemref idref="boot.spring-mvc-intro.spring-mvc-intro.html" linear="yes" />
+    <itemref idref="boot.spring-security.spring-security.html" linear="yes" />
+    <itemref idref="boot.template.template.html" linear="yes" />
     <itemref idref="changelog.index.html" linear="yes" />
-    <itemref idref="core-spring-intro/1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" linear="yes" />
-    <itemref idref="core-spring-intro/1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" linear="yes" />
-    <itemref idref="core-spring-intro/spring-intro/spring-intro.html" linear="yes" />
+    <itemref idref="core-spring-intro.1cL7CwhVV4PmCXqz6NQUU5ALH0MDqT9jqTtYP8chgfyA.html" linear="yes" />
+    <itemref idref="core-spring-intro.1O55WRYgdzvoOpmeKN507FaLSUHbRG8MR9GgQaJqXm08.html" linear="yes" />
+    <itemref idref="core-spring-intro.spring-intro.spring-intro.html" linear="yes" />
     <itemref idref="core-spring-optional.1brR3_UmIbFmJ5f4KdcMHUx7px9SM1D23t2HvpBVLtvs.html" linear="yes" />
     <itemref idref="core-spring-optional.1isWgYJwv2N1n_Fuef5v2ZP6GIAO9bnZcUvoRkIOMz4k.html" linear="yes" />
     <itemref idref="core-spring-optional.1kpuLh2aMBc9QLlxaQRpn4DBTSbOugg_sei71duIqCFo.html" linear="yes" />
     <itemref idref="core-spring-optional.1N1YS41JGRo0-hBpZCxf1U9VJ2ZNKd7_tTnfR9OhLedw.html" linear="yes" />
     <itemref idref="core-spring-optional.1Q1VSSVuKIakugrFy9t-VFTAkHOPiyCY1sm1tlZIlIjU.html" linear="yes" />
     <itemref idref="core-spring-optional.1rSZqhaj8SvzstjZoDbqFSkAzyZdzwM1bgpMhyPIzRBw.html" linear="yes" />
-    <itemref idref="core-spring-optional.jms/jms-spring.html" linear="yes" />
+    <itemref idref="core-spring-optional.jms.jms-spring.html" linear="yes" />
     <itemref idref="core-spring-optional.reactive/reactive-spring.html" linear="yes" />
     <itemref idref="core-spring-optional.spring-security-oauth2/spring-security-oauth2.html" linear="yes" />
-    <itemref idref="core-spring-wrap-up/1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" linear="yes" />
-    <itemref idref="course-intro/reference-domain/reference-domain.html" linear="yes" />
-    <itemref idref="course-intro/setup/setup.html" linear="yes" />
+    <itemref idref="core-spring-wrap-up.1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" linear="yes" />
+    <itemref idref="course-intro.reference-domain.reference-domain.html" linear="yes" />
+    <itemref idref="course-intro.setup.setup.html" linear="yes" />
     <itemref idref="essentials.10c3Eq55PLFZOa9Ewr8hQu2mpp3dX2dUIvr_hiRJy-cQ.html" linear="yes" />
     <itemref idref="essentials.154kpZOc2L4Yfsbc79BDLqc8bVjGmr-0ySJfhEUFazRQ.html" linear="yes" />
     <itemref idref="essentials.1CHqK3LCey-vhBKjbKYSSvGTa-awVVwrplG4Y6AkGd-4.html" linear="yes" />
@@ -267,11 +267,11 @@
     <itemref idref="essentials.1LMrkJpFHy6Gp4GziUqa6he_rzMYqweNxFFZJBsM32vc.html" linear="yes" />
     <itemref idref="essentials.1SJbXone4KTvaS2EcHat4O83AkGasJFVyXKKUvRg0b8o.html" linear="yes" />
     <itemref idref="essentials.1yff5aPnfjCLdcKFpcpteF8EU_dKbbjyg_GBQFcHzIAU.html" linear="yes" />
-    <itemref idref="essentials.aop/aop.html" linear="yes" />
-    <itemref idref="essentials.component-scanning/component-scanning.html" linear="yes" />
-    <itemref idref="essentials.javaconfig-dependency-injection/javaconfig-dependency-injection.html" linear="yes" />
-    <itemref idref="essentials.jdbc/jdbc.html" linear="yes" />
-    <itemref idref="essentials.test/test.html" linear="yes" />
-    <itemref idref="essentials.transactions/transactions.html" linear="yes" />
+    <itemref idref="essentials.aop.aop.html" linear="yes" />
+    <itemref idref="essentials.component-scanning.component-scanning.html" linear="yes" />
+    <itemref idref="essentials.javaconfig-dependency-injection.javaconfig-dependency-injection.html" linear="yes" />
+    <itemref idref="essentials.jdbc.jdbc.html" linear="yes" />
+    <itemref idref="essentials.test.test.html" linear="yes" />
+    <itemref idref="essentials.transactions.transactions.html" linear="yes" />
   </spine>
 </package>
