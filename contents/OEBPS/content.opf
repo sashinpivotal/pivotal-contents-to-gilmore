@@ -231,7 +231,7 @@
     <itemref idref="boot.1pAe6BTkaX11jcI1UDbQKHsamqUXdhMVWm2WqevyvcNM.html" linear="yes" />
     <itemref idref="boot.1U2wSuZ5ftV6aQd5R02cQjevg1Ywl81JhYIiLPMiSDpY.html" linear="yes" />
     <itemref idref="boot.1yb7jmS_Be7JUxP71RJcYJ7QjgBNESLpJQ5JlIuhSFz8.html" linear="yes" />
-    <itemref idref="boot.custom-autoconfiguration/custom-autoconfiguration.html" linear="yes" />
+    <itemref idref="boot.custom-autoconfiguration.custom-autoconfiguration.html" linear="yes" />
     <itemref idref="boot.spring-boot-actuators.spring-boot-actuators.html" linear="yes" />
     <itemref idref="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration-alt.html" linear="yes" />
     <itemref idref="boot.spring-boot-autoconfiguration.spring-boot-autoconfiguration.html" linear="yes" />
@@ -253,8 +253,8 @@
     <itemref idref="core-spring-optional.1Q1VSSVuKIakugrFy9t-VFTAkHOPiyCY1sm1tlZIlIjU.html" linear="yes" />
     <itemref idref="core-spring-optional.1rSZqhaj8SvzstjZoDbqFSkAzyZdzwM1bgpMhyPIzRBw.html" linear="yes" />
     <itemref idref="core-spring-optional.jms.jms-spring.html" linear="yes" />
-    <itemref idref="core-spring-optional.reactive/reactive-spring.html" linear="yes" />
-    <itemref idref="core-spring-optional.spring-security-oauth2/spring-security-oauth2.html" linear="yes" />
+    <itemref idref="core-spring-optional.reactive.reactive-spring.html" linear="yes" />
+    <itemref idref="core-spring-optional.spring-security-oauth2.spring-security-oauth2.html" linear="yes" />
     <itemref idref="core-spring-wrap-up.1daYw5tWOiUw9ae2pkSZCthdW_JTMG9gHg9nZBhAEL3c.html" linear="yes" />
     <itemref idref="course-intro.reference-domain.reference-domain.html" linear="yes" />
     <itemref idref="course-intro.setup.setup.html" linear="yes" />
