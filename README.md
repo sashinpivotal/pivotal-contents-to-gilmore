@@ -13,10 +13,10 @@
 
 1.  Construct epub file structure
 
--   Extract html files from the unzipped zip file using a script
--   Create/modify epub meta files (especially `content.opf`)
--   Dump the html file tree structure (from the Pivotal zip file) onto the `OEBPS/Text` directory
--   Modify any relevant meta info. such as version numer
+    -   Extract html files from the unzipped zip file using a script
+    -   Create/modify epub meta files (especially `content.opf`)
+    -   Dump the html file tree structure (from the Pivotal zip file) onto the `OEBPS/Text` directory
+    -   Modify any relevant meta info. such as version numer
 
 
 1.  Run `build-epub.sh` to create `core-spring.epub` in the home directory
