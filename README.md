@@ -11,7 +11,7 @@
 
     The zip file contains everything including slides in PDF format, lab documents in HTML format, and hands-on zip file 
 
-1.  Construct epub file structure
+1.  Construct epub file structure (this is a manual process for now)
 
     -   Extract html files from the unzipped zip file using a script
     -   Create/modify epub meta files (especially `content.opf`)
